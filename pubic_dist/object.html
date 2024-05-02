@@ -1,0 +1,766 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+        name="viewport">
+  <meta content="ie=edge" http-equiv="X-UA-Compatible">
+  <title>Собери свой тур</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+  <link href="/less/style.less" rel="stylesheet/less" type="text/css"/>
+  <script src="/vendor/js/less/less.min.js"></script>
+</head>
+<body>
+<!------------------------------------------Оверлэй------------------------------------------------------>
+<div class="overlay w-100 h-100 position-fixed z-3 d-none"></div>
+<!------------------------------------------Форма входа----------------------------------------------------->
+<div aria-hidden="true" aria-labelledby="exampleModalToggleLabel" class="modal fade" id="entryForm" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered overflow-x-hidden">
+
+    <div class="modal-content modal-content-form modal-content-form-entry position-relative d-flex">
+      <button aria-label="Close" class="btn-close position-absolute" data-bs-dismiss="modal" type="button"></button>
+      <div class="wrapper-modal-content wrapper-modal-content-entry flex-shrink-0">
+        <div class="modal-header">
+          <h5 class="modal-title" id="entryModalToggleLabel">Вход в личный кабинет</h5>
+        </div>
+        <div class="modal-body">
+          <form class="entry-form">
+            <div class="mb-5">
+              <label class="form-label" for="entryEmail">Введите адрес электронной почты <span>*</span></label>
+              <input aria-describedby="emailHelp" class="form-control" id="entryEmail" placeholder="example@gmail.com"
+                     required type="email">
+              <div class="form-text" id="entryEmailHelp"></div>
+            </div>
+            <div class="mb-2">
+              <label class="form-label" for="inputPassword">Пароль <span>*</span></label>
+              <div class="wrapper-password-input">
+                <div class="wrapper-eye wrapper-crossed-eye">
+                  <img alt="" src="/images/icons/crossed-eye.svg">
+                </div>
+                <div class="wrapper-eye wrapper-not-crossed-eye">
+                  <img alt="" src="/images/icons/eye.svg">
+                </div>
+                <input class="form-control" id="inputPassword" placeholder="Пароль" required type="password">
+              </div>
+            </div>
+            <a class="link-warning lost-password" data-bs-target="#restoreForm" data-bs-toggle="modal" href="#">Забыли
+              пароль?</a>
+            <button class="btn btn-warning w-100 mt-4" type="submit">Войти</button>
+          </form>
+          <p>Или войдите с помощью других сервисов</p>
+          <div class="entry-form__socials row justify-content-center gap-5">
+            <a class="google-link col-auto" href="google.com">
+              <img alt="" src="/images/icons/Google.svg">
+            </a>
+            <a class="vk-link col-auto" href="vk.com">
+              <img alt="" src="/images/icons/VK.svg">
+            </a>
+            <a class="ok-link col-auto" href="ok.ru">
+              <img alt="" src="/images/icons/ok.svg">
+            </a>
+            <p class="policy">Авторизируясь, вы соглашаетесь <br>
+              с <a href="#">Политикой конфиденциальности</a> и <a href="#">Условиями использования</a>
+            </p>
+            <div class="have-no-account d-flex align-items-center justify-content-center gap-3">
+              <p class="mt-0 mb-0">Еще нет аккаунта?</p><a class="link-warning reg-link"
+                                                           data-bs-target="#regForm" data-bs-toggle="modal"
+                                                           href="#" onclick="event.preventDefault()">Зарегистрироваться</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-------------------------------------------Конец формы входа ----------------------------------------------------->
+<!------------------------------------------Форма восстановления----------------------------------------------------->
+<div aria-hidden="true" aria-labelledby="exampleModalToggleLabel" class="modal fade" id="restoreForm" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered overflow-x-hidden">
+    <div class="modal-content modal-content-form modal-content-form-entry position-relative d-flex">
+      <button aria-label="Close" class="btn-close position-absolute" data-bs-dismiss="modal" type="button"></button>
+      <div class="wrapper-modal-content wrapper-modal-content-restore flex-shrink-0">
+        <div class="modal-header flex-column gap-5 align-items-start">
+          <div class="wrapper-back-button d-flex align-items-center gap-2">
+            <div class="wrapper-arrow d-flex align-items-center">
+              <img alt="" src="/images/icons/arrow-left.svg">
+            </div>
+            <button class="back-button" data-bs-target="#entryForm" data-bs-toggle="modal" type="button">Назад</button>
+          </div>
+          <h5 class="modal-title" id="restoreModalToggleLabel">Восстановление доступа к аккаунту</h5>
+
+        </div>
+        <div class="modal-body">
+          <form class="entry-form">
+            <div class="mb-5">
+              <label class="form-label" for="restoreEmail">Введите адрес электронной почты <span>*</span></label>
+              <input aria-describedby="emailHelp" class="form-control" id="restoreEmail" placeholder="example@gmail.com"
+                     required type="email">
+              <div class="form-text" id="emailHelp"></div>
+            </div>
+
+
+            <button class="btn btn-warning w-100 mt-4" type="submit">Восстановить</button>
+          </form>
+          <div class="entry-form__socials">
+            <div class="email-shipped">
+              <p>На указанный адрес электронной почты отправлено письмо с инструкциями по созданию нового пароля.</p>
+              <p>Если вы не видите письма во входящих, проверьте папку со спамом.</p>
+            </div>
+            <div class="btn btn-outline-secondary mb-5">Отправить письмо повторно</div>
+            <div class="have-no-account d-flex align-items-center justify-content-center gap-3">
+              <a class="mt-0 mb-0 link-warning entry-link" data-bs-target="#entryForm" data-bs-toggle="modal" href="#">Войти</a>
+              или <a class="link-warning reg-link" data-bs-target="#regForm" data-bs-toggle="modal"
+                     href="#" onclick="event.preventDefault()">Зарегистрироваться</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-------------------------------------------Конец формы восстановления ----------------------------------------------------->
+
+<!------------------------------------------Форма Регистрации----------------------------------------------------->
+<div aria-hidden="true" aria-labelledby="exampleModalToggleLabel" class="modal fade" id="regForm" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+
+    <div class="modal-content modal-content-form modal-content-reg-form position-relative">
+      <button aria-label="Close" class="btn-close position-absolute" data-bs-dismiss="modal" type="button"></button>
+      <div class="wrapper-modal-content-register d-grid flex-shrink-0">
+        <div class="modal-header modal-header-reg">
+          <h5 class="modal-title" id="regModalToggleLabel">Зарегистрируйтесь, чтобы добавлять отзывы и объекты</h5>
+        </div>
+        <div class="modal-body">
+          <form class="entry-form">
+            <div class="mb-5">
+              <label class="form-label" for="regName">Введите Имя <span>*</span></label>
+              <input aria-describedby="nameHelp" class="form-control" id="regName" placeholder="Имя"
+                     required type="text">
+              <div class="form-text" id="regNameHelp"></div>
+            </div>
+            <div class="mb-5">
+              <label class="form-label" for="regLogin">Введите Логин <span>*</span></label>
+              <input aria-describedby="loginHelp" class="form-control" id="regLogin" placeholder="Логин"
+                     required type="text">
+              <div class="form-text" id="regLoginHelp"></div>
+            </div>
+            <div class="mb-5">
+              <label class="form-label" for="regPhone">Введите номер телефона <span>*</span></label>
+              <input aria-describedby="loginHelp" class="form-control" id="regPhone" placeholder="Номер телефона"
+                     required type="number">
+              <div class="form-text" id="regPhoneHelp"></div>
+            </div>
+            <div class="mb-5">
+              <label class="form-label" for="entryEmail">Введите адрес электронной почты <span>*</span></label>
+              <input aria-describedby="emailHelp" class="form-control" id="regEmail" placeholder="example@gmail.com"
+                     required="" type="email">
+              <div class="form-text" id="regEmailHelp"></div>
+            </div>
+            <div class="mb-2">
+              <label class="form-label" for="regInputPassword">Пароль <span>*</span></label>
+              <div class="wrapper-password-input">
+                <div class="wrapper-eye wrapper-crossed-eye">
+                  <img alt="" src="/images/icons/crossed-eye.svg">
+                </div>
+                <div class="wrapper-eye wrapper-not-crossed-eye">
+                  <img alt="" src="/images/icons/eye.svg">
+                </div>
+                <input class="form-control" id="regInputPassword" placeholder="Пароль" required type="password">
+              </div>
+            </div>
+            <button class="btn btn-warning w-100 mt-4" type="submit">Зарегистрироваться</button>
+          </form>
+          <p>Или зарегистрируйтесь с помощью других сервисов</p>
+          <div class="entry-form__socials row justify-content-center gap-5">
+            <a class="google-link col-auto" href="google.com">
+              <img alt="" src="/images/icons/Google.svg">
+            </a>
+            <a class="vk-link col-auto" href="vk.com">
+              <img alt="" src="/images/icons/VK.svg">
+            </a>
+            <a class="ok-link col-auto" href="ok.ru">
+              <img alt="" src="/images/icons/ok.svg">
+            </a>
+            <p class="policy">Авторизируясь, вы соглашаетесь <br>
+              с <a href="#">Политикой конфиденциальности</a> и <a href="#">Условиями использования</a>
+            </p>
+            <div class="have-no-account d-flex align-items-center justify-content-center gap-3">
+              <p class="mt-0 mb-0">Уже зарегистрированы?</p><a class="link-warning reg-entry-link"
+                                                               data-bs-target="#entryForm"
+                                                               data-bs-toggle="modal" href="#"
+                                                               onclick="event.preventDefault()">Войти</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<!-------------------------------------------Конец формы входа ----------------------------------------------------->
+
+<header class="header d-flex align-items-center">
+  <div class="header-menu position-fixed top-0 start-0 z-3 w-100 h-100 bg-light">
+    <div class="header-menu__wrapper-close p-5 position-absolute top-0 end-0 z-3">
+      <img alt="" src="/images/icons/close.svg" style="margin-right: -.6rem">
+    </div>
+    <div class="col-sm-auto col-auto d-flex align-items-center">
+      <div class="header__wrapper-logo me-3 flex-shrink-0">
+        <img alt="" src="/images/logo.svg">
+      </div>
+      <a class="header__wrapper-logo-title" href="/">
+        <div class="header__logo-title">Собери тур</div>
+      </a>
+    </div>
+    <ul class="header-menu__list d-flex flex-column gap-5">
+      <li><a href="">Проживание</a></li>
+      <li><a href="">Питание</a></li>
+      <li><a href="">Прокат</a></li>
+      <li><a href="">Экскурсии и туры</a></li>
+      <li><a href="">Достопримечательности</a></li>
+    </ul>
+  </div>
+  <div class="container h-100">
+    <div class="row align-items-center justify-content-sm-between h-100 w-100">
+      <div class="col-sm-auto col-auto d-flex align-items-center">
+        <div class="header__wrapper-logo me-3 flex-shrink-0">
+          <img alt="" src="/images/logo.svg">
+        </div>
+        <a class="header__wrapper-logo-title" href="/">
+          <div class="header__logo-title">Собери тур</div>
+          <div class="header-logo__gray-text mt-2">выбирай, что нравится</div>
+        </a>
+      </div>
+      <a
+        class="header__wrapper-search col-sm-1 col-auto d-none d-sm-flex justify-content-center align-items-center h-100 border-start border-end"
+        href="#">
+        <svg fill="none" height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M9.06238 15.625C12.6867 15.625 15.6249 12.6869 15.6249 9.0625C15.6249 5.43813 12.6867 2.5 9.06238 2.5C5.43801 2.5 2.49988 5.43813 2.49988 9.0625C2.49988 12.6869 5.43801 15.625 9.06238 15.625Z"
+            stroke="#170B00" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M13.7025 13.7031L17.4994 17.5" stroke="#170B00" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <ul class="header__menu col-sm-6 row align-items-center justify-content-between d-md-flex d-sm-none d-none">
+        <li class="col-auto"><a href="#">Проживание</a></li>
+        <li class="col-auto"><a href="#">Питание</a></li>
+        <li class="col-auto"><a href="#">Экскурсии и туры</a></li>
+        <li class="col-auto"><a href="#">Прокат</a></li>
+        <li class="col-auto"><a href="#">Достопримечательности</a></li>
+      </ul>
+      <div class="header__wrapper-entry row gap-4 col-sm-auto col justify-content-end align-items-center">
+        <a class="btn btn-warning col-auto" data-bs-target="#entryForm" data-bs-toggle="modal" href="#"
+           onclick="event.preventDefault()" role="button">Войти</a>
+        <a class="mobile-menu__icon col-auto d-md-none d-block" href="#">
+          <img alt="" src="/images/icons/burger.svg">
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+<main>
+  <section class="section-object">
+    <div class="container">
+      <ul class="breadcrumbs d-flex align-items-center flex-wrap">
+        <li><a href="/">Главная</a><span> / </span></li>
+        <li><a href="/catalog">Проживание</a><span> / </span></li>
+        <li><a class="active" href="#">Листвянка</a></li>
+      </ul>
+      <h1>Отель "Маяк"</h1>
+      <div class="card-raiting d-flex align-items-center gap-3">
+        <span>4.9</span>
+        <div class="card-raiting__wrapper-stars">
+          <img alt="" src="/images/icons/star.svg">
+          <img alt="" src="/images/icons/star.svg">
+          <img alt="" src="/images/icons/star.svg">
+          <img alt="" src="/images/icons/star.svg">
+          <img alt="" src="/images/icons/semi-star.svg">
+        </div>
+      </div>
+      <div class="section-object__text-under-title">
+        р.п. Листвянка, улица Горького, 85
+        <div class="section-object__wrapper-photos d-grid">
+          <div class="section-object__wrapper-main-image">
+            <img alt="" class="w-100 h-100 object-fit-cover" src="/images/object.png">
+          </div>
+
+          <div class="section-object__wrapper-image">
+            <img alt="" class="w-100 h-100 object-fit-cover" src="/images/object.png">
+          </div>
+          <div class="section-object__wrapper-image">
+            <img alt="" class="w-100 h-100 object-fit-cover" src="/images/object.png">
+          </div>
+          <div class="section-object__wrapper-image">
+            <img alt="" class="w-100 h-100 object-fit-cover" src="/images/object.png">
+          </div>
+          <div class="section-object__wrapper-image position-relative">
+            <a href="#" class="overlay-object-foto">42 фото</a>
+            <img alt="" class="w-100 h-100 object-fit-cover" src="/images/object.png">
+          </div>
+        </div>
+        <div class="section-object__wrapper-description d-grid">
+          <div class="section-object__description">
+            <h3>Описание</h3>
+            <p>Гости могут попробовать восточноевропейскую кухню в ресторане «Mayak restaurant» — одном из 2 ресторанов,
+              которыми располагает этот отель. Тем, кому не хочется покидать свой номер, предлагается круглосуточное
+              обслуживание номеров. Можно заглянуть в бар на 7 этаже и утолить жажду любимым напитком. Бесплатный
+              завтрак
+              (шведский стол с холодными и горячими</p>
+            <p>Гости могут попробовать восточноевропейскую кухню в ресторане «Mayak restaurant» — одном из 2 ресторанов,
+              которыми располагает этот отель. Тем, кому не хочется покидать свой номер, предлагается круглосуточное
+              обслуживание номеров. Можно заглянуть в бар на 7 этаже и утолить жажду любимым напитком. Бесплатный
+              завтрак
+              (шведский стол с холодными и горячими</p>
+            <a class="link-warning" href="#">Показать еще</a>
+          </div>
+          <div class="we-have">
+            <div class="section-object__check">
+              Уточнить наличие свободных мест и стоимость
+            </div>
+            <div class="tel-title">Тел.</div>
+            <div class="tel-value">+7 (950) 102-61-15</div>
+            <div class="tel-value">+7 (950) 102-61-15</div>
+            <div class="tel-title">E-mail</div>
+            <div class="tel-value">lilu205@mail.ru</div>
+            <div class="tel-title">Сайт</div>
+            <div class="tel-value">https://mayakhotel.ru/</div>
+          </div>
+          <div class="section-object__description">
+            <h3>Услуги и удобства в отеле</h3>
+            <ul class="section-object__advantages d-grid">
+              <li class="d-flex gap-3 align-items-center">
+                <div class="section-object__advantages__wrapper-icon d-flex align-items-center justify-content-center"
+                     style="width: 2.6rem; height: 2.6rem">
+                  <img alt="" class="w-100 h-100 object-fit-contain" src="/images/icons/shezlong.svg">
+                </div>
+                Бесплатная парковка
+              </li>
+              <li class="d-flex gap-3 align-items-center">
+                <div class="section-object__advantages__wrapper-icon d-flex align-items-center justify-content-center"
+                     style="width: 2.6rem; height: 2.6rem">
+                  <img alt="" class="w-100 h-100 object-fit-contain" src="/images/icons/shezlong.svg">
+                </div>
+                Игровой комплекс на открытом воздухе
+              </li>
+              <li class="d-flex gap-3 align-items-center">
+                <div class="section-object__advantages__wrapper-icon d-flex align-items-center justify-content-center"
+                     style="width: 2.6rem; height: 2.6rem">
+                  <img alt="" class="w-100 h-100 object-fit-contain" src="/images/icons/shezlong.svg">
+                </div>
+                Бесплатная парковка
+              </li>
+              <li class="d-flex gap-3 align-items-center">
+                <div class="section-object__advantages__wrapper-icon d-flex align-items-center justify-content-center"
+                     style="width: 2.6rem; height: 2.6rem">
+                  <img alt="" class="w-100 h-100 object-fit-contain" src="/images/icons/shezlong.svg">
+                </div>
+                Игровой комплекс на открытом воздухе
+              </li>
+              <li class="d-flex gap-3 align-items-center">
+                <div class="section-object__advantages__wrapper-icon d-flex align-items-center justify-content-center"
+                     style="width: 2.6rem; height: 2.6rem">
+                  <img alt="" class="w-100 h-100 object-fit-contain" src="/images/icons/shezlong.svg">
+                </div>
+                Бесплатная парковка
+              </li>
+              <li class="d-flex gap-3 align-items-center">
+                <div class="section-object__advantages__wrapper-icon d-flex align-items-center justify-content-center"
+                     style="width: 2.6rem; height: 2.6rem">
+                  <img alt="" class="w-100 h-100 object-fit-contain" src="/images/icons/shezlong.svg">
+                </div>
+                Бесплатная парковка
+              </li>
+            </ul>
+            <a class="link-warning" href="#">Показать все услуги (15)</a>
+          </div>
+          <div class="empty-block"></div>
+          <div class="section-object__wrapper-prices d-flex flex-wrap">
+            <div class="section-object__description flex-grow-1">
+              <h3>Цены за номер</h3>
+              <div class="price-value">от 2 000 руб. до 10 000 руб. в сутки</div>
+            </div>
+            <div class="section-object__description flex-grow-1">
+              <h3>Цена за доп.место</h3>
+              <div class="price-value">от 2 000 руб.</div>
+            </div>
+          </div>
+          <div class="empty-block"></div>
+          <div class="section-object__description">
+            <h3>Номера</h3>
+            <div class="sorting-block select-number d-none d-sm-flex flex-wrap align-items-center gap-4 ps-0 pt-0">
+              <a class="sorting-variant active" href="#" onclick="event.preventDefault()">Все номера (5)</a>
+              <a class="sorting-variant" href="#" onclick="event.preventDefault()">Одноместные номера (6)</a>
+              <a class="sorting-variant" href="#" onclick="event.preventDefault()">Семейные номера (2)</a>
+            </div>
+            <ul class="section-catalog__list">
+              <li class="d-flex flex-column flex-sm-row">
+                <div class="section-catalog__wrapper-hotel-image flex-shrink-0">
+                  <img alt="Отель" class="w-100 h-100 object-fit-cover" src="/images/mayak.jpg">
+                </div>
+                <div class="section-catalog__wrapper-for-tablet d-lg-flex flex-grow-1">
+                  <div class="section-catalog__wrapper-description flex-grow-1">
+                    <h5 class="section-catalog__card-title">Отель "Маяк"</h5>
+                    <div class="card-raiting d-flex align-items-center gap-3">
+                      <span>4.9</span>
+                      <div class="card-raiting__wrapper-stars">
+                        <img alt="" src="/images/icons/star.svg">
+                        <img alt="" src="/images/icons/star.svg">
+                        <img alt="" src="/images/icons/star.svg">
+                        <img alt="" src="/images/icons/star.svg">
+                        <img alt="" src="/images/icons/semi-star.svg">
+                      </div>
+                    </div>
+                    <div class="card__wrapper-house card-in-object d-flex align-items-center gap-3 mt-2">
+                      <span>1 комната, 2 места, 1 кровать, 1 диван</span>
+                    </div>
+                    <ul class="card__adv-list d-flex flex-wrap ">
+                      <li>Wi-Fi</li>
+                      <li>Кофе</li>
+                      <li>Обслуживание номеров</li>
+                      <li>Кондиционер</li>
+                      <li>Wi-Fi</li>
+                    </ul>
+                  </div>
+
+                  <div class="section-catalog__wrapper-card-price flex-shrink-0 d-flex align-items-center">
+                    <div class="section-catalog__price__wrapper w-100">
+                      <div
+                        class="section-catalog__wrapper-for-day d-flex gap-3 align-items-end align-items-lg-start flex-lg-column">
+                        <div class="section-catalog__price">от 4 200 руб.</div>
+                        <div class="section-catalog__for-number">за номер в сутки</div>
+                      </div>
+                      <a class="btn btn-outline-secondary" href="#">Подробнее</a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="d-flex flex-column flex-sm-row">
+                <div class="section-catalog__wrapper-hotel-image flex-shrink-0">
+                  <img alt="Отель" class="w-100 h-100 object-fit-cover" src="/images/mayak.jpg">
+                </div>
+                <div class="section-catalog__wrapper-for-tablet d-lg-flex flex-grow-1">
+                  <div class="section-catalog__wrapper-description flex-grow-1">
+                    <h5 class="section-catalog__card-title">Отель "Маяк"</h5>
+                    <div class="card-raiting d-flex align-items-center gap-3">
+                      <span>4.9</span>
+                      <div class="card-raiting__wrapper-stars">
+                        <img alt="" src="/images/icons/star.svg">
+                        <img alt="" src="/images/icons/star.svg">
+                        <img alt="" src="/images/icons/star.svg">
+                        <img alt="" src="/images/icons/star.svg">
+                        <img alt="" src="/images/icons/semi-star.svg">
+                      </div>
+                    </div>
+                    <div class="card__wrapper-house card-in-object d-flex align-items-center gap-3 mt-2">
+                      <span>1 комната, 2 места, 1 кровать, 1 диван</span>
+                    </div>
+                    <ul class="card__adv-list d-flex flex-wrap ">
+                      <li>Wi-Fi</li>
+                      <li>Кофе</li>
+                      <li>Обслуживание номеров</li>
+                      <li>Кондиционер</li>
+                      <li>Wi-Fi</li>
+                    </ul>
+                  </div>
+
+                  <div class="section-catalog__wrapper-card-price flex-shrink-0 d-flex align-items-center">
+                    <div class="section-catalog__price__wrapper w-100">
+                      <div
+                        class="section-catalog__wrapper-for-day d-flex gap-3 align-items-end align-items-lg-start flex-lg-column">
+                        <div class="section-catalog__price">от 4 200 руб.</div>
+                        <div class="section-catalog__for-number">за номер в сутки</div>
+                      </div>
+                      <a class="btn btn-outline-secondary" href="#">Подробнее</a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="d-flex flex-column flex-sm-row">
+                <div class="section-catalog__wrapper-hotel-image flex-shrink-0">
+                  <img alt="Отель" class="w-100 h-100 object-fit-cover" src="/images/mayak.jpg">
+                </div>
+                <div class="section-catalog__wrapper-for-tablet d-lg-flex flex-grow-1">
+                  <div class="section-catalog__wrapper-description flex-grow-1">
+                    <h5 class="section-catalog__card-title">Отель "Маяк"</h5>
+                    <div class="card-raiting d-flex align-items-center gap-3">
+                      <span>4.9</span>
+                      <div class="card-raiting__wrapper-stars">
+                        <img alt="" src="/images/icons/star.svg">
+                        <img alt="" src="/images/icons/star.svg">
+                        <img alt="" src="/images/icons/star.svg">
+                        <img alt="" src="/images/icons/star.svg">
+                        <img alt="" src="/images/icons/semi-star.svg">
+                      </div>
+                    </div>
+                    <div class="card__wrapper-house card-in-object d-flex align-items-center gap-3 mt-2">
+                      <span>1 комната, 2 места, 1 кровать, 1 диван</span>
+                    </div>
+                    <ul class="card__adv-list d-flex flex-wrap ">
+                      <li>Wi-Fi</li>
+                      <li>Кофе</li>
+                      <li>Обслуживание номеров</li>
+                      <li>Кондиционер</li>
+                      <li>Wi-Fi</li>
+                    </ul>
+                  </div>
+
+                  <div class="section-catalog__wrapper-card-price flex-shrink-0 d-flex align-items-center">
+                    <div class="section-catalog__price__wrapper w-100">
+                      <div
+                        class="section-catalog__wrapper-for-day d-flex gap-3 align-items-end align-items-lg-start flex-lg-column">
+                        <div class="section-catalog__price">от 4 200 руб.</div>
+                        <div class="section-catalog__for-number">за номер в сутки</div>
+                      </div>
+                      <a class="btn btn-outline-secondary" href="#">Подробнее</a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="d-flex flex-column flex-sm-row">
+                <div class="section-catalog__wrapper-hotel-image flex-shrink-0">
+                  <img alt="Отель" class="w-100 h-100 object-fit-cover" src="/images/mayak.jpg">
+                </div>
+                <div class="section-catalog__wrapper-for-tablet d-lg-flex flex-grow-1">
+                  <div class="section-catalog__wrapper-description flex-grow-1">
+                    <h5 class="section-catalog__card-title">Отель "Маяк"</h5>
+                    <div class="card-raiting d-flex align-items-center gap-3">
+                      <span>4.9</span>
+                      <div class="card-raiting__wrapper-stars">
+                        <img alt="" src="/images/icons/star.svg">
+                        <img alt="" src="/images/icons/star.svg">
+                        <img alt="" src="/images/icons/star.svg">
+                        <img alt="" src="/images/icons/star.svg">
+                        <img alt="" src="/images/icons/semi-star.svg">
+                      </div>
+                    </div>
+                    <div class="card__wrapper-house card-in-object d-flex align-items-center gap-3 mt-2">
+                      <span>1 комната, 2 места, 1 кровать, 1 диван</span>
+                    </div>
+                    <ul class="card__adv-list d-flex flex-wrap ">
+                      <li>Wi-Fi</li>
+                      <li>Кофе</li>
+                      <li>Обслуживание номеров</li>
+                      <li>Кондиционер</li>
+                      <li>Wi-Fi</li>
+                    </ul>
+                  </div>
+
+                  <div class="section-catalog__wrapper-card-price flex-shrink-0 d-flex align-items-center">
+                    <div class="section-catalog__price__wrapper w-100">
+                      <div
+                        class="section-catalog__wrapper-for-day d-flex gap-3 align-items-end align-items-lg-start flex-lg-column">
+                        <div class="section-catalog__price">от 4 200 руб.</div>
+                        <div class="section-catalog__for-number">за номер в сутки</div>
+                      </div>
+                      <a class="btn btn-outline-secondary" href="#">Подробнее</a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="empty-block"></div>
+          <div class="section-object__description">
+            <h3>Описание</h3>
+            <p>Посмотрите объекты рядом</p>
+
+
+          </div>
+          <div class="empty-block"></div>
+          <div class="section-object__description reviews">
+            <h3>Отзывы (20)</h3>
+            <div class="card-raiting d-flex align-items-center gap-3">
+              <span>4.9</span>
+              <div class="card-raiting__wrapper-stars">
+                <img alt="" src="/images/icons/star.svg">
+                <img alt="" src="/images/icons/star.svg">
+                <img alt="" src="/images/icons/star.svg">
+                <img alt="" src="/images/icons/star.svg">
+                <img alt="" src="/images/icons/semi-star.svg">
+              </div>
+            </div>
+            <div class="sorting-block d-none d-sm-flex flex-wrap align-items-center gap-4 ps-0">
+              Сортировать по:
+              <a class="sorting-variant active" href="#">С высокой оценкой</a>
+              <a class="sorting-variant" href="#">С низкой оценкой</a>
+            </div>
+            <div class="reviews-block review-item">
+              <div class="reviews-block__top d-flex justify-content-between">
+                <div class="reviews-block__person d-flex gap-4 align-items-center">
+                  <div class="reviews-block__wrapper-avatar">
+                    <img class="avatar-image" alt="" src="/images/person.png">
+                  </div>
+                  <div class="reviews-block__wrapper-name">
+                    <div class="reviews-block__name">Евгения Прокопенко</div>
+                    <div class="reviews-block__time">Период отдыха: март 2023</div>
+                  </div>
+                </div>
+                <div class="card-raiting d-flex align-items-center gap-3 flex-shrink-0">
+                  <span>4.9</span>
+                  <div class="card-raiting__wrapper-stars d-flex flex-shrink-0">
+                    <img alt="" src="/images/icons/star.svg">
+                    <img alt="" src="/images/icons/star.svg">
+                    <img alt="" src="/images/icons/star.svg">
+                    <img alt="" src="/images/icons/star.svg">
+                    <img alt="" src="/images/icons/semi-star.svg">
+                  </div>
+                </div>
+              </div>
+              <div class="reviews-block__photo-slider owl-carousel">
+                <div class="reviews-block__photo">
+                  <img src="/images/review.png" alt="">
+                </div>
+                <div class="reviews-block__photo">
+                  <img src="/images/review.png" alt="">
+                </div>
+                <div class="reviews-block__photo">
+                  <img src="/images/review.png" alt="">
+                </div>
+                <div class="reviews-block__photo">
+                  <img src="/images/review.png" alt="">
+                </div>
+                <div class="reviews-block__photo">
+                  <img src="/images/review.png" alt="">
+                </div>
+                <div class="reviews-block__photo">
+                  <img src="/images/review.png" alt="">
+                </div>
+              </div>
+              <div class="review__text">
+                Оказались 2 отдельные кровати, хотя мы с мужем заказывали общую кровать, предложили сдвинуть кровати, но муж решил сделать это сам, так как мы уже вселились с вещами. Пропуск в номер постоянно переставал работать, после долгих прогулок приходилось каждый раз спускаться с третьего этажа вниз, чтобы его активировали, в последний день нам сказали, что пропуск у нас наверно лежал вместе с банковскими карточками (не лежал). Мы попали одним днем отдыха на проходящую в ресторане отеля свадьбу , это был просто ужас, аж стены трясутся. Расположен отель в самом оживленном месте Листвянки, мы были в первый раз, поэтому не знали как там все "вживую". Людям, которые хотят спокойно отдохнуть без толп туристов, я бы не посоветовала, лучше жить чуть дальше, но спокойнее. Выселение тоже проходило странно, уже много лет такого не встречаю - горничная проверяет номер и только после этого тебя выпускают из отеля. В целом проживание в данном месте нам с мужем не понравилось. Компенсировала только близость к началу Большой Байкальской тропы, автовокзалу.
+              </div>
+              <a class="link-warning" href="#">Показать еще</a>
+            </div>
+            <div class="reviews-block review-item">
+              <div class="reviews-block__top d-flex justify-content-between">
+                <div class="reviews-block__person d-flex gap-4 align-items-center">
+                  <div class="reviews-block__wrapper-avatar">
+                    <img class="avatar-image" alt="" src="/images/person.png">
+                  </div>
+                  <div class="reviews-block__wrapper-name">
+                    <div class="reviews-block__name">Евгения Прокопенко</div>
+                    <div class="reviews-block__time">Период отдыха: март 2023</div>
+                  </div>
+                </div>
+                <div class="card-raiting d-flex align-items-center gap-3 flex-shrink-0">
+                  <span>4.9</span>
+                  <div class="card-raiting__wrapper-stars d-flex flex-shrink-0">
+                    <img alt="" src="/images/icons/star.svg">
+                    <img alt="" src="/images/icons/star.svg">
+                    <img alt="" src="/images/icons/star.svg">
+                    <img alt="" src="/images/icons/star.svg">
+                    <img alt="" src="/images/icons/semi-star.svg">
+                  </div>
+                </div>
+              </div>
+              <div class="reviews-block__photo-slider owl-carousel">
+                <div class="reviews-block__photo">
+                  <img src="/images/review.png" alt="">
+                </div>
+                <div class="reviews-block__photo">
+                  <img src="/images/review.png" alt="">
+                </div>
+                <div class="reviews-block__photo">
+                  <img src="/images/review.png" alt="">
+                </div>
+                <div class="reviews-block__photo">
+                  <img src="/images/review.png" alt="">
+                </div>
+                <div class="reviews-block__photo">
+                  <img src="/images/review.png" alt="">
+                </div>
+                <div class="reviews-block__photo">
+                  <img src="/images/review.png" alt="">
+                </div>
+              </div>
+              <div class="review__text">
+                Оказались 2 отдельные кровати, хотя мы с мужем заказывали общую кровать, предложили сдвинуть кровати, но муж решил сделать это сам, так как мы уже вселились с вещами. Пропуск в номер постоянно переставал работать, после долгих прогулок приходилось каждый раз спускаться с третьего этажа вниз, чтобы его активировали, в последний день нам сказали, что пропуск у нас наверно лежал вместе с банковскими карточками (не лежал). Мы попали одним днем отдыха на проходящую в ресторане отеля свадьбу , это был просто ужас, аж стены трясутся. Расположен отель в самом оживленном месте Листвянки, мы были в первый раз, поэтому не знали как там все "вживую". Людям, которые хотят спокойно отдохнуть без толп туристов, я бы не посоветовала, лучше жить чуть дальше, но спокойнее. Выселение тоже проходило странно, уже много лет такого не встречаю - горничная проверяет номер и только после этого тебя выпускают из отеля. В целом проживание в данном месте нам с мужем не понравилось. Компенсировала только близость к началу Большой Байкальской тропы, автовокзалу.
+              </div>
+              <a class="link-warning" href="#">Показать еще</a>
+            </div>
+            <div class="reviews-block review-item">
+              <div class="reviews-block__top d-flex justify-content-between">
+                <div class="reviews-block__person d-flex gap-4 align-items-center">
+                  <div class="reviews-block__wrapper-avatar">
+                    <img class="avatar-image" alt="" src="/images/person.png">
+                  </div>
+                  <div class="reviews-block__wrapper-name">
+                    <div class="reviews-block__name">Евгения Прокопенко</div>
+                    <div class="reviews-block__time">Период отдыха: март 2023</div>
+                  </div>
+                </div>
+                <div class="card-raiting d-flex align-items-center gap-3 flex-shrink-0">
+                  <span>4.9</span>
+                  <div class="card-raiting__wrapper-stars d-flex flex-shrink-0">
+                    <img alt="" src="/images/icons/star.svg">
+                    <img alt="" src="/images/icons/star.svg">
+                    <img alt="" src="/images/icons/star.svg">
+                    <img alt="" src="/images/icons/star.svg">
+                    <img alt="" src="/images/icons/semi-star.svg">
+                  </div>
+                </div>
+              </div>
+              <div class="reviews-block__photo-slider owl-carousel">
+                <div class="reviews-block__photo">
+                  <img src="/images/review.png" alt="">
+                </div>
+                <div class="reviews-block__photo">
+                  <img src="/images/review.png" alt="">
+                </div>
+                <div class="reviews-block__photo">
+                  <img src="/images/review.png" alt="">
+                </div>
+                <div class="reviews-block__photo">
+                  <img src="/images/review.png" alt="">
+                </div>
+                <div class="reviews-block__photo">
+                  <img src="/images/review.png" alt="">
+                </div>
+                <div class="reviews-block__photo">
+                  <img src="/images/review.png" alt="">
+                </div>
+              </div>
+              <div class="review__text">
+                Оказались 2 отдельные кровати, хотя мы с мужем заказывали общую кровать, предложили сдвинуть кровати, но муж решил сделать это сам, так как мы уже вселились с вещами. Пропуск в номер постоянно переставал работать, после долгих прогулок приходилось каждый раз спускаться с третьего этажа вниз, чтобы его активировали, в последний день нам сказали, что пропуск у нас наверно лежал вместе с банковскими карточками (не лежал). Мы попали одним днем отдыха на проходящую в ресторане отеля свадьбу , это был просто ужас, аж стены трясутся. Расположен отель в самом оживленном месте Листвянки, мы были в первый раз, поэтому не знали как там все "вживую". Людям, которые хотят спокойно отдохнуть без толп туристов, я бы не посоветовала, лучше жить чуть дальше, но спокойнее. Выселение тоже проходило странно, уже много лет такого не встречаю - горничная проверяет номер и только после этого тебя выпускают из отеля. В целом проживание в данном месте нам с мужем не понравилось. Компенсировала только близость к началу Большой Байкальской тропы, автовокзалу.
+              </div>
+              <a class="link-warning" href="#">Показать еще</a>
+            </div>
+            <a class="btn btn-outline-secondary" href="#">Показать еще</a>
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="footer d-flex align-items-center">
+  <div class="container">
+    <div class="footer__wrapper d-flex align-items-center justify-content-between">
+      <p>© Собери тур, 2023 г. Все пpава защищены</p>
+      <div class="footer__wrapper-policy d-flex flex-column flex-sm-row align-items-center gap-3">
+        <a href="#">Политика конфиденциальности</a>
+        <a href="#">Условия использования</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script src="/js/jquery.min.js"></script>
+<script src="/vendor/js/bootstrap/bootstrap.bundle.min.js"></script>
+<!--<script src="/vendor/js/bootstrap/button.js"></script>-->
+<script src="/vendor/js/owl-carousel/owl.carousel.min.js"></script>
+<script src="/js/up-button.js?v=2"></script>
+<script src="/js/app.js?v=2"></script>
+</body>
+</html>

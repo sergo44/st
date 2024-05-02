@@ -1,0 +1,23 @@
+{
+    "name": "online-service/st",
+    "description": "Soberi Tour Project",
+    "type": "project",
+    "license": "Commercial",
+    "authors": [
+        {
+            "name": "Sergey A Oskorbin",
+            "email": "sergo44@mail.ru"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+      "ext-pdo": "*",
+      "ext-redis": "*",
+      "ext-mbstring": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "St\\": "src/St"
+        }
+    }
+}

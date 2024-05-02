@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+        name="viewport">
+  <meta content="ie=edge" http-equiv="X-UA-Compatible">
+  <title>Собери свой тур</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+  <link href="/less/style.less" rel="stylesheet/less" type="text/css"/>
+  <script src="/vendor/js/less/less.min.js"></script>
+</head>
+<body>
+<!------------------------------------------Оверлэй------------------------------------------------------>
+<div class="overlay w-100 h-100 position-fixed z-3 d-none"></div>
+<!------------------------------------------Форма входа----------------------------------------------------->
+<div aria-hidden="true" aria-labelledby="exampleModalToggleLabel" class="modal fade" id="entryForm" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered overflow-x-hidden">
+
+    <div class="modal-content modal-content-form modal-content-form-entry position-relative d-flex">
+      <button aria-label="Close" class="btn-close position-absolute" data-bs-dismiss="modal" type="button"></button>
+      <div class="wrapper-modal-content wrapper-modal-content-entry flex-shrink-0">
+        <div class="modal-header">
+          <h5 class="modal-title" id="entryModalToggleLabel">Вход в личный кабинет</h5>
+        </div>
+        <div class="modal-body">
+          <form class="entry-form">
+            <div class="mb-5">
+              <label class="form-label" for="entryEmail">Введите адрес электронной почты <span>*</span></label>
+              <input aria-describedby="emailHelp" class="form-control" id="entryEmail" placeholder="example@gmail.com"
+                     required type="email">
+              <div class="form-text" id="entryEmailHelp"></div>
+            </div>
+            <div class="mb-2">
+              <label class="form-label" for="inputPassword">Пароль <span>*</span></label>
+              <div class="wrapper-password-input">
+                <div class="wrapper-eye wrapper-crossed-eye">
+                  <img alt="" src="/images/icons/crossed-eye.svg">
+                </div>
+                <div class="wrapper-eye wrapper-not-crossed-eye">
+                  <img alt="" src="/images/icons/eye.svg">
+                </div>
+                <input class="form-control" id="inputPassword" placeholder="Пароль" required type="password">
+              </div>
+            </div>
+            <a class="link-warning lost-password" data-bs-target="#restoreForm" data-bs-toggle="modal" href="#">Забыли
+              пароль?</a>
+            <button class="btn btn-warning w-100 mt-4" type="submit">Войти</button>
+          </form>
+          <p>Или войдите с помощью других сервисов</p>
+          <div class="entry-form__socials row justify-content-center gap-5">
+            <a class="google-link col-auto" href="google.com">
+              <img alt="" src="/images/icons/Google.svg">
+            </a>
+            <a class="vk-link col-auto" href="vk.com">
+              <img alt="" src="/images/icons/VK.svg">
+            </a>
+            <a class="ok-link col-auto" href="ok.ru">
+              <img alt="" src="/images/icons/ok.svg">
+            </a>
+            <p class="policy">Авторизируясь, вы соглашаетесь <br>
+              с <a href="#">Политикой конфиденциальности</a> и <a href="#">Условиями использования</a>
+            </p>
+            <div class="have-no-account d-flex align-items-center justify-content-center gap-3">
+              <p class="mt-0 mb-0">Еще нет аккаунта?</p><a class="link-warning reg-link"
+                                                           data-bs-target="#regForm" data-bs-toggle="modal"
+                                                           href="#"
+                                                           onclick="event.preventDefault()">Зарегистрироваться</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-------------------------------------------Конец формы входа ----------------------------------------------------->
+<!------------------------------------------Форма восстановления----------------------------------------------------->
+<div aria-hidden="true" aria-labelledby="exampleModalToggleLabel" class="modal fade" id="restoreForm" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered overflow-x-hidden">
+    <div class="modal-content modal-content-form modal-content-form-entry position-relative d-flex">
+      <button aria-label="Close" class="btn-close position-absolute" data-bs-dismiss="modal" type="button"></button>
+      <div class="wrapper-modal-content wrapper-modal-content-restore flex-shrink-0">
+        <div class="modal-header flex-column gap-5 align-items-start">
+          <div class="wrapper-back-button d-flex align-items-center gap-2">
+            <div class="wrapper-arrow d-flex align-items-center">
+              <img alt="" src="/images/icons/arrow-left.svg">
+            </div>
+            <button class="back-button" data-bs-target="#entryForm" data-bs-toggle="modal" type="button">Назад</button>
+          </div>
+          <h5 class="modal-title" id="restoreModalToggleLabel">Восстановление доступа к аккаунту</h5>
+
+        </div>
+        <div class="modal-body">
+          <form class="entry-form">
+            <div class="mb-5">
+              <label class="form-label" for="restoreEmail">Введите адрес электронной почты <span>*</span></label>
+              <input aria-describedby="emailHelp" class="form-control" id="restoreEmail" placeholder="example@gmail.com"
+                     required type="email">
+              <div class="form-text" id="emailHelp"></div>
+            </div>
+
+
+            <button class="btn btn-warning w-100 mt-4" type="submit">Восстановить</button>
+          </form>
+          <div class="entry-form__socials">
+            <div class="email-shipped">
+              <p>На указанный адрес электронной почты отправлено письмо с инструкциями по созданию нового пароля.</p>
+              <p>Если вы не видите письма во входящих, проверьте папку со спамом.</p>
+            </div>
+            <div class="btn btn-outline-secondary mb-5">Отправить письмо повторно</div>
+            <div class="have-no-account d-flex align-items-center justify-content-center gap-3">
+              <a class="mt-0 mb-0 link-warning entry-link" data-bs-target="#entryForm" data-bs-toggle="modal" href="#">Войти</a>
+              или <a class="link-warning reg-link" data-bs-target="#regForm" data-bs-toggle="modal"
+                     href="#" onclick="event.preventDefault()">Зарегистрироваться</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-------------------------------------------Конец формы восстановления ----------------------------------------------------->
+
+<!------------------------------------------Форма Регистрации----------------------------------------------------->
+<div aria-hidden="true" aria-labelledby="exampleModalToggleLabel" class="modal fade" id="regForm" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+
+    <div class="modal-content modal-content-form modal-content-reg-form position-relative">
+      <button aria-label="Close" class="btn-close position-absolute" data-bs-dismiss="modal" type="button"></button>
+      <div class="wrapper-modal-content-register d-grid flex-shrink-0">
+        <div class="modal-header modal-header-reg">
+          <h5 class="modal-title" id="regModalToggleLabel">Зарегистрируйтесь, чтобы добавлять отзывы и объекты</h5>
+        </div>
+        <div class="modal-body">
+          <form class="entry-form">
+            <div class="mb-5">
+              <label class="form-label" for="regName">Введите Имя <span>*</span></label>
+              <input aria-describedby="nameHelp" class="form-control" id="regName" placeholder="Имя"
+                     required type="text">
+              <div class="form-text" id="regNameHelp"></div>
+            </div>
+            <div class="mb-5">
+              <label class="form-label" for="regLogin">Введите Логин <span>*</span></label>
+              <input aria-describedby="loginHelp" class="form-control" id="regLogin" placeholder="Логин"
+                     required type="text">
+              <div class="form-text" id="regLoginHelp"></div>
+            </div>
+            <div class="mb-5">
+              <label class="form-label" for="regPhone">Введите номер телефона <span>*</span></label>
+              <input aria-describedby="loginHelp" class="form-control" id="regPhone" placeholder="Номер телефона"
+                     required type="number">
+              <div class="form-text" id="regPhoneHelp"></div>
+            </div>
+            <div class="mb-5">
+              <label class="form-label" for="entryEmail">Введите адрес электронной почты <span>*</span></label>
+              <input aria-describedby="emailHelp" class="form-control" id="regEmail" placeholder="example@gmail.com"
+                     required="" type="email">
+              <div class="form-text" id="regEmailHelp"></div>
+            </div>
+            <div class="mb-2">
+              <label class="form-label" for="regInputPassword">Пароль <span>*</span></label>
+              <div class="wrapper-password-input">
+                <div class="wrapper-eye wrapper-crossed-eye">
+                  <img alt="" src="/images/icons/crossed-eye.svg">
+                </div>
+                <div class="wrapper-eye wrapper-not-crossed-eye">
+                  <img alt="" src="/images/icons/eye.svg">
+                </div>
+                <input class="form-control" id="regInputPassword" placeholder="Пароль" required type="password">
+              </div>
+            </div>
+            <button class="btn btn-warning w-100 mt-4" type="submit">Зарегистрироваться</button>
+          </form>
+          <p>Или зарегистрируйтесь с помощью других сервисов</p>
+          <div class="entry-form__socials row justify-content-center gap-5">
+            <a class="google-link col-auto" href="google.com">
+              <img alt="" src="/images/icons/Google.svg">
+            </a>
+            <a class="vk-link col-auto" href="vk.com">
+              <img alt="" src="/images/icons/VK.svg">
+            </a>
+            <a class="ok-link col-auto" href="ok.ru">
+              <img alt="" src="/images/icons/ok.svg">
+            </a>
+            <p class="policy">Авторизируясь, вы соглашаетесь <br>
+              с <a href="#">Политикой конфиденциальности</a> и <a href="#">Условиями использования</a>
+            </p>
+            <div class="have-no-account d-flex align-items-center justify-content-center gap-3">
+              <p class="mt-0 mb-0">Уже зарегистрированы?</p><a class="link-warning reg-entry-link"
+                                                               data-bs-target="#entryForm"
+                                                               data-bs-toggle="modal" href="#"
+                                                               onclick="event.preventDefault()">Войти</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<!-------------------------------------------Конец формы входа ----------------------------------------------------->
+<!-----------------------------------------------Удалить объявление--------------------------------------------------->
+<div class="popup-remove-ads position-fixed bg-white p-5">
+  <div class="popup-remove-ads__title">Удаление объявления</div>
+  <div class="popup-remove-ads__description">Вы уверены, что хотите удалить объявление?</div>
+  <div class="popup-remove-ads__wrapper-buttons d-flex align-items-center justify-content-between gap-5">
+    <button class="btn btn-warning d-flex gap-2 flex-grow-1 mt-0 close-ads-window" href="#"
+            style="padding-left: 2rem;padding-right: 2rem;">Закрыть
+    </button>
+    <button class="btn btn-outline-secondary d-flex flex-grow-1 gap-2 mt-0" href="#"
+            style="padding-left: 2rem;padding-right: 2rem;">Удалить
+    </button>
+  </div>
+</div>
+<!-----------------------------------------------Конец Удалить объявление--------------------------------------------------->
+<div class="read-only d-flex align-items-center justify-content-center">
+  <span class="p-3">
+  Ваша учетная запись находится в режиме Read Only (только чтение). <a class="link-warning ps-1 pe-1" href="#">
+  Подтвердите</a> адрес электронной почты.</span>
+</div>
+<header class="header d-flex flex-column align-items-center justify-content-center">
+  <div class="header-menu position-fixed top-0 start-0 z-3 w-100 h-100 bg-light">
+    <div class="header-menu__wrapper-close p-5 position-absolute top-0 end-0 z-3">
+      <img alt="" src="/images/icons/close.svg" style="margin-right: -.6rem">
+    </div>
+    <div class="col-sm-auto col-auto d-flex align-items-center">
+      <div class="header__wrapper-logo me-3 flex-shrink-0">
+        <img alt="" src="/images/logo.svg">
+      </div>
+      <a class="header__wrapper-logo-title" href="/">
+        <div class="header__logo-title">Собери тур</div>
+      </a>
+    </div>
+    <ul class="header-menu__list d-flex flex-column gap-5">
+      <li><a href="">Проживание</a></li>
+      <li><a href="">Питание</a></li>
+      <li><a href="">Прокат</a></li>
+      <li><a href="">Экскурсии и туры</a></li>
+      <li><a href="">Достопримечательности</a></li>
+    </ul>
+  </div>
+  <div class="container h-100">
+    <div class="row align-items-center justify-content-sm-between h-100 w-100">
+      <div class="col-sm-auto col-auto d-flex align-items-center">
+        <div class="header__wrapper-logo me-3 flex-shrink-0">
+          <img alt="" src="/images/logo.svg">
+        </div>
+        <a class="header__wrapper-logo-title" href="/">
+          <div class="header__logo-title">Собери тур</div>
+          <div class="header-logo__gray-text mt-2">выбирай, что нравится</div>
+        </a>
+      </div>
+      <a
+        class="header__wrapper-search col-sm-1 col-auto d-none d-sm-flex justify-content-center align-items-center h-100 border-start border-end"
+        href="#">
+        <svg fill="none" height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M9.06238 15.625C12.6867 15.625 15.6249 12.6869 15.6249 9.0625C15.6249 5.43813 12.6867 2.5 9.06238 2.5C5.43801 2.5 2.49988 5.43813 2.49988 9.0625C2.49988 12.6869 5.43801 15.625 9.06238 15.625Z"
+            stroke="#170B00" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M13.7025 13.7031L17.4994 17.5" stroke="#170B00" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <ul class="header__menu col-sm-6 row align-items-center justify-content-between d-md-flex d-sm-none d-none">
+        <li class="col-auto"><a href="/catalog.html">Проживание</a></li>
+        <li class="col-auto"><a href="#">Питание</a></li>
+        <li class="col-auto"><a href="#">Экскурсии и туры</a></li>
+        <li class="col-auto"><a href="#">Прокат</a></li>
+        <li class="col-auto"><a href="#">Достопримечательности</a></li>
+      </ul>
+      <a
+        class="header__wrapper-entry header__account-name gap-4 col-sm-auto col d-flex justify-content-end align-items-center"
+        href="#">
+        Хомиджон
+        <div class="header__wrapper-account-image d-flex align-items-center justify-content-center position-relative">
+          <div class="red-label position-absolute"></div>
+          <img alt="" src="/images/icons/account-person.svg">
+        </div>
+        <a class="mobile-menu__icon col-auto d-md-none d-block" href="#">
+          <img alt="" src="/images/icons/burger.svg">
+        </a>
+      </a>
+    </div>
+  </div>
+</header>
+<main>
+  <section class="section-profile">
+    <div class="container">
+      <div class="wrapper-back-button d-flex align-items-center gap-2 mt-5 mb-5">
+        <div class="wrapper-arrow d-flex align-items-center">
+          <img alt="" src="/images/icons/arrow-left.svg">
+        </div>
+        <a href="/my-ads.html" class="back-button">Назад</a>
+      </div>
+      <h1 class="mb-5">Добавление объявления</h1>
+
+      <form action="" class="entry-form add-new-adv" enctype='multipart/form-data' method='POST'>
+        <div class="add-new-adv__wrapper-input mb-5">
+          <h3>Сфера услуг</h3>
+          <div class="mb-5 position-relative wrapper-services-input" style="width:30rem">
+            <svg class="position-absolute" fill="none" height="8" viewBox="0 0 14 8" width="14"
+                 xmlns="http://www.w3.org/2000/svg">
+              <path d="M13.25 0.5L7 6.75L0.75 0.5" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <label class="form-label" for="selectServiceType">Выбирите сферу услуг<span>*</span></label>
+            <input class="form-control input-services-list" id="selectServiceType" placeholder="Не выбрано" required
+                   type="email">
+            <ul class="add-adv__services-list position-absolute w-100">
+              <li><a class="d-block" href="#">Проживание</a></li>
+              <li><a class="d-block" href="#">Питание</a></li>
+              <li><a class="d-block" href="#">Экскурсии и туры</a></li>
+              <li><a class="d-block" href="#">Достопримечательности</a></li>
+              <li><a class="d-block" href="#">Прокат</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="add-new-adv__wrapper-input mb-5">
+          <h3>Общая информация</h3>
+          <div class="d-flex gap-5 flex-wrap">
+            <div class="mb-0 mb-sm-5 position-relative wrapper-services-input" style="width:30rem">
+              <svg class="position-absolute" fill="none" height="8" viewBox="0 0 14 8" width="14"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path d="M13.25 0.5L7 6.75L0.75 0.5" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <label class="form-label" for="selectService">Выбирите вид объекта<span>*</span></label>
+              <input class="form-control input-services-list" id="objectType" placeholder="Не выбрано" required
+                     type="text">
+              <ul class="add-adv__services-list position-absolute w-100">
+                <li><a class="d-block" href="#">Гостиница</a></li>
+                <li><a class="d-block" href="#">Квартира</a></li>
+                <li><a class="d-block" href="#">Комната</a></li>
+                <li><a class="d-block" href="#">Шалаш</a></li>
+                <li><a class="d-block" href="#">Матрац</a></li>
+              </ul>
+            </div>
+            <div class="mb-5 position-relative wrapper-services-input" style="width:30rem">
+              <label class="form-label" for="selectService">Укажите название объекта<span>*</span></label>
+              <input class="form-control input-services-list" id="objectName" placeholder="Не выбрано" required
+                     type="text">
+            </div>
+          </div>
+          <div class="mb-5 position-relative wrapper-services-input" style="width:30rem">
+            <label class="form-label" for="selectService">Введите адрес объекта или укажите на
+              карте<span>*</span></label>
+            <input class="form-control input-services-list" id="objectAddress" placeholder="Не выбрано" required
+                   type="text">
+            <div class="section-catalog__top__map d-flex flex-shrink-0 align-items-center justify-content-center mt-5">
+              <a class="btn btn-outline-secondary d-flex gap-2 w-100 mt-0" href="#">
+                <svg fill="none" height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M10 10.625C11.3807 10.625 12.5 9.50571 12.5 8.125C12.5 6.74429 11.3807 5.625 10 5.625C8.61929 5.625 7.5 6.74429 7.5 8.125C7.5 9.50571 8.61929 10.625 10 10.625Z"
+                    stroke="#170B00" stroke-linecap="round" stroke-linejoin="round"></path>
+                  <path
+                    d="M16.25 8.125C16.25 13.75 10 18.125 10 18.125C10 18.125 3.75 13.75 3.75 8.125C3.75 6.4674 4.40848 4.87769 5.58058 3.70558C6.75269 2.53348 8.3424 1.875 10 1.875C11.6576 1.875 13.2473 2.53348 14.4194 3.70558C15.5915 4.87769 16.25 6.4674 16.25 8.125V8.125Z"
+                    stroke="#170B00" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                Показать на карте</a>
+            </div>
+          </div>
+        </div>
+        <div class="add-new-adv__wrapper-input pb-5">
+          <h3>Описание объекта</h3>
+          <div class="mb-5 position-relative wrapper-services-input wrapper-services-textarea" >
+            <label class="form-label" for="selectService">Опишите объект<span>*</span></label>
+            <textarea class="form-control input-services-list h-100" id="objectDescription" placeholder="Не выбрано"
+                      required
+                      type="email">
+            </textarea>
+          </div>
+        </div>
+        <div class="add-new-adv__wrapper-input mb-5">
+          <h3>Номера</h3>
+          <div class="d-flex gap-5 flex-wrap">
+            <div class="mb-0 mb-sm-5 position-relative wrapper-services-input" style="width:30rem">
+              <label class="form-label" for="selectService">Укажите минимальную стоимость номеров<span>*</span></label>
+              <input class="form-control input-services-list" id="objectPriceMin" placeholder="Например, от 1 200 руб."
+                     required
+                     type="text">
+
+            </div>
+            <div class="mb-5 position-relative wrapper-services-input" style="width:30rem">
+              <label class="form-label" for="selectService">Укажите максимальную стоимость номеров<span>*</span></label>
+              <input class="form-control input-services-list" id="objectPriceMax" placeholder="Например, до 12 000 руб."
+                     required=""
+                     type="text">
+            </div>
+          </div>
+          <div class="mb-5 position-relative wrapper-services-input" style="width:30rem">
+            <svg class="position-absolute" fill="none" height="8" viewBox="0 0 14 8" width="14"
+                 xmlns="http://www.w3.org/2000/svg">
+              <path d="M13.25 0.5L7 6.75L0.75 0.5" stroke="#000" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+            <label class="form-label" for="selectService">Выбирите типы номеров из списка<span>*</span></label>
+            <input class="form-control input-services-list" id="objectNumberType" placeholder="" required=""
+                   type="text">
+            <ul class="add-adv__services-list position-absolute w-100">
+              <li><a class="d-block" href="#">Двухкомнатный</a></li>
+              <li><a class="d-block" href="#">Короткий</a></li>
+              <li><a class="d-block" href="#">Длинный</a></li>
+              <li><a class="d-block" href="#">Зеленый</a></li>
+              <li><a class="d-block" href="#">Только матрац</a></li>
+            </ul>
+          </div>
+          <ul class="section-ads__numbers add-adv__numbers-list p-0" style="display: block;">
+            <li>
+              <div class="section-ads__wrapper-number-description add-new-adv__number-description w-100 d-grid align-items-center gap-4 pe-4">
+                <div class="section-ads__wrapper-photo-number">
+                  <img alt="" src="/images/hotel.jpg">
+                </div>
+                <div class="section-ads__wrapper-number-title">
+                  <div class="section-ads__number-title text-uppercase">двухместный номер</div>
+                  <div class="section-catalog__card-advantages d-flex align-items-center gap-3 mt-2">
+                    <span>1 комната, 2 места, 1 кровать, 1 диван </span>
+                  </div>
+                </div>
+                <div class="section-catalog__card-advantages d-flex align-items-center gap-3 mt-2">
+                  <span>4200 руб.</span>
+                </div>
+                <div class="section-ads__three-dots d-flex align-items-center justify-content-center position-relative">
+                  <ul class="section-ads__edit position-absolute">
+                    <li><a class="d-block mb-3" href="#">Посмотреть</a></li>
+                    <li><a class="d-block mb-2" href="#">Редактировать</a></li>
+                    <li><a class="ads-remove" href="#">Удалить</a></li>
+                  </ul>
+                  <svg fill="none" height="2.8rem" viewBox="0 0 28 28" width="2.8rem" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14 15.3125C14.7249 15.3125 15.3125 14.7249 15.3125 14C15.3125 13.2751 14.7249 12.6875 14 12.6875C13.2751 12.6875 12.6875 13.2751 12.6875 14C12.6875 14.7249 13.2751 15.3125 14 15.3125Z" fill="#F97800"></path>
+                    <path d="M14 8.3125C14.7249 8.3125 15.3125 7.72487 15.3125 7C15.3125 6.27513 14.7249 5.6875 14 5.6875C13.2751 5.6875 12.6875 6.27513 12.6875 7C12.6875 7.72487 13.2751 8.3125 14 8.3125Z" fill="#F97800"></path>
+                    <path d="M14 22.3125C14.7249 22.3125 15.3125 21.7249 15.3125 21C15.3125 20.2751 14.7249 19.6875 14 19.6875C13.2751 19.6875 12.6875 20.2751 12.6875 21C12.6875 21.7249 13.2751 22.3125 14 22.3125Z" fill="#F97800"></path>
+                  </svg>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="section-ads__wrapper-number-description add-new-adv__number-description w-100 d-grid align-items-center gap-4 pe-4">
+                <div class="section-ads__wrapper-photo-number">
+                  <img alt="" src="/images/hotel.jpg">
+                </div>
+                <div class="section-ads__wrapper-number-title">
+                  <div class="section-ads__number-title text-uppercase">двухместный номер</div>
+                  <div class="section-catalog__card-advantages d-flex align-items-center gap-3 mt-2">
+                    <span>1 комната, 2 места, 1 кровать, 1 диван </span>
+                  </div>
+                </div>
+                <div class="section-catalog__card-advantages d-flex align-items-center gap-3 mt-2">
+                  <span>4200 руб.</span>
+                </div>
+                <div class="section-ads__three-dots d-flex align-items-center justify-content-center position-relative">
+                  <ul class="section-ads__edit position-absolute">
+                    <li><a class="d-block mb-3" href="#">Посмотреть</a></li>
+                    <li><a class="d-block mb-2" href="#">Редактировать</a></li>
+                    <li><a class="ads-remove" href="#">Удалить</a></li>
+                  </ul>
+                  <svg fill="none" height="2.8rem" viewBox="0 0 28 28" width="2.8rem" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14 15.3125C14.7249 15.3125 15.3125 14.7249 15.3125 14C15.3125 13.2751 14.7249 12.6875 14 12.6875C13.2751 12.6875 12.6875 13.2751 12.6875 14C12.6875 14.7249 13.2751 15.3125 14 15.3125Z" fill="#F97800"></path>
+                    <path d="M14 8.3125C14.7249 8.3125 15.3125 7.72487 15.3125 7C15.3125 6.27513 14.7249 5.6875 14 5.6875C13.2751 5.6875 12.6875 6.27513 12.6875 7C12.6875 7.72487 13.2751 8.3125 14 8.3125Z" fill="#F97800"></path>
+                    <path d="M14 22.3125C14.7249 22.3125 15.3125 21.7249 15.3125 21C15.3125 20.2751 14.7249 19.6875 14 19.6875C13.2751 19.6875 12.6875 20.2751 12.6875 21C12.6875 21.7249 13.2751 22.3125 14 22.3125Z" fill="#F97800"></path>
+                  </svg>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="section-ads__wrapper-number-description add-new-adv__number-description w-100 d-grid align-items-center gap-4 pe-4">
+                <div class="section-ads__wrapper-photo-number">
+                  <img alt="" src="/images/hotel.jpg">
+                </div>
+                <div class="section-ads__wrapper-number-title">
+                  <div class="section-ads__number-title text-uppercase">двухместный номер</div>
+                  <div class="section-catalog__card-advantages d-flex align-items-center gap-3 mt-2">
+                    <span>1 комната, 2 места, 1 кровать, 1 диван </span>
+                  </div>
+                </div>
+                <div class="section-catalog__card-advantages d-flex align-items-center gap-3 mt-2">
+                  <span>4200 руб.</span>
+                </div>
+                <div class="section-ads__three-dots d-flex align-items-center justify-content-center position-relative">
+                  <ul class="section-ads__edit position-absolute">
+                    <li><a class="d-block mb-3" href="#">Посмотреть</a></li>
+                    <li><a class="d-block mb-2" href="#">Редактировать</a></li>
+                    <li><a class="ads-remove" href="#">Удалить</a></li>
+                  </ul>
+                  <svg fill="none" height="2.8rem" viewBox="0 0 28 28" width="2.8rem" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14 15.3125C14.7249 15.3125 15.3125 14.7249 15.3125 14C15.3125 13.2751 14.7249 12.6875 14 12.6875C13.2751 12.6875 12.6875 13.2751 12.6875 14C12.6875 14.7249 13.2751 15.3125 14 15.3125Z" fill="#F97800"></path>
+                    <path d="M14 8.3125C14.7249 8.3125 15.3125 7.72487 15.3125 7C15.3125 6.27513 14.7249 5.6875 14 5.6875C13.2751 5.6875 12.6875 6.27513 12.6875 7C12.6875 7.72487 13.2751 8.3125 14 8.3125Z" fill="#F97800"></path>
+                    <path d="M14 22.3125C14.7249 22.3125 15.3125 21.7249 15.3125 21C15.3125 20.2751 14.7249 19.6875 14 19.6875C13.2751 19.6875 12.6875 20.2751 12.6875 21C12.6875 21.7249 13.2751 22.3125 14 22.3125Z" fill="#F97800"></path>
+                  </svg>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <a class="btn btn-warning w-auto d-inline-block" href="#">Добавить номер</a>
+        </div>
+        <div class="add-new-adv__wrapper-input mb-5">
+          <h3>Удобства и услуги отеля</h3>
+          <div class="mb-5 position-relative wrapper-services-input" style="width:30rem">
+            <svg class="position-absolute" fill="none" height="8" viewBox="0 0 14 8" width="14"
+                 xmlns="http://www.w3.org/2000/svg">
+              <path d="M13.25 0.5L7 6.75L0.75 0.5" stroke="#000" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+            <label class="form-label" for="selectService">Выбирите из списка<span>*</span></label>
+            <input class="form-control input-services-list" id="selectService" placeholder="" required type="text">
+            <ul class="add-adv__services-list position-absolute w-100">
+              <li><a class="d-block" href="#">Проживание</a></li>
+              <li><a class="d-block" href="#">Питание</a></li>
+              <li><a class="d-block" href="#">Экскурсии и туры</a></li>
+              <li><a class="d-block" href="#">Достопримечательности</a></li>
+              <li><a class="d-block" href="#">Прокат</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="add-new-adv__wrapper-input pb-5">
+          <h3>Иные услуги</h3>
+          <div class="mb-5 position-relative wrapper-services-input wrapper-services-textarea">
+            <label class="form-label" for="selectService">Иные услуги, неуказанные выше<span>*</span></label>
+            <textarea class="form-control input-services-list h-100" id="objectDescriptionOther"
+                      placeholder="Не выбрано" required="" type="email">            </textarea>
+          </div>
+        </div>
+        <h3 style="margin-bottom: 1.2rem">Фотографии</h3>
+        <div class="add-new-adv__photos d-flex gap-4">
+          <label for="adv-photos" title="Добавить фото">
+            <div class="add-new-adv__load-photo d-flex align-items-start gap-4">
+              <div class="add-new-adv__wrapper-photo d-flex flex-shrink-0 align-items-center justify-content-center">
+                <div class="add-new-adv__wrapper-icon">
+                  <svg fill="none" height="28" viewBox="0 0 28 28" width="28" xmlns="http://www.w3.org/2000/svg">
+                    <rect fill="#FDFDFD" height="27" rx="13.5" width="27" x="0.5" y="0.5"/>
+                    <rect height="27" rx="13.5" stroke="#646362" width="27" x="0.5" y="0.5"/>
+                    <path
+                      d="M20.25 20.25H7.75C7.41848 20.25 7.10054 20.1183 6.86612 19.8839C6.6317 19.6495 6.5 19.3315 6.5 19V10.25C6.5 9.91848 6.6317 9.60054 6.86612 9.36612C7.10054 9.1317 7.41848 9 7.75 9H10.2495L11.4995 7.125H16.4995L17.7495 9H20.25C20.5815 9 20.8995 9.1317 21.1339 9.36612C21.3683 9.60054 21.5 9.91848 21.5 10.25V19C21.5 19.3315 21.3683 19.6495 21.1339 19.8839C20.8995 20.1183 20.5815 20.25 20.25 20.25Z"
+                      stroke="#646362" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path
+                      d="M14 17.125C15.5533 17.125 16.8125 15.8658 16.8125 14.3125C16.8125 12.7592 15.5533 11.5 14 11.5C12.4467 11.5 11.1875 12.7592 11.1875 14.3125C11.1875 15.8658 12.4467 17.125 14 17.125Z"
+                      stroke="#646362" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <input class="d-none" id="adv-photos" multiple="multiple" name="files[]" type="file">
+            <div class="upload-file-title mt-2">Файл не выбран</div>
+          </label>
+          <div class="add-new-adv__photo-description d-flex flex-wrap gap-4">
+            <div class="add-new-adv__wrapper-strings mt-4">
+              <p class="mb-2">Нажмите на поле с иконкой</p>
+              <p class="mb-2">Формат JPG, JPEG, PNG </p>
+              <p class="mb-2">Размер до 10 MB</p>
+            </div>
+          </div>
+        </div>
+        <div class="add-new-adv__wrapper-input mb-5 mt-5">
+          <h3>Контакты</h3>
+          <div class="d-flex gap-5 flex-wrap">
+            <div class="mb-0 mb-sm-5 position-relative wrapper-services-input" style="width:30rem">
+              <label class="form-label" for="selectService">Введите номер телефона<span>*</span></label>
+              <input class="form-control input-services-list" id="objectPhone" placeholder="+7 (999) 999-99-99"
+                     required="" type="tel">
+            </div>
+            <div class="mb-5 position-relative wrapper-services-input" style="width:30rem">
+              <label class="form-label" for="selectService">Введите номер телефона</label>
+              <input class="form-control input-services-list" id="objectPhoneMore" placeholder="+7 (999) 999-99-99"
+                     required="" type="tel">
+            </div>
+          </div>
+          <div class="d-flex gap-5 flex-wrap">
+            <div class="mb-0 mb-sm-5 position-relative wrapper-services-input" style="width:30rem">
+              <label class="form-label" for="selectService">Введите дрес электронной почты<span>*</span></label>
+              <input class="form-control input-services-list" id="objectEmail" placeholder="example@example.ru" required
+                     type="email">
+            </div>
+            <div class="mb-5 position-relative wrapper-services-input" style="width:30rem">
+              <label class="form-label" for="selectService">Введите адрес сайта<span>*</span></label>
+              <input class="form-control input-services-list" id="objectSiteLink" placeholder="+7 (999) 999-99-99"
+                     required="" type="text">
+            </div>
+          </div>
+        </div>
+        <div class="add-new-adv__wrapper-final-buttons d-flex align-items-center gap-5">
+          <button type="submit" class="btn btn-warning w-auto d-inline-block" href="#">Отправить на проверку</button>
+          <button type="submit" class="btn btn-outline-secondary d-flex gap-2 mt-0" href="#"
+             style="padding-left: 2rem;padding-right: 2rem;">
+            Сохранить и выйти</button>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="footer d-flex align-items-center">
+  <div class="container">
+    <div class="footer__wrapper d-flex align-items-center justify-content-between">
+      <p>© Собери тур, 2023 г. Все пpава защищены</p>
+      <div class="footer__wrapper-policy d-flex flex-column flex-sm-row align-items-center gap-3">
+        <a href="#">Политика конфиденциальности</a>
+        <a href="#">Условия использования</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script src="/js/jquery.min.js"></script>
+<script src="/vendor/js/bootstrap/bootstrap.bundle.min.js"></script>
+<!--<script src="/vendor/js/bootstrap/button.js"></script>-->
+<script src="/vendor/js/owl-carousel/owl.carousel.min.js"></script>
+<script src="/js/up-button.js?v=2"></script>
+<script src="/js/app.js?v=2"></script>
+</body>
+</html>

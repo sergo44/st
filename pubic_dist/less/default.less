@@ -1,0 +1,165 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 10px;
+}
+
+body {
+    font-family: "Inter";
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: @blackText;
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: left;
+}
+
+main {
+    flex-grow: 1;
+}
+
+
+
+.container {
+    max-width: 1320px;
+}
+
+a {
+    color: #545454;
+    text-decoration: none;
+}
+
+a:hover {
+    color: @orange!important;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+
+h1,h2{
+    font-family: Inter;
+    font-size: 3.2rem;
+    font-weight: 500;
+    line-height: 3.9rem;
+    letter-spacing: 0em;
+    text-align: left;
+    color:@blackText;
+
+}
+
+h3{
+    font-family: Inter;
+    font-size: 2.4rem;
+    font-weight: 500;
+    line-height: 2.8rem;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+
+section h2{
+    margin-bottom: 3.2rem!important;
+}
+input {
+    outline: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="checkbox"] {
+    visibility: hidden;
+}
+label{
+    cursor: pointer;
+}
+
+.overlay{
+    display: none;
+}
+
+@media (max-width: 1170px) {
+    html {
+        font-size: .85vw;
+    }
+
+}
+
+@media (max-width: 992px) {
+    html {
+        font-size: 1vw;
+    }
+
+}
+
+@media (max-width: 768px) {
+    html {
+        font-size: 1.2vw;
+    }
+
+}
+
+@media (max-width: 768px) {
+    html {
+        font-size: 1.5vw;
+    }
+
+}
+
+@media (max-width: 576px) {
+    html {
+        font-size: 1.8vw;
+    }
+
+}
+
+.developer {
+    margin-top: 50px;
+    display: block;
+    text-decoration: underline
+}
+
+.page-content {
+    font-size: 14px;
+}
+
+.page-content h2, .page-content h3, .page-content h4 {
+    margin: 0 0 20px 0
+}
+
+.page-content h2 {
+    font-size: 1.8vw
+}
+
+.page-content h3 {
+    font-size: 1.5vw
+}
+
+.page-content h4 {
+    font-size: 1.2vw
+}
+
+.page-content ul {
+    margin: 0 0 15px 20px;
+}
+
+.page-content li {
+    list-style: circle
+}
+
+.yellow {
+    fill: #ffce31;
+}
