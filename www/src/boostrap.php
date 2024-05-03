@@ -42,6 +42,7 @@ try {
 
     ini_set("session.save_handler", "redis");
     ini_set("session.save_path", ST_REDIS_SESSION_PATH);
+    ini_set("session.gc_maxlifetime", 60*60*24*31);
 
     session_start();
 
