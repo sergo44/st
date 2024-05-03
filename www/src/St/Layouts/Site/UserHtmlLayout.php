@@ -4,6 +4,8 @@ namespace St\Layouts\Site;
 
 use St\ApplicationError;
 use St\Auth;
+use St\Db;
+use St\Db\Views\ProfileHtmlView;
 use St\Layouts\HtmlLayout;
 use St\Layouts\ILayout;
 use St\Layouts\Site\CommonHtmlWidgets\RegisterFormHtmlWidget;
@@ -195,6 +197,11 @@ class UserHtmlLayout extends HtmlLayout implements ILayout
             </div>
         </footer>
         <script src="<?php print TemplatesUtils::require_js("/build/common.bundle.js");?>"></script>
+
+        <?php if (defined("ST_DEVELOPMENT_VERSION") && ST_DEVELOPMENT_VERSION) {
+            (new ProfileHtmlView())->setRows( Db::getDbProfiles() )->out();
+        } ?>
+
         </body>
         </html>
 

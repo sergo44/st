@@ -3,6 +3,7 @@
 namespace St;
 
 use PDO as PDO;
+use St\Db\ProfileRow;
 
 class Db
 {
@@ -13,7 +14,23 @@ class Db
     protected static PDO|null $write = null;
 
     /**
-     * Возвращает инстанс PDO
+     * Возвращает данные по выполненным SQL запросам
+     * @see https://mariadb.com/kb/en/show-profile/
+     * @param PDO|null $dbh
+     * @return ProfileRow[]
+     */
+    public static function getDbProfiles(?\PDO $dbh = null): array
+    {
+        if (!isset($dbh)) {
+            $dbh = self::getReadPDOInstance();
+        }
+
+        $sth = $dbh->query("SHOW PROFILES");
+        return $sth->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, ProfileRow::class);
+    }
+
+    /**
+     * Возвращает созданный экземпляр PDO
      * @return PDO
      */
     public static function getWritePDOInstance(): PDO

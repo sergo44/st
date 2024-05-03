@@ -1,5 +1,7 @@
 <?php
 
+define("ST_START_MICROTIME", microtime(true));
+
 use St\ApplicationError as ApplicationError;
 use St\FrontController\Dispatcher as Dispatcher;
 use St\HttpError404Exception as HttpError404Exception;
