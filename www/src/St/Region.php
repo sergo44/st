@@ -3,7 +3,7 @@
 namespace St;
 
 use PDO;
-use St\Cities\FindCityById;
+use St\Regions\FindRegionById;
 
 class Region implements IUseRedis, \JsonSerializable
 {
@@ -58,9 +58,11 @@ class Region implements IUseRedis, \JsonSerializable
      */
     public static function get(int $region_id, bool $pop_cache = true, bool $push_cache = true): Region
     {
+        $key = sprintf("geo:region:%u", $region_id);
+
         if ($pop_cache) {
             try {
-                $cached_region = RedisHelper::getInstance()->getValue("region:{$region_id}");
+                $cached_region = RedisHelper::getInstance()->getValue($key);
                 if ($cached_region) {
                     return unserialize($cached_region);
                 }
@@ -72,15 +74,15 @@ class Region implements IUseRedis, \JsonSerializable
         }
 
         $users = new FindRegionById($region_id);
-        $city = $users->getCity();
+        $region = $users->getRegion();
 
-        if (!$city) {
-            $city = new City();
+        if (!$region) {
+            $region = new Region();
         }
 
         if ($push_cache) {
             try {
-                RedisHelper::getInstance()->setValue("region:{$region_id}", serialize($city));
+                RedisHelper::getInstance()->setValue($key, serialize($region));
             } catch (\RedisException $e) {
                 if (ST_DEVELOPMENT_VERSION) {
                     throw new ApplicationError(sprintf("Redis failed: %s", $e->getMessage()));
@@ -88,7 +90,7 @@ class Region implements IUseRedis, \JsonSerializable
             }
         }
 
-        return $city;
+        return $region;
     }
 
     /**

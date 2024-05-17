@@ -10,9 +10,22 @@ use St\Region;
 
 class FindRegionById implements IReadDb
 {
+    /**
+     * Идентификатор региона
+     * @var int
+     */
     protected int $region_id;
+    /**
+     * Объект PDO для доступа к БД
+     * @var PDO|null
+     */
     protected ?PDO $dbh;
 
+    /**
+     * Конструктор класса
+     * @param int $region_id
+     * @param PDO|null $dbh
+     */
     public function __construct(int $region_id, ?PDO $dbh = null)
     {
         $this->region_id = $region_id;

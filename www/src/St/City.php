@@ -69,9 +69,11 @@ class City implements \JsonSerializable
      */
     public static function get(int $city_id, bool $pop_cache = true, bool $push_cache = true): City
     {
+        $key = sprintf("geo:city:%u", $city_id);
+
         if ($pop_cache) {
             try {
-                $cached_city = RedisHelper::getInstance()->getValue("city:{$city_id}");
+                $cached_city = RedisHelper::getInstance()->getValue($key);
                 if ($cached_city) {
                     return unserialize($cached_city);
                 }
@@ -91,7 +93,7 @@ class City implements \JsonSerializable
 
         if ($push_cache) {
             try {
-                RedisHelper::getInstance()->setValue("city:{$city_id}", serialize($city));
+                RedisHelper::getInstance()->setValue($key, serialize($city));
             } catch (\RedisException $e) {
                 if (ST_DEVELOPMENT_VERSION) {
                     throw new ApplicationError(sprintf("Redis failed: %s", $e->getMessage()));

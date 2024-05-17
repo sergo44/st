@@ -8,6 +8,7 @@ module.exports = {
             './assets/js/common.js',
             './assets/js/user_sign.js',
             './assets/js/user_sign_in.js',
+            './assets/js/set_coordinates.js',
             './assets/less/style.less'
         ]
     },

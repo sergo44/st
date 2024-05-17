@@ -35,18 +35,20 @@ class Country implements IUseRedis
      * Получаем страну по идентификатору
      * Если страна не найдена, будет возвращен новый объект
      *
-     * @todo Move To Redis Helper
-     * @param int $user_id
+     * @param int $country_id
      * @param bool $pop_cache
      * @param bool $push_cache
      * @return Country
      * @throws ApplicationError
+     *@todo Move To Redis Helper
      */
-    public static function get(int $user_id, bool $pop_cache = true, bool $push_cache = true): Country
+    public static function get(int $country_id, bool $pop_cache = true, bool $push_cache = true): Country
     {
+        $key = sprintf("geo:country:%u", $country_id);
+
         if ($pop_cache) {
             try {
-                $cached_country = RedisHelper::getInstance()->getValue("country:{$user_id}");
+                $cached_country = RedisHelper::getInstance()->getValue($key);
                 if ($cached_country) {
                     return unserialize($cached_country);
                 }
@@ -57,7 +59,7 @@ class Country implements IUseRedis
             }
         }
 
-        $countries = new FindCountryById($user_id);
+        $countries = new FindCountryById($country_id);
         $country = $countries->getCountry();
 
         if (!$country) {
@@ -66,7 +68,7 @@ class Country implements IUseRedis
 
         if ($push_cache) {
             try {
-                RedisHelper::getInstance()->setValue("country:{$user_id}", serialize($country));
+                RedisHelper::getInstance()->setValue("country:{$country_id}", serialize($country));
             } catch (\RedisException $e) {
                 if (ST_DEVELOPMENT_VERSION) {
                     throw new ApplicationError(sprintf("Redis failed: %s", $e->getMessage()));
