@@ -193,7 +193,7 @@ const displayFeatureInfo = function (pixel, target) {
     if (feature) {
         info.style.left = pixel[0] + 'px';
         info.style.top = pixel[1] + 'px';
-        console.log(feature.get("features")[0].get('tooltip_content'));
+
         if (feature !== currentFeature && feature.get("features").length === 1) {
             info.style.visibility = 'visible';
             info.innerText = feature.get("features")[0].get('tooltip_content');
