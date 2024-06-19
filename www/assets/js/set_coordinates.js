@@ -8,59 +8,61 @@ import {Vector as LayerVector} from 'ol/layer';
 // import {GeometryLayout} from "ol/geom/Geometry";
 import {Icon, Style} from "ol/style";
 
-
-
 const setCoordinatesModal = document.getElementById("setCoordinatesModal");
-let map;
 
-setCoordinatesModal.addEventListener("shown.bs.modal", function() {
+if (setCoordinatesModal) {
+    let map;
 
-    if (typeof map === "undefined") {
-        map = new Map({
-            target: 'setCoordinatesCnt',
-            layers: [
-                new TileLayer({
-                    source: new OSM(),
-                })
-            ],
-        });
+    setCoordinatesModal.addEventListener("shown.bs.modal", function() {
 
-        map.setView(new View({
-            center: fromLonLat([104.27296760599522, 52.28720573818367]),
-            zoom: 10,
-        }));
-    }
+        if (typeof map === "undefined") {
+            map = new Map({
+                target: 'setCoordinatesCnt',
+                layers: [
+                    new TileLayer({
+                        source: new OSM(),
+                    })
+                ],
+            });
 
-    let setCoordinatesLayerVector;
-
-    map.on('singleclick', function(e) {
-
-        if (typeof setCoordinatesLayerVector !== "undefined") {
-            map.removeLayer(setCoordinatesLayerVector);
+            map.setView(new View({
+                center: fromLonLat([104.27296760599522, 52.28720573818367]),
+                zoom: 10,
+            }));
         }
 
-        let latLon = toLonLat(e.coordinate);
+        let setCoordinatesLayerVector;
 
-        $("input[data-type=setLat]").val(latLon[0]);
-        $("input[data-type=setLon]").val(latLon[1]);
+        map.on('singleclick', function(e) {
 
-        let iconFeatures = new Feature({
-            geometry: new Point(e.coordinate)
-        });
+            if (typeof setCoordinatesLayerVector !== "undefined") {
+                map.removeLayer(setCoordinatesLayerVector);
+            }
 
-        iconFeatures.setStyle(new Style({
-            image: new Icon({
-                color: '#BADA55',
-                crossOrigin: 'anonymous',
-                src: '/images/map-marker.svg',
-                height: 35,
-                anchor: [0.5, 1]
-            })
-        }));
+            let latLon = toLonLat(e.coordinate);
 
-        let sourceVector = new SourceVector({features: [iconFeatures]});
-        setCoordinatesLayerVector = new LayerVector({source: sourceVector})
+            $("input[data-type=setLat]").val(latLon[0]);
+            $("input[data-type=setLon]").val(latLon[1]);
 
-        map.addLayer(setCoordinatesLayerVector);
-    })
-});
+            let iconFeatures = new Feature({
+                geometry: new Point(e.coordinate)
+            });
+
+            iconFeatures.setStyle(new Style({
+                image: new Icon({
+                    color: '#BADA55',
+                    crossOrigin: 'anonymous',
+                    src: '/images/map-marker.svg',
+                    height: 35,
+                    anchor: [0.5, 1]
+                })
+            }));
+
+            let sourceVector = new SourceVector({features: [iconFeatures]});
+            setCoordinatesLayerVector = new LayerVector({source: sourceVector})
+
+            map.addLayer(setCoordinatesLayerVector);
+        })
+    });
+}
+

@@ -12,6 +12,7 @@ ini_set("display_errors", "on");
 
 const ST_SRC_PATH = __DIR__ . "/";
 const ST_PUBLIC_WEB_PATH = ST_SRC_PATH . "/../public/";
+const ST_DEFAULT_UMASK = 0002;
 
 define("ST_SERVER_PROTOCOL", $_SERVER['SERVER_PROTOCOL'] ?? "HTTP/1.0");
 

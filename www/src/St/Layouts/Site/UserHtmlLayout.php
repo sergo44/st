@@ -48,9 +48,9 @@ class UserHtmlLayout extends HtmlLayout implements ILayout
 
         <?php (new RegisterFormHtmlWidget())->out(); ?>
 
-        <div class="read-only d-flex align-items-center justify-content-center">
+        <!-- <div class="read-only d-flex align-items-center justify-content-center">
             <span class="p-3">Ваша учетная запись находится в режиме Read Only (только чтение). <a class="link-warning ps-1 pe-1" href="#">Подтвердите</a> адрес электронной почты.</span>
-        </div>
+        </div> -->
 
         <header class="header d-flex flex-column align-items-center justify-content-center">
             <div class="header-menu position-fixed top-0 start-0 z-3 w-100 h-100 bg-light">
@@ -66,11 +66,11 @@ class UserHtmlLayout extends HtmlLayout implements ILayout
                     </a>
                 </div>
                 <ul class="header-menu__list d-flex flex-column gap-5">
-                    <li><a href="">Проживание</a></li>
-                    <li><a href="">Питание</a></li>
-                    <li><a href="">Прокат</a></li>
-                    <li><a href="">Экскурсии и туры</a></li>
-                    <li><a href="">Достопримечательности</a></li>
+                    <li><a href="/Catalog/Objects/Hotels">Гостиницы</a></li>
+                    <li><a href="/Catalog/Objects/Guest_House">Гостевые дома</a></li>
+                    <li><a href="/Catalog/Objects/Hostel">Хостелы</a></li>
+                    <li><a href="/Catalog/Objects/Apartment">Апартаменты</a></li>
+                    <li><a href="/Catalog/Objects/Camping">Кемпинг</a></li>
                 </ul>
             </div>
             <div class="container h-100">
@@ -95,11 +95,11 @@ class UserHtmlLayout extends HtmlLayout implements ILayout
                         </svg>
                     </a>
                     <ul class="header__menu col-sm-6 row align-items-center justify-content-between d-md-flex d-sm-none d-none">
-                        <li class="col-auto"><a href="/catalog.html">Проживание</a></li>
-                        <li class="col-auto"><a href="#">Питание</a></li>
-                        <li class="col-auto"><a href="#">Экскурсии и туры</a></li>
-                        <li class="col-auto"><a href="#">Прокат</a></li>
-                        <li class="col-auto"><a href="#">Достопримечательности</a></li>
+                        <li class="col-auto"><a href="/Catalog/Objects/Hotels">Гостиницы</a></li>
+                        <li class="col-auto"><a href="/Catalog/Objects/Guest_House">Гостевые дома</a></li>
+                        <li class="col-auto"><a href="/Catalog/Objects/Hostel">Хостелы</a></li>
+                        <li class="col-auto"><a href="/Catalog/Objects/Apartment">Апартаменты</a></li>
+                        <li class="col-auto"><a href="/Catalog/Objects/Camping">Кемпинг</a></li>
                     </ul>
                     <a
                         class="header__wrapper-entry header__account-name gap-4 col-sm-auto col d-flex justify-content-end align-items-center"
@@ -142,7 +142,7 @@ class UserHtmlLayout extends HtmlLayout implements ILayout
                                         </svg>
                                         Профиль
                                     </a></li>
-                                <li class="mb-4"><a href="/Catalog/Objects/Add/">
+                                <li class="mb-4"><a href="/Catalog/ListObjects">
                                         <svg fill="none" height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M3.125 16.875V3.75" stroke="#170B00" stroke-linecap="round" stroke-linejoin="round"/>
                                             <path
@@ -196,7 +196,11 @@ class UserHtmlLayout extends HtmlLayout implements ILayout
                 </div>
             </div>
         </footer>
-        <script src="<?php print TemplatesUtils::require_js("/build/common.bundle.js");?>"></script>
+
+        <?php foreach ($this->js_files as $js_file):?>
+            <script src="<?php print TemplatesUtils::require_js($js_file);?>"></script>
+        <?php endforeach; ?>
+
 
         <?php if (defined("ST_DEVELOPMENT_VERSION") && ST_DEVELOPMENT_VERSION) {
             (new ProfileHtmlView())->setRows( Db::getDbProfiles() )->out();

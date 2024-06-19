@@ -13,7 +13,9 @@
     "require": {
       "ext-pdo": "*",
       "ext-redis": "*",
-      "ext-mbstring": "*"
+      "ext-mbstring": "*",
+      "ext-imagick": "*",
+      "ext-fileinfo": "*"
     },
     "autoload": {
         "psr-4": {

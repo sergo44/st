@@ -85,3 +85,21 @@ create table catalog_objects
 alter table countries add index countries_name_idx(name(16));
 alter table regions add index country_named_idx(country_id, name(16));
 
+create table catalog_objects_images
+(
+    `image_id` int unsigned not null primary key auto_increment comment 'Идентификатор изображения',
+    `object_id` int unsigned not null comment 'Идентификатор объекта',
+    `primary` smallint not null default '0' comment 'Признак, что фотография является основной',
+    `directory` tinytext not null comment 'Директория, где храниться оригинал фотографии',
+    `filename` tinytext not null comment 'Имя файла',
+    `x1` int unsigned not null comment 'Координата X1',
+    `y1` int unsigned not null comment 'Координата Y1',
+    `x2` int unsigned not null comment 'Координата X2',
+    `y2` int unsigned not null comment 'Координата Y2',
+    `ratio` tinytext not null comment 'Отношение сторон'
+) engine InnoDB comment 'Таблица хранит фотографии'
+;
+
+alter table catalog_objects change include_food include_foods text not null comment 'Включение питания';
+alter table catalog_objects add start_price int not null comment 'Цена размещения (от)';
+update catalog_objects set start_price = '2000' where 1;

@@ -2,6 +2,8 @@
 
 namespace St\Utils;
 
+use St\Result;
+
 class Validator
 {
     /**

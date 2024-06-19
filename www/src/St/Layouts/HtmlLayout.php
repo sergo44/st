@@ -17,6 +17,11 @@ class HtmlLayout extends HtmlView implements ILayout
      */
     protected string $content_mime_type = "text/html";
     /**
+     * JS Файлы для подключения
+     * @var string[]
+     */
+    protected array $js_files = array("/build/common.bundle.js");
+    /**
      * Заголовок раздела
      * @var string
      */
@@ -68,6 +73,17 @@ class HtmlLayout extends HtmlView implements ILayout
     public function setContentMimeType(string $content_mime_type): ILayout
     {
         $this->content_mime_type = $content_mime_type;
+        return $this;
+    }
+
+    /**
+     * Добавляет JS файл для загрузки
+     * @param string $path
+     * @return ILayout
+     */
+    public function addJs(string $path): ILayout
+    {
+        $this->js_files[] = $path;
         return $this;
     }
 

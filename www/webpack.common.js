@@ -8,8 +8,14 @@ module.exports = {
             './assets/js/common.js',
             './assets/js/user_sign.js',
             './assets/js/user_sign_in.js',
-            './assets/js/set_coordinates.js',
             './assets/less/style.less'
+        ],
+        add_object: [
+            './assets/js/set_coordinates.js',
+            './assets/js/add_object.js'
+        ],
+        objects_map: [
+            './assets/js/objects_map.js'
         ]
     },
     output: {

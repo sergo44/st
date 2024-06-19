@@ -2,8 +2,15 @@
 
 namespace St;
 
-class CatalogObject
+use PDO;
+
+class CatalogObject implements IReadDb
 {
+    /**
+     * Изображения, привязанные к объекту
+     * @var array|null
+     */
+    protected ?array $images;
     /**
      * Идентификатор объекта
      * @var int|null
@@ -65,6 +72,11 @@ class CatalogObject
      */
     protected string $include_foods = "";
     /**
+     * Цена размещения (от)
+     * @var int
+     */
+    protected int $start_price = 0;
+    /**
      * Контактный номер телефона
      * @var string
      */
@@ -79,6 +91,25 @@ class CatalogObject
      * @var string|null
      */
     protected ?string $web_site_url = null;
+
+    /**
+     * Возвращает объект по идентификатору
+     * @param int $object_id
+     * @param PDO|null $dbh
+     * @return CatalogObject
+     */
+    public static function get(int $object_id, ?PDO $dbh = null): CatalogObject
+    {
+        $dbh = $dbh ?? Db::getReadPDOInstance();
+
+        $sth = $dbh->prepare(/** @lang MariaDB */"SELECT * FROM catalog_objects WHERE object_id = :object_id");
+        $sth->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, CatalogObject::class);
+        $sth->execute(array(
+            ":object_id" => $object_id
+        ));
+
+        return $sth->rowCount() ? $sth->fetch() : new CatalogObject();
+    }
 
     /**
      * Возвращает object_id
@@ -152,6 +183,28 @@ class CatalogObject
     public function setUserId(int $user_id): CatalogObject
     {
         $this->user_id = $user_id;
+        return $this;
+    }
+
+    /**
+     * Возвращает name
+     * @return string
+     * @see name
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * Устанавливает name
+     * @param string $name
+     * @return CatalogObject
+     * @see name
+     */
+    public function setName(string $name): CatalogObject
+    {
+        $this->name = $name;
         return $this;
     }
 
@@ -332,6 +385,28 @@ class CatalogObject
     }
 
     /**
+     * Возвращает start_price
+     * @return int
+     * @see start_price
+     */
+    public function getStartPrice(): int
+    {
+        return $this->start_price;
+    }
+
+    /**
+     * Устанавливает start_price
+     * @param int $start_price
+     * @return CatalogObject
+     * @see start_price
+     */
+    public function setStartPrice(int $start_price): CatalogObject
+    {
+        $this->start_price = $start_price;
+        return $this;
+    }
+
+    /**
      * Возвращает contact_phone
      * @return string
      * @see contact_phone
@@ -395,6 +470,45 @@ class CatalogObject
     {
         $this->web_site_url = $web_site_url;
         return $this;
+    }
+
+    /**
+     * Возвращает изображения объекта
+     * @return Image[]
+     */
+    public function getImages(): array
+    {
+        if (!isset($this->images)) {
+            $dbh = Db::getReadPDOInstance();
+            $sth = $dbh->prepare(/** @lang MariaDB */"SELECT * FROM catalog_objects_images WHERE object_id = :object_id ORDER BY image_id");
+            $sth->execute(array(
+                ":object_id" => $this->getObjectId()
+            ));
+
+            $this->images = $sth->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_CLASS, Image::class);
+        }
+
+        return $this->images;
+    }
+
+    /**
+     * Возвращает первое изображение. Если изображение нет, возвращает NULL
+     * @return Image|null
+     */
+    public function getFirstImage(): ?Image
+    {
+        return $this->getImages()[0] ?? null;
+    }
+
+    /**
+     * Возвращает дополнительные изображения для отображения
+     * @param int $limit
+     * @return Image[]
+     */
+    public function getAdditionalImages(int $limit = 4): array
+    {
+        $images = $this->getImages();
+        return sizeof($images) > 1 ? array_slice($images, 1, $limit) : array();
     }
 
 }

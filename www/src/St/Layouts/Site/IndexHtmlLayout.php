@@ -9,7 +9,8 @@ use St\Db\Views\ProfileHtmlView;
 use St\Layouts\HtmlLayout;
 use St\Layouts\ILayout;
 use St\Layouts\Site\CommonHtmlWidgets\RegisterFormHtmlWidget;
-use St\Layouts\Site\CommonHtmlWidgets\RestoreAccessHtmlWidget;use St\Layouts\Site\CommonHtmlWidgets\SignInFormHtmlWidget;
+use St\Layouts\Site\CommonHtmlWidgets\RestoreAccessHtmlWidget;
+use St\Layouts\Site\CommonHtmlWidgets\SignInFormHtmlWidget;
 use St\User\Views\Sign\UserSignedHtmlWidget;
 use St\User\Views\Sign\UserSignInHtmlWidget;
 use St\Utils\TemplatesUtils;
@@ -61,11 +62,11 @@ class IndexHtmlLayout extends HtmlLayout implements ILayout
                     </a>
                 </div>
                 <ul class="header-menu__list d-flex flex-column gap-5">
-                    <li><a href="">Проживание</a></li>
-                    <li><a href="">Питание</a></li>
-                    <li><a href="">Прокат</a></li>
-                    <li><a href="">Экскурсии и туры</a></li>
-                    <li><a href="">Достопримечательности</a></li>
+                    <li><a href="/Catalog/Objects/Hotels">Гостиницы</a></li>
+                    <li><a href="/Catalog/Objects/Guest_House">Гостевые дома</a></li>
+                    <li><a href="/Catalog/Objects/Hostel">Хостелы</a></li>
+                    <li><a href="/Catalog/Objects/Apartment">Апартаменты</a></li>
+                    <li><a href="/Catalog/Objects/Camping">Кемпинг</a></li>
                 </ul>
             </div>
             <div class="container h-100">
@@ -90,11 +91,11 @@ class IndexHtmlLayout extends HtmlLayout implements ILayout
                         </svg>
                     </a>
                     <ul class="header__menu col-sm-6 row align-items-center justify-content-between d-md-flex d-sm-none d-none">
-                        <li class="col-auto"><a href="/catalog.html">Проживание</a></li>
-                        <li class="col-auto"><a href="#">Питание</a></li>
-                        <li class="col-auto"><a href="#">Экскурсии и туры</a></li>
-                        <li class="col-auto"><a href="#">Прокат</a></li>
-                        <li class="col-auto"><a href="#">Достопримечательности</a></li>
+                        <li class="col-auto"><a href="/Catalog/Objects/Hotels">Гостиницы</a></li>
+                        <li class="col-auto"><a href="/Catalog/Objects/Guest_House">Гостевые дома</a></li>
+                        <li class="col-auto"><a href="/Catalog/Objects/Hostel">Хостелы</a></li>
+                        <li class="col-auto"><a href="/Catalog/Objects/Apartment">Апартаменты</a></li>
+                        <li class="col-auto"><a href="/Catalog/Objects/Camping">Кемпинг</a></li>
                     </ul>
 
                         <?php if (!Auth::getInstance()->get() || !Auth::getInstance()->get()->getUserId()):?>
@@ -588,7 +589,10 @@ class IndexHtmlLayout extends HtmlLayout implements ILayout
             </div>
         </footer>
 
-        <script src="<?php print TemplatesUtils::require_js("/build/common.bundle.js");?>"></script>
+        <?php foreach ($this->js_files as $js_file):?>
+            <script src="<?php print TemplatesUtils::require_js($js_file);?>"></script>
+        <?php endforeach; ?>
+
 
         <?php if (defined("ST_DEVELOPMENT_VERSION") && ST_DEVELOPMENT_VERSION) {
             (new ProfileHtmlView())->setRows( Db::getDbProfiles() )->out();

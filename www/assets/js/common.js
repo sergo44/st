@@ -161,22 +161,7 @@ $(document).ready(function() {
                 $(this).next('.add-adv__services-list').hide();
             }, 200)
         })
-        .on('change', '#adv-photos', function (e) {
-            $('.add-new-adv__photo-description').html('');
-            $('.upload-file-title').hide();
-            for (let i = this.files.length - 1; i >= 0; i--) {
-                const reader = new FileReader();
-                const files = e.target.files;
-                const file = files[i];
-                reader.readAsDataURL(file);
 
-                reader.addEventListener('load', (event) => {
-                    $('.add-new-adv__photo-description')
-                        .append(`<div class="loaded-photo d-flex flex-column gap-2"><div class="wrapper-upload-image"><img src="${event.target.result}" alt="${file.name}"></div><p class="mt-1">Главное фото</p></div>`)
-                });
-            }
-
-        })
 });
 
 $(document).ready(function(){

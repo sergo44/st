@@ -11,6 +11,14 @@ interface ILayout
      * @return ILayout
      */
     public function setContent(string $content): ILayout;
+
+    /**
+     * Добавляет JS файл, необходимый для дополнительной загрузки
+     * @param string $path
+     * @return ILayout
+     */
+    public function addJs(string $path): ILayout;
+
     /**
      * Выводит шаблон в STDOUT
      * @return void

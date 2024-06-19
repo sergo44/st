@@ -8,6 +8,5 @@ const ST_DEFAULT_ROUTE = "/StaticContent/Index";
 const ST_DEFAULT_REDIS_HOST =  "127.0.0.1";
 const ST_DEFAULT_REDIS_PORT =  0;
 const ST_DEFAULT_REDIS_TIMEOUT =  3.0;
-
 const ST_REDIS_SESSION_PATH =  "127.0.0.1";
-
+const ST_IMAGES_THUMB_TMP_DIR = "upload/images/tmp/";
