@@ -42,6 +42,7 @@ class ObjectsMapController extends CallableController implements ICallableContro
             $feature
                 ->setId($row['object_id'])
                 ->setGeometry(new FeatureGeometry($row['lat'], $row['lon']))
+                ->setTooltipContent($row['name'])
             ;
             $feature_collection->addFeature($feature);
         }

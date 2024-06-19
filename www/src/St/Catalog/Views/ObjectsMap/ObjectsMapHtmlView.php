@@ -44,9 +44,27 @@ class ObjectsMapHtmlView extends HtmlView implements IView
     {
         ?>
         <style>
-            .map {
+            #catalogObjectsMap {
                 width: 100%;
                 height: 400px;
+                position: relative;
+            }
+
+            #info {
+                position: absolute;
+                display: inline-block;
+                height: auto;
+                width: auto;
+                z-index: 100;
+                background-color: #333;
+                color: #fff;
+                text-align: center;
+                border-radius: 4px;
+                padding: 5px;
+                left: 50%;
+                transform: translateX(3%);
+                visibility: hidden;
+                pointer-events: none;
             }
         </style>
 
@@ -54,7 +72,9 @@ class ObjectsMapHtmlView extends HtmlView implements IView
 const objectsMapFeatures = <?php print json_encode($this->getFeatureCollection(), JSON_PRETTY_PRINT)?>;
         </script>
 
-        <div id="catalogObjectsMap" class="map"></div>
+        <div id="catalogObjectsMap">
+            <div id="info"></div>
+        </div>
         <?php
     }
 

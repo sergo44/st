@@ -20,6 +20,11 @@ class Feature implements \JsonSerializable
      */
     protected string $geometry_name = "SHAPE";
     /**
+     * Содержимое всплывающего окна
+     * @var string
+     */
+    protected string $tooltip_content = "";
+    /**
      * Геометрия объекта
      * @var FeatureGeometry
      */
@@ -34,6 +39,18 @@ class Feature implements \JsonSerializable
     public function setId(string $id): Feature
     {
         $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * Устанавливает tooltip_content
+     * @param string $tooltip_content
+     * @return Feature
+     * @see tooltip_content
+     */
+    public function setTooltipContent(string $tooltip_content): Feature
+    {
+        $this->tooltip_content = $tooltip_content;
         return $this;
     }
 
@@ -60,8 +77,10 @@ class Feature implements \JsonSerializable
             "geometry_name" => $this->geometry_name,
             "geometry" => $this->geometry,
             "properties" => array(
-                "source_id" => $this->id
-            )
+                "source_id" => $this->id,
+                "tooltip_content" => $this->tooltip_content
+            ),
+            "tooltip_content" => $this->tooltip_content
         );
     }
 

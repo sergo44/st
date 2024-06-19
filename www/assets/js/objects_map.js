@@ -180,6 +180,31 @@ const clusterCircles = new VectorLayer({
     style: clusterCircleStyle,
 });
 
+let currentFeature;
+const info = document.getElementById('info');
+
+const displayFeatureInfo = function (pixel, target) {
+    const feature = target.closest('.ol-control')
+        ? undefined
+        : map.forEachFeatureAtPixel(pixel, function (feature) {
+            return feature;
+        });
+
+    if (feature) {
+        info.style.left = pixel[0] + 'px';
+        info.style.top = pixel[1] + 'px';
+        console.log(feature.get("features")[0].get('tooltip_content'));
+        if (feature !== currentFeature && feature.get("features").length === 1) {
+            info.style.visibility = 'visible';
+            info.innerText = feature.get("features")[0].get('tooltip_content');
+        }
+    } else {
+        info.style.visibility = 'hidden';
+    }
+    currentFeature = feature;
+};
+
+
 const map = new Map({
     layers: [
         new TileLayer({
@@ -196,6 +221,14 @@ const map = new Map({
 });
 
 map.on('pointermove', (event) => {
+    if (event.dragging) {
+        info.style.visibility = 'hidden';
+        currentFeature = undefined;
+        return;
+    }
+    const pixel = map.getEventPixel(event.originalEvent);
+    displayFeatureInfo(pixel, event.originalEvent.target);
+
     clusters.getFeatures(event.pixel).then((features) => {
         if (features[0] !== hoverFeature) {
             // Display the convex hull on hover.
