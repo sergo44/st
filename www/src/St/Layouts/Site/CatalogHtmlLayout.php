@@ -2,14 +2,14 @@
 
 namespace St\Layouts\Site;
 
-use St\ApplicationError;use St\Db;
+use St\ApplicationError;use St\Auth;use St\Db;
 use St\Db\Views\ProfileHtmlView;
 use St\Layouts\HtmlLayout;
 use St\Layouts\ILayout;
 use St\Layouts\Site\CommonHtmlWidgets\RegisterFormHtmlWidget;
 use St\Layouts\Site\CommonHtmlWidgets\RestoreAccessHtmlWidget;
 use St\Layouts\Site\CommonHtmlWidgets\SignInFormHtmlWidget;
-use St\Utils\TemplatesUtils;
+use St\User\Views\Sign\UserSignedHtmlWidget;use St\User\Views\Sign\UserSignInHtmlWidget;use St\Utils\TemplatesUtils;
 
 class CatalogHtmlLayout extends HtmlLayout implements ILayout
 {
@@ -91,13 +91,11 @@ class CatalogHtmlLayout extends HtmlLayout implements ILayout
                 <li class="col-auto"><a href="/Catalog/Objects/Apartment">Апартаменты</a></li>
                 <li class="col-auto"><a href="/Catalog/Objects/Camping">Кемпинг</a></li>
             </ul>
-            <div class="header__wrapper-entry row gap-4 col-sm-auto col justify-content-end align-items-center">
-                <a class="btn btn-warning col-auto" data-bs-target="#entryForm" data-bs-toggle="modal" href="#"
-                   onclick="event.preventDefault()" role="button">Войти</a>
-                <a class="mobile-menu__icon col-auto d-md-none d-block" href="#">
-                    <img alt="" src="/images/icons/burger.svg">
-                </a>
-            </div>
+            <?php if (!Auth::getInstance()->get() || !Auth::getInstance()->get()->getUserId()):?>
+                <?php (new UserSignInHtmlWidget())->out();?>
+            <?php else: ?>
+                <?php (new UserSignedHtmlWidget(Auth::getInstance()->get()))->out();?>
+            <?php endif; ?>
         </div>
     </div>
 </header>

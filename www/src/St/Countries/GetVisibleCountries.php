@@ -36,17 +36,27 @@ class GetVisibleCountries implements IReadDb, IUseRedis
     {
         $countries = array();
 
+        $key = "geo:countries:visible";
+
         try {
 
-            $cached = RedisHelper::getInstance()->getValue("geo:countries:visible");
+            $cached = RedisHelper::getInstance()->getValue($key);
             if ($cached) {
                 return unserialize($cached);
             }
 
-            $sth = $this->dbh->query(/** @lang MariaDB */"SELECT * FROM countries order by name");
-            $countries = $sth->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, Country::class);
+        } catch (\RedisException $e) {
+            if (defined("ST_DEVELOPMENT_VERSION") && ST_DEVELOPMENT_VERSION) {
+                throw new ApplicationError("Redis failed %s", $e->getMessage());
+            }
+        }
 
-            RedisHelper::getInstance()->setValue("geo:countries:visible", serialize($countries));
+        $sth = $this->dbh->query(/** @lang MariaDB */"SELECT * FROM countries order by name");
+        $countries = $sth->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, Country::class);
+
+        try {
+
+            RedisHelper::getInstance()->setValue($key, serialize($countries));
 
         } catch (\RedisException $e) {
             if (defined("ST_DEVELOPMENT_VERSION") && ST_DEVELOPMENT_VERSION) {

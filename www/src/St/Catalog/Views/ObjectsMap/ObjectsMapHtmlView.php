@@ -46,7 +46,7 @@ class ObjectsMapHtmlView extends HtmlView implements IView
         <style>
             #catalogObjectsMap {
                 width: 100%;
-                height: 400px;
+                height: 600px;
                 position: relative;
             }
 
