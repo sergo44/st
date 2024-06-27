@@ -572,8 +572,8 @@ class ImageCropper
                         $this->imagick_instance->cropimage(
                             $this->resize_width,
                             $this->resize_height,
-                            $this->imagick_instance->getimagewidth() > $this->resize_width ? ($this->imagick_instance->getimagewidth() - $this->resize_width) / 2 : 0,
-                            $this->imagick_instance->getimageheight() > $this->resize_height ? ($this->imagick_instance->getimageheight() - $this->resize_height) / 2 : 0
+                            intval($this->imagick_instance->getimagewidth() > $this->resize_width ? ($this->imagick_instance->getimagewidth() - $this->resize_width) / 2 : 0),
+                            intval($this->imagick_instance->getimageheight() > $this->resize_height ? ($this->imagick_instance->getimageheight() - $this->resize_height) / 2 : 0)
                         );
 
                         $frame->thumbnailImage($this->resize_width, $this->resize_height);
@@ -688,6 +688,8 @@ class ImageCropper
             } else {
                 $this->imagick_instance->writeimage($this->saved_file_path);
             }
+
+            clearstatcache(true);
 
             return $this;
         } catch (ImagickException $e) {

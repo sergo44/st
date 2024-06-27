@@ -13,6 +13,11 @@ const setCoordinatesModal = document.getElementById("setCoordinatesModal");
 if (setCoordinatesModal) {
     let map;
 
+    $(setCoordinatesModal).find("button:last").on("click", function() {
+        let modal = bootstrap.Modal.getInstance(setCoordinatesModal);
+        modal.hide();
+    });
+
     setCoordinatesModal.addEventListener("shown.bs.modal", function() {
 
         if (typeof map === "undefined") {

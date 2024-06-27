@@ -103,3 +103,15 @@ create table catalog_objects_images
 alter table catalog_objects change include_food include_foods text not null comment 'Включение питания';
 alter table catalog_objects add start_price int not null comment 'Цена размещения (от)';
 update catalog_objects set start_price = '2000' where 1;
+
+drop table if exists catalog_objects_hotel_rooms;
+create table catalog_objects_hotel_rooms
+(
+    hotel_room_id int unsigned not null primary key auto_increment comment 'Идентификатор комнаты (номера)',
+    object_id int unsigned not null comment 'Идентификатор объекта, к которому принадлежит комната (номер)',
+    image tinytext null comment 'Изображение, которое добавлено к номеру',
+    name tinytext not null comment 'Наименование комнаты (номера)',
+    description text not null comment 'Описание комнаты (номера)',
+    price decimal(10,2) comment 'Цена комнаты (номера)',
+    index idx_object_id(`object_id`)
+) engine InnoDB comment 'Таблица содержит информацию о комнатах (номерах) отелей';

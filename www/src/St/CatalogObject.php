@@ -91,6 +91,11 @@ class CatalogObject implements IReadDb
      * @var string|null
      */
     protected ?string $web_site_url = null;
+    /**
+     * Номера
+     * @var HotelRoom[]|null
+     */
+    protected ?array $hotel_rooms = null;
 
     /**
      * Возвращает объект по идентификатору
@@ -509,6 +514,25 @@ class CatalogObject implements IReadDb
     {
         $images = $this->getImages();
         return sizeof($images) > 1 ? array_slice($images, 1, $limit) : array();
+    }
+
+    /**
+     * Возвращает номера
+     * @return HotelRoom[]
+     */
+    public function getHotelRooms(): array
+    {
+        if (!isset($this->hotel_rooms)) {
+            $sth = Db::getReadPDOInstance()->prepare(/** @lang MariaDB */"SELECT /* 2024-06-07 10:58 */ * FROM catalog_objects_hotel_rooms where object_id = :object_id");
+            $sth->execute(array(
+                ":object_id" => $this->getObjectId()
+            ));
+
+            $this->hotel_rooms = $sth->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, HotelRoom::class);
+
+        }
+
+        return $this->hotel_rooms;
     }
 
 }

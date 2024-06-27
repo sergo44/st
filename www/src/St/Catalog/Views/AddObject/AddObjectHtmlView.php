@@ -204,6 +204,12 @@ class AddObjectHtmlView extends HtmlView implements IView, IAddObjectView
                             <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#jsAddImageModal">Загрузить фотографию</button>
                         </div>
 
+                        <div class="add-new-adv__wrapper-input mb-5 mt-5">
+                            <h5>Номера</h5>
+                            <ul id="jsAddObjectRooms" class="section-ads__numbers add-adv__numbers-list p-0" style="display: block;"></ul>
+                            <a class="btn btn-warning w-auto d-inline-block" data-bs-toggle="modal" data-bs-target="#addHotelRoomModal" href="#">Добавить номер</a>
+                        </div>
+
                         <div class="section-profile__one-block">
                             <h5>Дополнительно</h5>
 
@@ -216,7 +222,7 @@ class AddObjectHtmlView extends HtmlView implements IView, IAddObjectView
                         </div>
 
                         <div class="section-profile__one-block">
-                            <h5>Дополнительно</h5>
+                            <h5>Цены</h5>
 
                             <div class="d-flex gap-5 flex-wrap">
                                 <div class="mb-0 mb-sm-5 position-relative wrapper-services-input">
@@ -264,7 +270,6 @@ class AddObjectHtmlView extends HtmlView implements IView, IAddObjectView
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                        <button type="button" class="btn btn-warning">Сохранить изменения</button>
                     </div>
                 </div>
             </div>
@@ -295,6 +300,54 @@ class AddObjectHtmlView extends HtmlView implements IView, IAddObjectView
                 </div>
             </div>
         </div>
+
+        <!-- Modal -->
+        <div class="modal modal-lg fade" id="addHotelRoomModal" tabindex="-1" role="dialog" aria-labelledby="addHotelRoomModal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form action="/Catalog/Objects/Add/AddHotelRoom/Go" method="post" enctype="multipart/form-data" id="jsAddHotelRoomForm">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="addPhotoLabel">Добавление номера</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <div class="d-flex flex-wrap">
+                                <div class="mb-0 position-relative wrapper-services-input" style="width: 100%">
+                                    <label class="form-label" for="addHotelRoomImage">Укажите фотографию номера<span>*</span></label>
+                                    <input type="file" class="form-control" name="add_hotel_room_image" id="addHotelRoomImage">
+                                </div>
+                            </div>
+
+                            <div class="d-flex flex-wrap">
+                                <div class="mb-0 position-relative wrapper-services-input" style="width: 100%">
+                                    <label class="form-label" for="addHotelRoomName">Укажите наименование номера<span>*</span></label>
+                                    <input type="text" class="form-control" name="add_hotel_room_name" id="addHotelRoomName">
+                                </div>
+                            </div>
+
+                            <div class="d-flex flex-wrap">
+                                <div class="mb-0 mb-sm-5 position-relative wrapper-services-input" style="width: 100%">
+                                    <label class="form-label" for="addHotelRoomDescription">Описание номера<span>*</span></label>
+                                    <textarea class="form-control input-services-list h-100" name="add_hotel_room_description" id="addHotelRoomDescription" required="" type="text"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="d-flex flex-wrap">
+                                <div class="mb-0 position-relative wrapper-services-input" style="width: 100%">
+                                    <label class="form-label" for="addHotelRoomName">Укажите стоимость размещения</label>
+                                    <input type="text" class="form-control" name="add_hotel_room_price" id="addHotelRoomPrice" style="width: 10rem">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-warning" id="jsAddRoomSubmit">Сохранить</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
 
 
         <?php

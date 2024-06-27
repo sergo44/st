@@ -147,181 +147,63 @@ class AboutObjectHtmlView extends HtmlView implements IView
                     </div>
                 </div>
                 <div class="empty-block"></div>
-                <!--
+
+                <?php if (sizeof($this->catalog_object->getHotelRooms())):?>
+
                 <div class="section-object__description">
                     <h3>Номера</h3>
-                    <div class="sorting-block select-number d-none d-sm-flex flex-wrap align-items-center gap-4 ps-0 pt-0">
+                    <!-- <div class="sorting-block select-number d-none d-sm-flex flex-wrap align-items-center gap-4 ps-0 pt-0">
                         <a class="sorting-variant active" href="#" onclick="event.preventDefault()">Все номера (5)</a>
                         <a class="sorting-variant" href="#" onclick="event.preventDefault()">Одноместные номера (6)</a>
                         <a class="sorting-variant" href="#" onclick="event.preventDefault()">Семейные номера (2)</a>
-                    </div>
+                    </div> -->
                     <ul class="section-catalog__list">
-                        <li class="d-flex flex-column flex-sm-row">
-                            <div class="section-catalog__wrapper-hotel-image flex-shrink-0">
-                                <img alt="Отель" class="w-100 h-100 object-fit-cover" src="/images/mayak.jpg">
-                            </div>
-                            <div class="section-catalog__wrapper-for-tablet d-lg-flex flex-grow-1">
-                                <div class="section-catalog__wrapper-description flex-grow-1">
-                                    <h5 class="section-catalog__card-title">Отель "Маяк"</h5>
-                                    <div class="card-raiting d-flex align-items-center gap-3">
-                                        <span>4.9</span>
-                                        <div class="card-raiting__wrapper-stars">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/semi-star.svg">
-                                        </div>
-                                    </div>
-                                    <div class="card__wrapper-house card-in-object d-flex align-items-center gap-3 mt-2">
-                                        <span>1 комната, 2 места, 1 кровать, 1 диван</span>
-                                    </div>
-                                    <ul class="card__adv-list d-flex flex-wrap ">
-                                        <li>Wi-Fi</li>
-                                        <li>Кофе</li>
-                                        <li>Обслуживание номеров</li>
-                                        <li>Кондиционер</li>
-                                        <li>Wi-Fi</li>
-                                    </ul>
-                                </div>
+                        <?php foreach ($this->catalog_object->getHotelRooms() as $hotel_room):?>
 
-                                <div class="section-catalog__wrapper-card-price flex-shrink-0 d-flex align-items-center">
-                                    <div class="section-catalog__price__wrapper w-100">
-                                        <div
-                                            class="section-catalog__wrapper-for-day d-flex gap-3 align-items-end align-items-lg-start flex-lg-column">
-                                            <div class="section-catalog__price">от 4 200 руб.</div>
-                                            <div class="section-catalog__for-number">за номер в сутки</div>
-                                        </div>
-                                        <a class="btn btn-outline-secondary" href="#">Подробнее</a>
-                                    </div>
+                            <li class="d-flex flex-column flex-sm-row">
+                                <div class="section-catalog__wrapper-hotel-image flex-shrink-0" style="height: 191px">
+                                    <img alt="Отель" class="w-100 h-100 object-fit-cover" src="<?php print $hotel_room->getImageUri(287, 191)?>">
                                 </div>
-                            </div>
-                        </li>
-                        <li class="d-flex flex-column flex-sm-row">
-                            <div class="section-catalog__wrapper-hotel-image flex-shrink-0">
-                                <img alt="Отель" class="w-100 h-100 object-fit-cover" src="/images/mayak.jpg">
-                            </div>
-                            <div class="section-catalog__wrapper-for-tablet d-lg-flex flex-grow-1">
-                                <div class="section-catalog__wrapper-description flex-grow-1">
-                                    <h5 class="section-catalog__card-title">Отель "Маяк"</h5>
-                                    <div class="card-raiting d-flex align-items-center gap-3">
-                                        <span>4.9</span>
-                                        <div class="card-raiting__wrapper-stars">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/semi-star.svg">
+                                <div class="section-catalog__wrapper-for-tablet d-lg-flex flex-grow-1">
+                                    <div class="section-catalog__wrapper-description flex-grow-1">
+                                        <h5 class="section-catalog__card-title"><?php print $this->escape($hotel_room->getName())?></h5>
+                                        <div class="card-raiting d-flex align-items-center gap-3 d-none">
+                                            <span>4.9</span>
+                                            <div class="card-raiting__wrapper-stars">
+                                                <img alt="" src="/images/icons/star.svg">
+                                                <img alt="" src="/images/icons/star.svg">
+                                                <img alt="" src="/images/icons/star.svg">
+                                                <img alt="" src="/images/icons/star.svg">
+                                                <img alt="" src="/images/icons/semi-star.svg">
+                                            </div>
                                         </div>
+                                        <div class="card__wrapper-house card-in-object d-flex align-items-center gap-3 mt-2">
+                                            <span><?php print  print $this->escape($hotel_room->getDescription());?></span>
+                                        </div>
+                                        <ul class="card__adv-list d-flex flex-wrap ">
+                                            <li>Wi-Fi</li>
+                                            <li>Кофе</li>
+                                            <li>Обслуживание номеров</li>
+                                            <li>Кондиционер</li>
+                                            <li>Wi-Fi</li>
+                                        </ul>
                                     </div>
-                                    <div class="card__wrapper-house card-in-object d-flex align-items-center gap-3 mt-2">
-                                        <span>1 комната, 2 места, 1 кровать, 1 диван</span>
-                                    </div>
-                                    <ul class="card__adv-list d-flex flex-wrap ">
-                                        <li>Wi-Fi</li>
-                                        <li>Кофе</li>
-                                        <li>Обслуживание номеров</li>
-                                        <li>Кондиционер</li>
-                                        <li>Wi-Fi</li>
-                                    </ul>
-                                </div>
 
-                                <div class="section-catalog__wrapper-card-price flex-shrink-0 d-flex align-items-center">
-                                    <div class="section-catalog__price__wrapper w-100">
-                                        <div
-                                            class="section-catalog__wrapper-for-day d-flex gap-3 align-items-end align-items-lg-start flex-lg-column">
-                                            <div class="section-catalog__price">от 4 200 руб.</div>
-                                            <div class="section-catalog__for-number">за номер в сутки</div>
-                                        </div>
-                                        <a class="btn btn-outline-secondary" href="#">Подробнее</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="d-flex flex-column flex-sm-row">
-                            <div class="section-catalog__wrapper-hotel-image flex-shrink-0">
-                                <img alt="Отель" class="w-100 h-100 object-fit-cover" src="/images/mayak.jpg">
-                            </div>
-                            <div class="section-catalog__wrapper-for-tablet d-lg-flex flex-grow-1">
-                                <div class="section-catalog__wrapper-description flex-grow-1">
-                                    <h5 class="section-catalog__card-title">Отель "Маяк"</h5>
-                                    <div class="card-raiting d-flex align-items-center gap-3">
-                                        <span>4.9</span>
-                                        <div class="card-raiting__wrapper-stars">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/semi-star.svg">
+                                    <div class="section-catalog__wrapper-card-price flex-shrink-0 d-flex align-items-center">
+                                        <div class="section-catalog__price__wrapper w-100">
+                                            <div class="section-catalog__wrapper-for-day d-flex gap-3 align-items-end align-items-lg-start flex-lg-column">
+                                                <div class="section-catalog__price">от <?php print $hotel_room->getPrice();?> руб.</div>
+                                                <div class="section-catalog__for-number">за номер в сутки</div>
+                                            </div>
+                                            <a class="btn btn-outline-secondary" href="#">Забронировать</a>
                                         </div>
                                     </div>
-                                    <div class="card__wrapper-house card-in-object d-flex align-items-center gap-3 mt-2">
-                                        <span>1 комната, 2 места, 1 кровать, 1 диван</span>
-                                    </div>
-                                    <ul class="card__adv-list d-flex flex-wrap ">
-                                        <li>Wi-Fi</li>
-                                        <li>Кофе</li>
-                                        <li>Обслуживание номеров</li>
-                                        <li>Кондиционер</li>
-                                        <li>Wi-Fi</li>
-                                    </ul>
                                 </div>
-
-                                <div class="section-catalog__wrapper-card-price flex-shrink-0 d-flex align-items-center">
-                                    <div class="section-catalog__price__wrapper w-100">
-                                        <div
-                                            class="section-catalog__wrapper-for-day d-flex gap-3 align-items-end align-items-lg-start flex-lg-column">
-                                            <div class="section-catalog__price">от 4 200 руб.</div>
-                                            <div class="section-catalog__for-number">за номер в сутки</div>
-                                        </div>
-                                        <a class="btn btn-outline-secondary" href="#">Подробнее</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="d-flex flex-column flex-sm-row">
-                            <div class="section-catalog__wrapper-hotel-image flex-shrink-0">
-                                <img alt="Отель" class="w-100 h-100 object-fit-cover" src="/images/mayak.jpg">
-                            </div>
-                            <div class="section-catalog__wrapper-for-tablet d-lg-flex flex-grow-1">
-                                <div class="section-catalog__wrapper-description flex-grow-1">
-                                    <h5 class="section-catalog__card-title">Отель "Маяк"</h5>
-                                    <div class="card-raiting d-flex align-items-center gap-3">
-                                        <span>4.9</span>
-                                        <div class="card-raiting__wrapper-stars">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/semi-star.svg">
-                                        </div>
-                                    </div>
-                                    <div class="card__wrapper-house card-in-object d-flex align-items-center gap-3 mt-2">
-                                        <span>1 комната, 2 места, 1 кровать, 1 диван</span>
-                                    </div>
-                                    <ul class="card__adv-list d-flex flex-wrap ">
-                                        <li>Wi-Fi</li>
-                                        <li>Кофе</li>
-                                        <li>Обслуживание номеров</li>
-                                        <li>Кондиционер</li>
-                                        <li>Wi-Fi</li>
-                                    </ul>
-                                </div>
-
-                                <div class="section-catalog__wrapper-card-price flex-shrink-0 d-flex align-items-center">
-                                    <div class="section-catalog__price__wrapper w-100">
-                                        <div
-                                            class="section-catalog__wrapper-for-day d-flex gap-3 align-items-end align-items-lg-start flex-lg-column">
-                                            <div class="section-catalog__price">от 4 200 руб.</div>
-                                            <div class="section-catalog__for-number">за номер в сутки</div>
-                                        </div>
-                                        <a class="btn btn-outline-secondary" href="#">Подробнее</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
+                            </li>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
+                <?php endif; ?>
                 <div class="empty-block"></div>
                 <div class="section-object__description">
                     <h3>Описание</h3>
@@ -330,7 +212,7 @@ class AboutObjectHtmlView extends HtmlView implements IView
 
                 </div>
                 <div class="empty-block"></div>
-                -->
+
 
                 <div class="section-object__description reviews">
                     <h3>Отзывы (20)</h3>

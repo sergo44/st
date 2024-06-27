@@ -78,7 +78,7 @@ try {
         ->open()
         ->resize()
         ->save();
-   exit();
+
     if (file_exists($dst_path) && is_readable($dst_path)) {
         if (!headers_sent()) {
             header("Content-type: " . mime_content_type($dst_path));

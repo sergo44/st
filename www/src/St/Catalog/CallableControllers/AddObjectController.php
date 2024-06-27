@@ -3,6 +3,7 @@
 namespace St\Catalog\CallableControllers;
 
 use St\ApplicationError;
+use St\Catalog\AddHotelRoom;
 use St\Catalog\AddObject;
 use St\Catalog\Views\AddObject\AddObjectHtmlView;
 use St\CatalogObject;
@@ -10,6 +11,7 @@ use St\Countries\GetVisibleCountries;
 use St\FrontController\CallableControllerException;
 use St\FrontController\ICallableController;
 use St\FrontController\UserCallableController;
+use St\HotelRoom;
 use St\Result;
 use St\Views\IView;
 
@@ -103,6 +105,28 @@ class AddObjectController extends UserCallableController implements ICallableCon
                         $uploaded_image['ratio'][$index]
                     );
                 }
+            }
+
+            // $hotel_room_id = $this->getUserInputData("hotel_room_id");
+            $hotel_room_uploaded_file = $this->getUserInputData("hotel_room_uploaded_file");
+            $hotel_room_name = $this->getUserInputData("hotel_room_name");
+            $hotel_room_description = $this->getUserInputData("hotel_room_description");
+            $hotel_room_price = $this->getUserInputData("hotel_room_price");
+
+            foreach ($hotel_room_uploaded_file as $key => $uploaded_file) {
+                $hotel_room = new HotelRoom();
+                $hotel_room
+                    ->setHotelRoomId(null)
+                    ->setObjectId($object->getObjectId())
+                    ->setImage($uploaded_file)
+                    ->setName($hotel_room_name[$key])
+                    ->setDescription($hotel_room_description[$key])
+                    ->setPrice($hotel_room_price[$key])
+                    ;
+
+                $rooms_store = new AddHotelRoom( $hotel_room );
+                $rooms_store->add();
+
             }
 
         } catch (CallableControllerException $e) {

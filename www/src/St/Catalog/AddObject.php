@@ -5,8 +5,9 @@ namespace St\Catalog;
 use PDO;
 use St\CatalogObject;
 use St\Db;
+use St\IWriteDb;
 
-class AddObject
+class AddObject implements IWriteDb
 {
     /**
      * Объект, который необходимо добавить

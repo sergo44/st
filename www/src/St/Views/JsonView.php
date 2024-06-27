@@ -13,23 +13,30 @@ abstract class JsonView
     protected Result $result;
 
     /**
+     * For implements ILayout
+     * @var array
+     */
+    protected array $js = array();
+
+    /**
+     * Устанавливает result
+     * @param Result $result
+     * @return JsonView
+     * @see result
+     */
+    public function setResult(Result $result): JsonView
+    {
+        $this->result = $result;
+        return $this;
+    }
+
+    /**
      * Возвращает вид
      * @return Result
      */
     public function getResult(): Result
     {
         return $this->result;
-    }
-
-    /**
-     * Устанавливает результат
-     * @param Result $result
-     * @return $this
-     */
-    public function setResult(Result $result): JsonView
-    {
-        $this->result = $result;
-        return $this;
     }
 
     /**

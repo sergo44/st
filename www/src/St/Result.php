@@ -25,7 +25,8 @@ class Result implements \JsonSerializable
         return array(
             "success" => $this->success,
             "error" => $this->error,
-            "errors" => $this->getErrors()
+            "errors" => $this->getErrors(),
+            "errors_as_string" => $this->getErrorsAsString("; ")
         );
     }
 
@@ -71,5 +72,19 @@ class Result implements \JsonSerializable
         return $this->errors;
     }
 
+    /**
+     * Возвращает сообщение об ошибке в виде объединенной строки
+     * @param string $separator
+     * @return string
+     */
+    public function getErrorsAsString(string $separator = "; "): string
+    {
+        $error_messages = array();
+        foreach ($this->getErrors() as $error) {
+            $error_messages[] = $error->getMessage();
+        }
+
+        return implode($separator, $error_messages);
+    }
 
 }

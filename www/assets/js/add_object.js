@@ -2,8 +2,15 @@ import Cropper from 'cropperjs';
 
 $(document).ready(function() {
 
+    let addHotelRoomModalEl = document.getElementById('addHotelRoomModal');
+    let addHotelRoomModal = bootstrap.Modal.getOrCreateInstance(addHotelRoomModalEl);
+
     let uploaded_image = 0;
     let cropper;
+
+    addHotelRoomModalEl.addEventListener("hidden.bs.modal", function(event) {
+        document.getElementById("jsAddHotelRoomForm").reset();
+    });
 
     $("#jsUploadImageBtn").click(function(e) {
         e.preventDefault();
@@ -80,13 +87,6 @@ $(document).ready(function() {
                         jsObjectPhoto.append("<input type=\"hidden\" name=\"uploaded_image[ratio]["+uploaded_image+"]\" value=\""+res.ratio+"\">");
 
                         uploaded_image++;
-
-                        // let jsAddImageModal = document.getElementById("jsAddImageModal");
-                        // let jsAddImageModalObj = new Bootstrap.Modal(document.getElementById('jsAddImageModal'), {
-                        //    keyboard: false
-                        // });
-                        // console.log("I am hide modal");
-                        // jsAddImageModalObj.hide();
                     });
                 }
             }
@@ -97,6 +97,34 @@ $(document).ready(function() {
     jsAddImageModal.addEventListener("hidden.bs.modal", function(e) {
         $("#jsSetAreaImage").attr("src", "/images/no-image.svg");
         $("#jsSetAreaBtn").unbind("click");
+    });
+
+    $("#jsAddHotelRoomForm").on("submit", function(e) {
+        let that = this;
+        e.preventDefault();
+        $.ajax({
+            url: $(that).attr("action"),
+            type: "POST",
+            dataType: "json",
+            data: new FormData(this),
+            processData: false,
+            contentType: false,
+            beforeSend: function() {
+
+            },
+            error: function() {
+                alert("Произошла непредвиденная ошибка при выполнении запроса к серверу. Пожалуйста, проверьте соединение с сервером и повторите попытку еще раз");
+            },
+            success: function(res) {
+
+                if (res.result.success) {
+                    $("#jsAddObjectRooms").append(res.list_hotel_html_element);
+                    addHotelRoomModal.hide();
+                } else {
+                    alert(res.result.errors_as_string);
+                }
+            }
+        });
     });
 
 });
