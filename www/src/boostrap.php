@@ -37,14 +37,15 @@ try {
     }
 
     require __DIR__ . "/../vendor/autoload.php";
+    require_once __DIR__  . "/config.secret.php";
 
     switch ($host) {
         case "st.test":
-            require_once "config.local.php";
+            require_once __DIR__ . "/config.local.php";
             break;
 
         case "soberitur.ru":
-            require_once "config.global.php";
+            require_once __DIR__ . "/config.global.php";
             break;
 
         default:

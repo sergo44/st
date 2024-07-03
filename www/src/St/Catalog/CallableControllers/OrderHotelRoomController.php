@@ -82,8 +82,8 @@ class OrderHotelRoomController extends CallableController implements ICallableCo
             $phpmailer = new PHPMailer(true);
             $phpmailer->SMTPDebug = SMTP::DEBUG_OFF;
             $phpmailer->isSMTP();
-            $phpmailer->Host = "smtp.mail.ru";
-            $phpmailer->Username = "soberi.tur@mail.ru";
+            $phpmailer->Host = ST_SMTP_HOST;
+            $phpmailer->Username = ST_SMTP_PASSWORD;
             $phpmailer->Password = "4D5KPJ22MZ2NrmH3z0gB";
             $phpmailer->SMTPAuth = true;
             $phpmailer->Port = 465;
