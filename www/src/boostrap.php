@@ -24,6 +24,10 @@ try {
         if (strpos(__FILE__, "st.test")) {
             $host = "st.test";
         }
+
+        if (strpos(__FILE__, "soberitur.ru")) {
+            $host = "soberitur.ru";
+        }
     }
 
     define("ST_HOST", $host);
@@ -37,6 +41,10 @@ try {
     switch ($host) {
         case "st.test":
             require_once "config.local.php";
+            break;
+
+        case "soberitur.ru":
+            require_once "global.local.php";
             break;
 
         default:

@@ -143,7 +143,7 @@ class HotelRoom implements \JsonSerializable
             Fs::mkdir_recursive($dir);
         }
 
-        return sprintf("/%s/%ux%u/%s?crop=1", $path_info['dirname'], $width, $height, $path_info['filename']);
+        return sprintf("/%s/%ux%u/%s.%s?crop=1", $path_info['dirname'], $width, $height, $path_info['filename'], $path_info['extension']);
     }
 
     /**
