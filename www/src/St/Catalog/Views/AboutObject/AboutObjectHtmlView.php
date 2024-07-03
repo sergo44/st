@@ -2,6 +2,9 @@
 
 namespace St\Catalog\Views\AboutObject;
 
+use St\ApplicationError;
+use St\Auth;
+use St\Catalog\Views\AboutObject\Widgets\OrderRoomModalDialogHtmlWidget;
 use St\CatalogObject;
 use St\Views\HtmlView;
 use St\Views\IView;
@@ -36,6 +39,9 @@ class AboutObjectHtmlView extends HtmlView implements IView
         return $this;
     }
 
+    /**
+     * @throws ApplicationError
+     */
     #[\Override] public function out(): void
     {
         ?>
@@ -164,8 +170,8 @@ class AboutObjectHtmlView extends HtmlView implements IView
                                 <div class="section-catalog__wrapper-hotel-image flex-shrink-0" style="height: 191px">
                                     <img alt="Отель" class="w-100 h-100 object-fit-cover" src="<?php print $hotel_room->getImageUri(287, 191)?>">
                                 </div>
-                                <div class="section-catalog__wrapper-for-tablet d-lg-flex flex-grow-1">
-                                    <div class="section-catalog__wrapper-description flex-grow-1">
+                                <div class="section-catalog__wrapper-for-tablet w-100 d-lg-flex flex-grow-1">
+                                    <div class="section-catalog__wrapper-description flex-grow-1 w-100">
                                         <h5 class="section-catalog__card-title"><?php print $this->escape($hotel_room->getName())?></h5>
                                         <div class="card-raiting d-flex align-items-center gap-3 d-none">
                                             <span>4.9</span>
@@ -195,7 +201,7 @@ class AboutObjectHtmlView extends HtmlView implements IView
                                                 <div class="section-catalog__price">от <?php print $hotel_room->getPrice();?> руб.</div>
                                                 <div class="section-catalog__for-number">за номер в сутки</div>
                                             </div>
-                                            <a class="btn btn-outline-secondary" href="#">Забронировать</a>
+                                            <a class="btn btn-outline-secondary" href="#" data-hotel-room-id="<?php print (int)$hotel_room->getHotelRoomId();?>" data-bs-target="#jsOrderRoomModal" data-bs-toggle="modal">Забронировать</a>
                                         </div>
                                     </div>
                                 </div>
@@ -208,8 +214,6 @@ class AboutObjectHtmlView extends HtmlView implements IView
                 <div class="section-object__description">
                     <h3>Описание</h3>
                     <p>Посмотрите объекты рядом</p>
-
-
                 </div>
                 <div class="empty-block"></div>
 
@@ -379,7 +383,11 @@ class AboutObjectHtmlView extends HtmlView implements IView
 
         </div>
 
+        <?php (new OrderRoomModalDialogHtmlWidget(Auth::getInstance()->get()))->out(); ?>
+
         <?php
+
+
     }
 
 

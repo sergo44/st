@@ -15,7 +15,8 @@
       "ext-redis": "*",
       "ext-mbstring": "*",
       "ext-imagick": "*",
-      "ext-fileinfo": "*"
+      "ext-fileinfo": "*",
+        "phpmailer/phpmailer": "dev-master"
     },
     "autoload": {
         "psr-4": {

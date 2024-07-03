@@ -171,8 +171,8 @@ class ShowObjectsHtmlView extends HtmlView implements IView
                                 <div class="section-catalog__wrapper-hotel-image flex-shrink-0">
                                     <img alt="Отель" class="w-100 h-100 object-fit-cover" src="<?php print $catalog_object->getFirstImage()->getUri(214, 214, true)?>">
                                 </div>
-                                <div class="section-catalog__wrapper-for-tablet d-lg-flex">
-                                    <div class="section-catalog__wrapper-description">
+                                <div class="section-catalog__wrapper-for-tablet w-100 d-lg-flex">
+                                    <div class="section-catalog__wrapper-description w-100">
                                         <h5 class="section-catalog__card-title"><?php print $this->escape($catalog_object->getName())?></h5>
                                         <div class="card-raiting d-flex align-items-center gap-3">
                                             <span>4.9</span>

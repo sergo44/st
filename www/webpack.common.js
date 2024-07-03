@@ -4,11 +4,13 @@ const autoprefixer = require('autoprefixer')
 
 module.exports = {
     entry: {
+        style: [
+            './assets/less/style.less'
+        ],
         common: [
             './assets/js/common.js',
             './assets/js/user_sign.js',
-            './assets/js/user_sign_in.js',
-            './assets/less/style.less'
+            './assets/js/user_sign_in.js'
         ],
         add_object: [
             './assets/js/set_coordinates.js',
@@ -16,6 +18,9 @@ module.exports = {
         ],
         objects_map: [
             './assets/js/objects_map.js'
+        ],
+        about_object: [
+            './assets/js/about_object.js'
         ]
     },
     output: {

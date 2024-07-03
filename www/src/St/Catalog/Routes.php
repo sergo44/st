@@ -68,6 +68,10 @@ class Routes extends FileRoute implements IRoute
             return (new Catalog\CallableControllers\AddHotelRoomController($_REQUEST, new Layouts\JsonLayout(), new Catalog\Views\HotelRooms\AddHotelRoomGoJsonView()))->index();
         }
 
+        if (preg_match("#^/?Catalog/Objects/Room/Book/Go/?$#ui", $this->dispatcher->getPath())) {
+            return (new Catalog\CallableControllers\OrderHotelRoomController($_REQUEST, new Layouts\JsonLayout(), new Catalog\Views\AboutObject\OrderHotelRoomJsonView()))->index();
+        }
+
         return null;
     }
 }

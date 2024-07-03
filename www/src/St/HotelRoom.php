@@ -2,6 +2,8 @@
 
 namespace St;
 
+use PDO;
+
 class HotelRoom implements \JsonSerializable
 {
     /**
@@ -39,6 +41,30 @@ class HotelRoom implements \JsonSerializable
      * @var string
      */
     protected string $uploaded_file = "";
+    /**
+     * Объект каталога, к которому привязан номер
+     * @var CatalogObject|null
+     */
+    protected ?CatalogObject $catalog_object = null;
+
+    /**
+     * Создаем объект номера по переданному идентификатору. Если в БД не найден
+     * указанный объект, будет возвращен пустой объект
+     * @param int $hotel_room_id
+     * @param PDO|null $dbh
+     * @return HotelRoom
+     */
+    public static function get(int $hotel_room_id, ?PDO $dbh = null): HotelRoom
+    {
+        $dbh = $dbh ?: Db::getReadPDOInstance();
+        $sth = $dbh->prepare(/** @lang MariaDB */"SELECT * FROM catalog_objects_hotel_rooms WHERE hotel_room_id = :hotel_room_id");
+        $sth->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, HotelRoom::class);
+        $sth->execute(array(
+            ":hotel_room_id" => $hotel_room_id
+        ));
+
+        return $sth->rowCount() ? $sth->fetch() : new HotelRoom();
+    }
 
     /**
      * @inheritDoc
@@ -70,10 +96,10 @@ class HotelRoom implements \JsonSerializable
     /**
      * Устанавливает hotel_room_id
      * @param int|null $hotel_room_id
-     * @return HotelRoom
+     * @return HotelRoomOrder
      * @see hotel_room_id
      */
-    public function setHotelRoomId(?int $hotel_room_id): HotelRoom
+    public function setHotelRoomId(?int $hotel_room_id): HotelRoomOrder
     {
         $this->hotel_room_id = $hotel_room_id;
         return $this;
@@ -92,10 +118,10 @@ class HotelRoom implements \JsonSerializable
     /**
      * Устанавливает object_id
      * @param int|null $object_id
-     * @return HotelRoom
+     * @return HotelRoomOrder
      * @see object_id
      */
-    public function setObjectId(?int $object_id): HotelRoom
+    public function setObjectId(?int $object_id): HotelRoomOrder
     {
         $this->object_id = $object_id;
         return $this;
@@ -114,10 +140,10 @@ class HotelRoom implements \JsonSerializable
     /**
      * Устанавливает image
      * @param string $image
-     * @return HotelRoom
+     * @return HotelRoomOrder
      * @see image
      */
-    public function setImage(string $image): HotelRoom
+    public function setImage(string $image): HotelRoomOrder
     {
         $this->image = $image;
         return $this;
@@ -159,10 +185,10 @@ class HotelRoom implements \JsonSerializable
     /**
      * Устанавливает name
      * @param string $name
-     * @return HotelRoom
+     * @return HotelRoomOrder
      * @see name
      */
-    public function setName(string $name): HotelRoom
+    public function setName(string $name): HotelRoomOrder
     {
         $this->name = $name;
         return $this;
@@ -181,10 +207,10 @@ class HotelRoom implements \JsonSerializable
     /**
      * Устанавливает description
      * @param string $description
-     * @return HotelRoom
+     * @return HotelRoomOrder
      * @see description
      */
-    public function setDescription(string $description): HotelRoom
+    public function setDescription(string $description): HotelRoomOrder
     {
         $this->description = $description;
         return $this;
@@ -203,10 +229,10 @@ class HotelRoom implements \JsonSerializable
     /**
      * Устанавливает price
      * @param float $price
-     * @return HotelRoom
+     * @return HotelRoomOrder
      * @see price
      */
-    public function setPrice(float $price): HotelRoom
+    public function setPrice(float $price): HotelRoomOrder
     {
         $this->price = $price;
         return $this;
@@ -225,12 +251,26 @@ class HotelRoom implements \JsonSerializable
     /**
      * Устанавливает uploaded_file
      * @param string $uploaded_file
-     * @return HotelRoom
+     * @return HotelRoomOrder
      * @see uploaded_file
      */
-    public function setUploadedFile(string $uploaded_file): HotelRoom
+    public function setUploadedFile(string $uploaded_file): HotelRoomOrder
     {
         $this->uploaded_file = $uploaded_file;
         return $this;
+    }
+
+    /**
+     * Возвращает объект каталога, к которому привязан этот объект. В случае если объект не найден,
+     * будет возвращен новый пустой объект CatalogObject
+     * @return CatalogObject
+     */
+    public function getCatalogObject(): CatalogObject
+    {
+        if (!isset($this->catalog_object) && $this->object_id) {
+            $this->catalog_object = CatalogObject::get($this->object_id);
+        }
+
+        return $this->catalog_object;
     }
 }
