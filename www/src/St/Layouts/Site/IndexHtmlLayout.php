@@ -24,9 +24,7 @@ class IndexHtmlLayout extends HtmlLayout implements ILayout
      */
     public function out(): void
     {
-        ?>
-
-        <!doctype html>
+        ?><!doctype html>
         <html lang="en">
         <head>
             <meta charset="UTF-8">
@@ -39,6 +37,7 @@ class IndexHtmlLayout extends HtmlLayout implements ILayout
             <link href="https://fonts.googleapis.com" rel="preconnect">
             <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
             <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+            <script src="/build/style.bundle.js"></script>
         </head>
         <body>
         <!------------------------------------------Оверлэй------------------------------------------------------>

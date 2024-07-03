@@ -22,8 +22,7 @@ class UserHtmlLayout extends HtmlLayout implements ILayout
     {
        ?>
 
-        <!doctype html>
-        <html lang="en">
+        <!doctype html><html lang="en">
         <head>
             <meta charset="UTF-8">
             <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
@@ -37,6 +36,7 @@ class UserHtmlLayout extends HtmlLayout implements ILayout
             <link href="https://fonts.googleapis.com" rel="preconnect">
             <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
             <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+            <script src="/build/style.bundle.js"></script>
         </head>
         <body>
         <!------------------------------------------Оверлэй------------------------------------------------------>
