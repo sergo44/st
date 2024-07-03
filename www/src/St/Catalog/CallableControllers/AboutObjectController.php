@@ -34,8 +34,13 @@ class AboutObjectController extends CallableController implements ICallableContr
             throw new HttpError404Exception(sprintf("Object with id %u not found", $object_id));
         }
 
-        $this->getView()->setCatalogObject($catalog_object);
-        $this->getLayout()->setSectionTitle($this->getView()->escape($catalog_object->getName()));
+        $this->getView()
+            ->setCatalogObject($catalog_object);
+
+        $this->getLayout()
+            ->addJs("/build/about_object.bundle.js")
+            ->setSectionTitle($this->getView()->escape($catalog_object->getName()))
+        ;
 
         return $this;
     }
