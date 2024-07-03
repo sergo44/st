@@ -44,7 +44,7 @@ try {
             break;
 
         case "soberitur.ru":
-            require_once "global.local.php";
+            require_once "config.global.php";
             break;
 
         default:
