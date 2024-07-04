@@ -6,6 +6,7 @@ use St\ApplicationError;
 use St\Auth;
 use St\Catalog\Views\AboutObject\Widgets\OrderRoomModalDialogHtmlWidget;
 use St\CatalogObject;
+use St\Reviews\Views\AddReviewModalDialogHtmlView;
 use St\Views\HtmlView;
 use St\Views\IView;
 
@@ -219,171 +220,88 @@ class AboutObjectHtmlView extends HtmlView implements IView
 
 
                 <div class="section-object__description reviews">
-                    <h3>Отзывы (20)</h3>
-                    <div class="card-raiting d-flex align-items-center gap-3">
-                        <span>4.9</span>
-                        <div class="card-raiting__wrapper-stars">
-                            <img alt="" src="/images/icons/star.svg">
-                            <img alt="" src="/images/icons/star.svg">
-                            <img alt="" src="/images/icons/star.svg">
-                            <img alt="" src="/images/icons/star.svg">
-                            <img alt="" src="/images/icons/semi-star.svg">
+                    <h3>Отзывы</h3>
+                    <?php if (!sizeof($this->catalog_object->getAllReviews())): ?>
+                        <div class="align-content-center">
+                            <?php if (Auth::getInstance()->get()):?>
+                                <a class="btn btn-outline-secondary" href="#" data-bs-toggle="modal" data-bs-target="#jsAddReviewModal">Еще никто не оставлял отзыв, будьте первыми. Нажмите сюда, что бы оставить отзыв</a>
+                            <?php else: ?>
+                                Для того, что бы оставить отзыв, пожалуйста, войдите на сайте или зарегистрируйтесь, если вы еще это не сделали
+                            <?php endif; ?>
                         </div>
+                    <?php else: ?>
+                        <?php foreach ($this->catalog_object->getAllReviews() as $review): ?>
+                            <div class="reviews-block review-item">
+                                <div class="reviews-block__top d-flex justify-content-between">
+                                    <div class="reviews-block__person d-flex gap-4 align-items-center">
+                                        <div class="reviews-block__wrapper-avatar">
+                                            <img class="avatar-image" alt="" src="/images/person.png">
+                                        </div>
+                                        <div class="reviews-block__wrapper-name">
+                                            <div class="reviews-block__name"><?php print $this->escape($review->getUser()->getName());?></div>
+                                            <div class="reviews-block__time">Период отдыха: <?php print $this->escape($review->getRestPeriod());?></div>
+                                        </div>
+                                    </div>
+                                    <div class="card-raiting d-flex align-items-center gap-3 flex-shrink-0">
+                                        <span><?php print $review->getMark();?></span>
+                                        <div class="card-raiting__wrapper-stars">
+                                            <?php for ($i = 1; $i <= $review->getMark(); $i++): ?>
+                                                <img alt="Start <?php print $i; ?>" src="/images/icons/star.svg">
+                                            <?php endfor; ?>
+
+                                            <?php for ($i = $review->getMark(); $i > 5; $i++): ?>
+                                                <img alt="Start <?php print $i; ?>" src="/images/icons/star-grey.svg">
+                                            <?php endfor; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-none reviews-block__photo-slider owl-carousel">
+                                    <div class="reviews-block__photo">
+                                        <img src="/images/review.png" alt="">
+                                    </div>
+                                    <div class="reviews-block__photo">
+                                        <img src="/images/review.png" alt="">
+                                    </div>
+                                    <div class="reviews-block__photo">
+                                        <img src="/images/review.png" alt="">
+                                    </div>
+                                    <div class="reviews-block__photo">
+                                        <img src="/images/review.png" alt="">
+                                    </div>
+                                    <div class="reviews-block__photo">
+                                        <img src="/images/review.png" alt="">
+                                    </div>
+                                    <div class="reviews-block__photo">
+                                        <img src="/images/review.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="review__text"><?php print $this->escape($review->getReviewText());?></div>
+                                <a class="link-warning" href="#">Показать еще</a>
+                            </div>
+
+
+                        <?php endforeach; ?>
+
+                        <div class="d-none sorting-block d-none d-sm-flex flex-wrap align-items-center gap-4 ps-0">
+                            Сортировать по:
+                            <a class="sorting-variant active" href="#">С высокой оценкой</a>
+                            <a class="sorting-variant" href="#">С низкой оценкой</a>
+                        </div>
+
+
+
                     </div>
-                    <div class="sorting-block d-none d-sm-flex flex-wrap align-items-center gap-4 ps-0">
-                        Сортировать по:
-                        <a class="sorting-variant active" href="#">С высокой оценкой</a>
-                        <a class="sorting-variant" href="#">С низкой оценкой</a>
-                    </div>
-                    <div class="reviews-block review-item">
-                        <div class="reviews-block__top d-flex justify-content-between">
-                            <div class="reviews-block__person d-flex gap-4 align-items-center">
-                                <div class="reviews-block__wrapper-avatar">
-                                    <img class="avatar-image" alt="" src="/images/person.png">
-                                </div>
-                                <div class="reviews-block__wrapper-name">
-                                    <div class="reviews-block__name">Евгения Прокопенко</div>
-                                    <div class="reviews-block__time">Период отдыха: март 2023</div>
-                                </div>
-                            </div>
-                            <div class="card-raiting d-flex align-items-center gap-3 flex-shrink-0">
-                                <span>4.9</span>
-                                <div class="card-raiting__wrapper-stars d-flex flex-shrink-0">
-                                    <img alt="" src="/images/icons/star.svg">
-                                    <img alt="" src="/images/icons/star.svg">
-                                    <img alt="" src="/images/icons/star.svg">
-                                    <img alt="" src="/images/icons/star.svg">
-                                    <img alt="" src="/images/icons/semi-star.svg">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="reviews-block__photo-slider owl-carousel">
-                            <div class="reviews-block__photo">
-                                <img src="/images/review.png" alt="">
-                            </div>
-                            <div class="reviews-block__photo">
-                                <img src="/images/review.png" alt="">
-                            </div>
-                            <div class="reviews-block__photo">
-                                <img src="/images/review.png" alt="">
-                            </div>
-                            <div class="reviews-block__photo">
-                                <img src="/images/review.png" alt="">
-                            </div>
-                            <div class="reviews-block__photo">
-                                <img src="/images/review.png" alt="">
-                            </div>
-                            <div class="reviews-block__photo">
-                                <img src="/images/review.png" alt="">
-                            </div>
-                        </div>
-                        <div class="review__text">
-                            Оказались 2 отдельные кровати, хотя мы с мужем заказывали общую кровать, предложили сдвинуть кровати, но муж решил сделать это сам, так как мы уже вселились с вещами. Пропуск в номер постоянно переставал работать, после долгих прогулок приходилось каждый раз спускаться с третьего этажа вниз, чтобы его активировали, в последний день нам сказали, что пропуск у нас наверно лежал вместе с банковскими карточками (не лежал). Мы попали одним днем отдыха на проходящую в ресторане отеля свадьбу , это был просто ужас, аж стены трясутся. Расположен отель в самом оживленном месте Листвянки, мы были в первый раз, поэтому не знали как там все "вживую". Людям, которые хотят спокойно отдохнуть без толп туристов, я бы не посоветовала, лучше жить чуть дальше, но спокойнее. Выселение тоже проходило странно, уже много лет такого не встречаю - горничная проверяет номер и только после этого тебя выпускают из отеля. В целом проживание в данном месте нам с мужем не понравилось. Компенсировала только близость к началу Большой Байкальской тропы, автовокзалу.
-                        </div>
-                        <a class="link-warning" href="#">Показать еще</a>
-                    </div>
-                    <div class="reviews-block review-item">
-                        <div class="reviews-block__top d-flex justify-content-between">
-                            <div class="reviews-block__person d-flex gap-4 align-items-center">
-                                <div class="reviews-block__wrapper-avatar">
-                                    <img class="avatar-image" alt="" src="/images/person.png">
-                                </div>
-                                <div class="reviews-block__wrapper-name">
-                                    <div class="reviews-block__name">Евгения Прокопенко</div>
-                                    <div class="reviews-block__time">Период отдыха: март 2023</div>
-                                </div>
-                            </div>
-                            <div class="card-raiting d-flex align-items-center gap-3 flex-shrink-0">
-                                <span>4.9</span>
-                                <div class="card-raiting__wrapper-stars d-flex flex-shrink-0">
-                                    <img alt="" src="/images/icons/star.svg">
-                                    <img alt="" src="/images/icons/star.svg">
-                                    <img alt="" src="/images/icons/star.svg">
-                                    <img alt="" src="/images/icons/star.svg">
-                                    <img alt="" src="/images/icons/semi-star.svg">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="reviews-block__photo-slider owl-carousel">
-                            <div class="reviews-block__photo">
-                                <img src="/images/review.png" alt="">
-                            </div>
-                            <div class="reviews-block__photo">
-                                <img src="/images/review.png" alt="">
-                            </div>
-                            <div class="reviews-block__photo">
-                                <img src="/images/review.png" alt="">
-                            </div>
-                            <div class="reviews-block__photo">
-                                <img src="/images/review.png" alt="">
-                            </div>
-                            <div class="reviews-block__photo">
-                                <img src="/images/review.png" alt="">
-                            </div>
-                            <div class="reviews-block__photo">
-                                <img src="/images/review.png" alt="">
-                            </div>
-                        </div>
-                        <div class="review__text">
-                            Оказались 2 отдельные кровати, хотя мы с мужем заказывали общую кровать, предложили сдвинуть кровати, но муж решил сделать это сам, так как мы уже вселились с вещами. Пропуск в номер постоянно переставал работать, после долгих прогулок приходилось каждый раз спускаться с третьего этажа вниз, чтобы его активировали, в последний день нам сказали, что пропуск у нас наверно лежал вместе с банковскими карточками (не лежал). Мы попали одним днем отдыха на проходящую в ресторане отеля свадьбу , это был просто ужас, аж стены трясутся. Расположен отель в самом оживленном месте Листвянки, мы были в первый раз, поэтому не знали как там все "вживую". Людям, которые хотят спокойно отдохнуть без толп туристов, я бы не посоветовала, лучше жить чуть дальше, но спокойнее. Выселение тоже проходило странно, уже много лет такого не встречаю - горничная проверяет номер и только после этого тебя выпускают из отеля. В целом проживание в данном месте нам с мужем не понравилось. Компенсировала только близость к началу Большой Байкальской тропы, автовокзалу.
-                        </div>
-                        <a class="link-warning" href="#">Показать еще</a>
-                    </div>
-                    <div class="reviews-block review-item">
-                        <div class="reviews-block__top d-flex justify-content-between">
-                            <div class="reviews-block__person d-flex gap-4 align-items-center">
-                                <div class="reviews-block__wrapper-avatar">
-                                    <img class="avatar-image" alt="" src="/images/person.png">
-                                </div>
-                                <div class="reviews-block__wrapper-name">
-                                    <div class="reviews-block__name">Евгения Прокопенко</div>
-                                    <div class="reviews-block__time">Период отдыха: март 2023</div>
-                                </div>
-                            </div>
-                            <div class="card-raiting d-flex align-items-center gap-3 flex-shrink-0">
-                                <span>4.9</span>
-                                <div class="card-raiting__wrapper-stars d-flex flex-shrink-0">
-                                    <img alt="" src="/images/icons/star.svg">
-                                    <img alt="" src="/images/icons/star.svg">
-                                    <img alt="" src="/images/icons/star.svg">
-                                    <img alt="" src="/images/icons/star.svg">
-                                    <img alt="" src="/images/icons/semi-star.svg">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="reviews-block__photo-slider owl-carousel">
-                            <div class="reviews-block__photo">
-                                <img src="/images/review.png" alt="">
-                            </div>
-                            <div class="reviews-block__photo">
-                                <img src="/images/review.png" alt="">
-                            </div>
-                            <div class="reviews-block__photo">
-                                <img src="/images/review.png" alt="">
-                            </div>
-                            <div class="reviews-block__photo">
-                                <img src="/images/review.png" alt="">
-                            </div>
-                            <div class="reviews-block__photo">
-                                <img src="/images/review.png" alt="">
-                            </div>
-                            <div class="reviews-block__photo">
-                                <img src="/images/review.png" alt="">
-                            </div>
-                        </div>
-                        <div class="review__text">
-                            Оказались 2 отдельные кровати, хотя мы с мужем заказывали общую кровать, предложили сдвинуть кровати, но муж решил сделать это сам, так как мы уже вселились с вещами. Пропуск в номер постоянно переставал работать, после долгих прогулок приходилось каждый раз спускаться с третьего этажа вниз, чтобы его активировали, в последний день нам сказали, что пропуск у нас наверно лежал вместе с банковскими карточками (не лежал). Мы попали одним днем отдыха на проходящую в ресторане отеля свадьбу , это был просто ужас, аж стены трясутся. Расположен отель в самом оживленном месте Листвянки, мы были в первый раз, поэтому не знали как там все "вживую". Людям, которые хотят спокойно отдохнуть без толп туристов, я бы не посоветовала, лучше жить чуть дальше, но спокойнее. Выселение тоже проходило странно, уже много лет такого не встречаю - горничная проверяет номер и только после этого тебя выпускают из отеля. В целом проживание в данном месте нам с мужем не понравилось. Компенсировала только близость к началу Большой Байкальской тропы, автовокзалу.
-                        </div>
-                        <a class="link-warning" href="#">Показать еще</a>
-                    </div>
-                    <a class="btn btn-outline-secondary" href="#">Показать еще</a>
-                </div>
+                <?php endif; ?>
             </div>
 
 
         </div>
 
         <?php (new OrderRoomModalDialogHtmlWidget(Auth::getInstance()->get()))->out(); ?>
+
+        <?php if (Auth::getInstance()->get()):?>
+            <?php (new AddReviewModalDialogHtmlView( Auth::getInstance()->get(), $this->catalog_object ))->out();?>
+        <?php endif; ?>
 
         <?php
 

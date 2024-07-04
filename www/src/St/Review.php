@@ -31,9 +31,9 @@ class Review
     protected string $rest_period = "";
     /**
      * Оценка
-     * @var float
+     * @var int
      */
-    protected float $mark = 5.0;
+    protected int $mark = 5;
     /**
      * Текст отзыва
      * @var string
@@ -49,6 +49,11 @@ class Review
      * @var int|null
      */
     protected ?int $processed_user_id = null;
+    /**
+     * Содержит пользователя, который опубликовал отзыв
+     * @var User|null
+     */
+    protected ?User $user = null;
 
     /**
      * Возвращает review_id
@@ -162,21 +167,21 @@ class Review
 
     /**
      * Возвращает mark
-     * @return float
+     * @return int
      * @see mark
      */
-    public function getMark(): float
+    public function getMark(): int
     {
         return $this->mark;
     }
 
     /**
      * Устанавливает mark
-     * @param float $mark
+     * @param int $mark
      * @return Review
      * @see mark
      */
-    public function setMark(float $mark): Review
+    public function setMark(int $mark): Review
     {
         $this->mark = $mark;
         return $this;
@@ -248,6 +253,18 @@ class Review
         return $this;
     }
 
+    /**
+     * Возвращает объект пользователя, который опубликовал отзыв
+     * @return User
+     * @throws ApplicationError
+     */
+    public function getUser(): User
+    {
+        if (!isset($this->user)) {
+            $this->user = User::get($this->user_id);
+        }
 
+        return $this->user ?: new User();
+    }
 
 }

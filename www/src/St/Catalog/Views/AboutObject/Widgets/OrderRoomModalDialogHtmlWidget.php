@@ -60,7 +60,6 @@ class OrderRoomModalDialogHtmlWidget extends HtmlView implements IView
                                         <textarea class="form-control input-services-list h-100 w-100" name="remark" id="orderRoomInputRemark" type="text"></textarea>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                         <div class="modal-footer">
