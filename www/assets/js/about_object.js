@@ -1,3 +1,6 @@
+import { Fancybox } from "@fancyapps/ui";
+import "@fancyapps/ui/dist/fancybox/fancybox.css";
+
 $(document).ready(function() {
 
     let $jsOrderRoomModal = $("#jsOrderRoomModal");
@@ -89,5 +92,9 @@ $(document).ready(function() {
 
     $addReviewModal[0].addEventListener("hide.bs.modal", function(e) {
         $addReviewForm[0].reset();
+    });
+
+    Fancybox.bind("[data-fancybox]", {
+        // Your custom options
     });
 });

@@ -262,7 +262,7 @@ class AboutObjectHtmlView extends HtmlView implements IView
                                     <div class="reviews-block__photo-slider owl-carousel">
                                         <?php foreach ($review->getImages() as $image):?>
                                             <div class="reviews-block__photo">
-                                                <img src="<?php print $image->getUri(293, 158)?>" alt="">
+                                                <a href="<?php print $image->getUri(1000, 1000, false)?>" data-fancybox="review-<?php print $review->getReviewId();?>"><img src="<?php print $image->getUri(293, 158)?>" alt=""></a>
                                             </div>
                                         <?php endforeach; ?>
                                     </div>
