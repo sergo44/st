@@ -56,11 +56,11 @@ abstract class HtmlView
 
     /**
      * Выполняет Escape HTML строки
-     * @param string $escape_string
+     * @param mixed $escape_string
      * @return string
      */
-    public function escape(string $escape_string): string
+    public function escape(mixed $escape_string): string
     {
-        return htmlspecialchars(string: $escape_string, encoding: 'UTF-8');
+        return htmlspecialchars(string: (string)$escape_string, encoding: 'UTF-8');
     }
 }
