@@ -15,20 +15,16 @@ $(document).ready(function() {
     $("#jsUploadImageBtn").click(function(e) {
         e.preventDefault();
         $("#jsUploadImageForm").trigger("submit");
+    });
 
+    $("#jsSelectFileInt").change(function(e) {
+        $("#jsUploadImageForm").trigger("submit");
+    });
 
-        // let image = document.getElementById("jsSetAreaImage");
-        // const cropper = new Cropper(image, {
-        //     aspectRatio: 50000 / 50000,
-        //    movable: false,
-        //    rotatable: false,
-        //    zoomOnWheel: false
-        // });
-
-        // $("#setAreaBtn").click(function() {
-        //     console.log(cropper.getData());
-        // });
-
+    let jsAddImageModal = document.getElementById("jsAddImageModal");
+    jsAddImageModal.addEventListener("hidden.bs.modal", function(e) {
+        $("#jsSetAreaImage").attr("src", "/images/no-image.svg");
+        $("#jsSetAreaBtn").unbind("click");
     });
 
     $("#jsUploadImageForm").on("submit", function(e) {
@@ -45,6 +41,12 @@ $(document).ready(function() {
             contentType: false,
             beforeSend: function() {
                 $jsUploadImageErrorCnt.removeClass("alert alert-danger").html(null);
+                $(jsAddImageModal).find("button").prop("disabled", true);
+                $(jsAddImageModal).find("button").first().html("Идет загрузка файла на сервер ...");
+            },
+            complete: function() {
+                $(jsAddImageModal).find("button").prop("disabled", false);
+                $(jsAddImageModal).find("button").first().html("Загрузить");
             },
             error: function(error) {
                 alert("Произошла непредвиденная ошибка при выполнении запроса к серверу.")
@@ -67,13 +69,15 @@ $(document).ready(function() {
                     }
 
                     cropper = new Cropper(image, {
-                            aspectRatio: res.ratio,
-                            movable: false,
-                            rotatable: false,
-                            zoomOnWheel: false
+                        aspectRatio: res.ratio,
+                        movable: false,
+                        rotatable: false,
+                        zoomOnWheel: false,
+                        viewMode: 1,
+                        background: false
                     });
 
-                    $("#jsSetAreaBtn").click(function() {
+                    $("#jsSetAreaBtn").unbind("click").click(function() {
                         let data = cropper.getData();
                         let jsObjectPhoto = $("#jsObjectPhotos");
 
@@ -87,16 +91,17 @@ $(document).ready(function() {
                         jsObjectPhoto.append("<input type=\"hidden\" name=\"uploaded_image[ratio]["+uploaded_image+"]\" value=\""+res.ratio+"\">");
 
                         uploaded_image++;
+
+                        let modal = bootstrap.Modal.getInstance(jsAddImageModal);
+                        modal.hide();
+
+                        cropper.destroy();
+                        $("#jsUploadImageForm")[0].reset();
+
                     });
                 }
             }
         });
-    });
-
-    let jsAddImageModal = document.getElementById("jsAddImageModal");
-    jsAddImageModal.addEventListener("hidden.bs.modal", function(e) {
-        $("#jsSetAreaImage").attr("src", "/images/no-image.svg");
-        $("#jsSetAreaBtn").unbind("click");
     });
 
     $("#jsAddHotelRoomForm").on("submit", function(e) {

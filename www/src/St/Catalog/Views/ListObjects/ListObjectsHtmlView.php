@@ -108,7 +108,7 @@ class ListObjectsHtmlView extends HtmlView implements IView
                     <div class="section-ads__three-dots d-flex align-items-center justify-content-center position-relative">
 
                         <ul class="section-ads__edit position-absolute">
-                            <li><a class="d-block mb-2" href="#">Редактировать</a></li>
+                            <li><a class="d-block mb-2" href="/Catalog/Objects/<?php print $catalog_object->getObjectId();?>/Edit">Редактировать</a></li>
                             <li><a class="ads-remove" href="#">Удалить</a></li>
                         </ul>
                         <svg fill="none" height="2.8rem" viewBox="0 0 28 28" width="2.8rem"

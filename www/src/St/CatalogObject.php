@@ -242,6 +242,17 @@ class CatalogObject implements IReadDb
     }
 
     /**
+     * Возвращает страну, к которой отнесен объект. Если страна не найдена, то будет возвращен
+     * новый пустой объект. Если идентификтаор страны неуказан для объекта, будет возвращен null
+     * @return Country|null
+     * @throws ApplicationError
+     */
+    public function getCountry(): ?Country
+    {
+        return $this->getCountryId() ? Country::get($this->getCountryId()) : null;
+    }
+
+    /**
      * Возвращает region_id
      * @return int
      * @see region_id
@@ -264,6 +275,22 @@ class CatalogObject implements IReadDb
     }
 
     /**
+     * Возвращает регион
+     * @return Region|null Если для объекта указан регион, то будет возвращен регион.
+     * Если он не будет найден по какой-то причине, будет возвращен новый объект типа Region.
+     * В случае если region_id не указан для объекта, будет возвращен NULL
+     * @throws ApplicationError
+     */
+    public function getRegion(): ?Region
+    {
+        if ($this->getRegionId()) {
+            return Region::get($this->getRegionId());
+        }
+
+        return null;
+    }
+
+    /**
      * Возвращает city_id
      * @return int
      * @see city_id
@@ -283,6 +310,21 @@ class CatalogObject implements IReadDb
     {
         $this->city_id = $city_id;
         return $this;
+    }
+
+    /**
+     * Возвращает город, указанный для объекта
+     * @return City|null Возвращает null, если для объекта не указан $city_id, кроме того,
+     * если город не существует с указанным, будет возвращен новый объект типа City
+     * @throws ApplicationError
+     */
+    public function getCity(): ?City
+    {
+        if ($this->getCityId()) {
+            return City::get($this->getCityId());
+        }
+
+        return null;
     }
 
     /**
