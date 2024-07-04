@@ -3,6 +3,7 @@
 namespace St;
 
 use PDO;
+use St\Reviews\GetAllObjectReviews;
 
 class CatalogObject implements IReadDb
 {
@@ -96,6 +97,11 @@ class CatalogObject implements IReadDb
      * @var HotelRoom[]|null
      */
     protected ?array $hotel_rooms = null;
+    /**
+     * Все отзывы объекта
+     * @var Review[]|null
+     */
+    protected ?array $all_reviews = null;
 
     /**
      * Возвращает объект по идентификатору
@@ -533,6 +539,19 @@ class CatalogObject implements IReadDb
         }
 
         return $this->hotel_rooms;
+    }
+
+    /**
+     * Возвращает все отзывы объекта
+     * @return Review[]
+     */
+    public function getAllReviews(): array
+    {
+        if (!isset($this->all_reviews) && $this->object_id) {
+            $this->all_reviews = (new GetAllObjectReviews($this->object_id))->getReviews();
+        }
+
+        return $this->all_reviews ?: array();
     }
 
 }

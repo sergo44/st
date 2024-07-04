@@ -51,6 +51,43 @@ $(document).ready(function() {
         $jsOrderRoomModalForm[0].reset();
     });
 
+    let $addReviewModal = $("#jsAddReviewModal");
+    let $addReviewForm = $addReviewModal.find("form").first();
+    let $buttons = $addReviewForm.find("button");
 
+    $addReviewForm.on("submit", function(e) {
+        e.preventDefault();
 
+        $.ajax({
+            url: $(this).attr("action"),
+            type: "post",
+            dataType: "json",
+            data: new FormData(this),
+            processData: false,
+            contentType: false,
+            error: function() {
+                alert("Произошла непредвиденная ошибка при выполнении запроса к серверу, пожалуйста проверьте наличие интернета и попробуйте еще раз");
+            },
+            success: function(res) {
+                if (res.result.success) {
+                    alert("Ваш отзыв добавлен и будет виден другим, когда его одобрит администратор разделе");
+                    let modal = bootstrap.Modal.getInstance($addReviewModal[0]);
+                    modal.hide();
+                } else {
+                    alert(res.result.errors_as_string);
+                }
+            },
+            beforeSend: function() {
+                $buttons.prop("disabled", true);
+
+            },
+            complete: function() {
+                $buttons.prop("disabled", false);
+            }
+        });
+    });
+
+    $addReviewModal[0].addEventListener("hide.bs.modal", function(e) {
+        $addReviewForm[0].reset();
+    });
 });
