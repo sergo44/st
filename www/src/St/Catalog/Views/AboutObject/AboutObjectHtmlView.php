@@ -7,6 +7,7 @@ use St\Auth;
 use St\Catalog\Views\AboutObject\Widgets\OrderRoomModalDialogHtmlWidget;
 use St\CatalogObject;
 use St\Reviews\Views\AddReviewModalDialogHtmlView;
+use St\User;
 use St\Views\HtmlView;
 use St\Views\IView;
 
@@ -235,7 +236,7 @@ class AboutObjectHtmlView extends HtmlView implements IView
                                 <div class="reviews-block__top d-flex justify-content-between">
                                     <div class="reviews-block__person d-flex gap-4 align-items-center">
                                         <div class="reviews-block__wrapper-avatar">
-                                            <img class="avatar-image" alt="" src="/images/person.png">
+                                            <img class="avatar-image" alt="" src="/images/no-image.svg">
                                         </div>
                                         <div class="reviews-block__wrapper-name">
                                             <div class="reviews-block__name"><?php print $this->escape($review->getUser()->getName());?></div>
@@ -255,32 +256,30 @@ class AboutObjectHtmlView extends HtmlView implements IView
                                         </div>
                                     </div>
                                 </div>
-                                <div class="d-none reviews-block__photo-slider owl-carousel">
-                                    <div class="reviews-block__photo">
-                                        <img src="/images/review.png" alt="">
+
+                                <?php if (sizeof($review->getImages())):?>
+
+                                    <div class="reviews-block__photo-slider owl-carousel">
+                                        <?php foreach ($review->getImages() as $image):?>
+                                            <div class="reviews-block__photo">
+                                                <img src="<?php print $image->getUri(293, 158)?>" alt="">
+                                            </div>
+                                        <?php endforeach; ?>
                                     </div>
-                                    <div class="reviews-block__photo">
-                                        <img src="/images/review.png" alt="">
-                                    </div>
-                                    <div class="reviews-block__photo">
-                                        <img src="/images/review.png" alt="">
-                                    </div>
-                                    <div class="reviews-block__photo">
-                                        <img src="/images/review.png" alt="">
-                                    </div>
-                                    <div class="reviews-block__photo">
-                                        <img src="/images/review.png" alt="">
-                                    </div>
-                                    <div class="reviews-block__photo">
-                                        <img src="/images/review.png" alt="">
-                                    </div>
-                                </div>
+                                <?php endif; ?>
+
                                 <div class="review__text"><?php print $this->escape($review->getReviewText());?></div>
                                 <a class="link-warning" href="#">Показать еще</a>
                             </div>
 
 
                         <?php endforeach; ?>
+
+                        <?php if (Auth::getInstance()->get()): ?>
+                            <div class="align-content-center">
+                                <a class="btn btn-outline-secondary active" href="#" data-bs-toggle="modal" data-bs-target="#jsAddReviewModal">Добавить свой отзыв</a>
+                            </div>
+                        <?php endif; ?>
 
                         <div class="d-none sorting-block d-none d-sm-flex flex-wrap align-items-center gap-4 ps-0">
                             Сортировать по:

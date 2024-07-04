@@ -114,4 +114,22 @@ class ReviewImage
         $this->filename = $filename;
         return $this;
     }
+
+    /**
+     * Возвращает URI изображения
+     * @param int $w
+     * @param int $h
+     * @param bool $crop
+     * @return string
+     */
+    public function getUri(int $w, int $h, bool $crop = true): string
+    {
+        $dir = ltrim(sprintf("%s/%ux%u", $this->getDirectory(), $w, $h), "/");
+
+        if (!file_exists($dir)) {
+            Fs::mkdir_recursive($dir);
+        }
+
+        return sprintf("/%s/%s?crop=%u", $dir, $this->getFilename(), $crop);
+    }
 }

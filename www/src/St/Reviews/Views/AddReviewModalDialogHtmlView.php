@@ -54,6 +54,14 @@ class AddReviewModalDialogHtmlView extends HtmlView implements IView
                                     <input type="text" class="form-control" name="rest_period" id="restPeriodInputForm" value="" placeholder="Например: Илью 2024 года" maxlength="255">
                                 </div>
                                 <div class="mb-1 position-relative wrapper-services-input w-100">
+                                    <label class="form-label" for="uploadImageUrl0">Укажите фотографии для загрузки *</label>
+                                    <input type="file" class="form-control" name="images[]" id="uploadImageUrl0" value="">
+                                </div>
+                                <div class="mb-1 position-relative wrapper-services-input w-100">
+                                    <label class="form-label" for="uploadImageUrl1">Укажите фотографии для загрузки *</label>
+                                    <input type="file" class="form-control" name="images[]" id="uploadImageUrl1" value="">
+                                </div>
+                                <div class="mb-1 position-relative wrapper-services-input w-100">
                                     <label class="form-label" for="orderRoomInputEmail">Ваша оценка <span>*</span></label>
                                     <div class="form-check form-check-inline">
                                         <input type="radio" name="mark" value="1" title="Оценка 1"/> 1

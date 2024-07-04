@@ -45,6 +45,11 @@ class Review
      */
     protected string $status = ReviewStatusesEnum::Wait->name;
     /**
+     * Новые изображения
+     * @var ReviewImage[]
+     */
+    protected array $new_images = array();
+    /**
      * Идентификатор пользователя, который последний изменял статус
      * @var int|null
      */
@@ -54,6 +59,11 @@ class Review
      * @var User|null
      */
     protected ?User $user = null;
+    /**
+     * Изображения, загруженные к объекту (lazy load)
+     * @var ReviewImage[]|null
+     */
+    protected ?array $images = null;
 
     /**
      * Возвращает review_id
@@ -266,5 +276,45 @@ class Review
 
         return $this->user ?: new User();
     }
+
+    /**
+     * Добавляет новое изображение к объекту
+     * @param ReviewImage $review_image
+     * @return $this
+     */
+    public function addNewImage(ReviewImage $review_image): Review
+    {
+        $this->new_images[] = $review_image;
+        return $this;
+    }
+
+    /**
+     * Возвращает new_images
+     * @return array
+     * @see new_images
+     */
+    public function getNewImages(): array
+    {
+        return $this->new_images;
+    }
+
+    /**
+     * Изображения, загруженные к отзыву
+     * @return ReviewImage[]
+     */
+    public function getImages(): array
+    {
+        if (!isset($this->images)) {
+            $sth = Db::getReadPDOInstance()->prepare(/** @lang MariaDB */"SELECT * FROM reviews_image where review_id = :review_id");
+            $sth->execute(array(
+                ":review_id" => $this->getReviewId()
+            ));
+            $this->images = $sth->fetchAll(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, ReviewImage::class);
+        }
+
+        return $this->images;
+    }
+
+
 
 }

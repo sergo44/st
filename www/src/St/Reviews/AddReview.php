@@ -113,6 +113,40 @@ class AddReview implements IWriteDb
 
         $this->review->setReviewId($this->dbh->lastInsertId());
 
+        $sth = $this->dbh->prepare(/** @lang MariaDB */"
+            INSERT INTO reviews_image            
+            (
+                review_image_id, 
+                review_id,
+                directory, 
+                filename
+            )
+            VALUES
+            (
+                NULL,
+                :review_id,
+                :directory,
+                :filename
+            )
+        ");
+
+        foreach ($this->review->getNewImages() as $image) {
+
+            $image
+                ->setReviewId( $this->review->getReviewId() )
+            ;
+            $sth->execute(array(
+                ":review_id" => $image->getReviewId(),
+                ":directory" => $image->getDirectory(),
+                ":filename" => $image->getFilename()
+            ));
+
+            $image
+                ->setReviewImageId( $this->dbh->lastInsertId() )
+            ;
+
+        }
+
         return $this;
     }
 }
