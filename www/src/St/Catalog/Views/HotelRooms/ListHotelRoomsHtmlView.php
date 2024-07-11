@@ -14,24 +14,31 @@ class ListHotelRoomsHtmlView extends HtmlView implements IView
      * @var HotelRoom
      */
     protected HotelRoom $hotel_room;
+    /**
+     * Признак, выводить ли input поля ввода
+     * @var bool
+     */
+    protected bool $display_input;
 
     /**
      * Конструктор объекта вида
      * @param HotelRoom $hotel_room
+     * @param bool $display_input
      */
-    public function __construct(HotelRoom $hotel_room)
+    public function __construct(HotelRoom $hotel_room, bool $display_input = true)
     {
         $this->hotel_room = $hotel_room;
+        $this->display_input = $display_input;
     }
 
     #[Override] public function out(): void
     {
         ?>
 
-        <li>
+        <li class="j-room-item">
             <div class="section-ads__wrapper-number-description add-new-adv__number-description w-100 d-grid align-items-center gap-4 pe-4">
                 <div class="section-ads__wrapper-photo-number">
-                    <img alt="" src="<?php print $this->hotel_room->getImage() . "?crop=1" ?: "/images/no-image.svg"?>" class="p-2">
+                    <img alt="" src="<?php print $this->hotel_room->getHotelRoomId() ? $this->hotel_room->getImageUri(287, 191) : ($this->hotel_room->getImage() . "?crop=1" ?: "/images/no-image.svg")?>" class="p-2">
                 </div>
                 <div class="section-ads__wrapper-number-title">
                     <div class="section-ads__number-title text-uppercase"><?php print $this->escape($this->hotel_room->getName());?></div>
@@ -40,11 +47,11 @@ class ListHotelRoomsHtmlView extends HtmlView implements IView
                     </div>
                 </div>
                 <div class="section-catalog__car-advantages d-flex align-items-center gap-3 mt-2">
-                    <span id="jsAddObjectRoomsPrice"></span>
+                    <span id="jsAddObjectRoomsPrice"><?php print $this->hotel_room->getPrice();?> руб.</span>
                 </div>
                 <div class="section-ads__three-dots d-flex align-items-center justify-content-center position-relative">
                     <ul class="section-ads__edit position-absolute">
-                        <li><a class="ads-remove" href="#">Удалить</a></li>
+                        <li><a class="j-remove-room" data-room-id="<?php print $this->hotel_room->getHotelRoomId();?>" href="#">Удалить</a></li>
                     </ul>
                     <svg fill="none" height="2.8rem" viewBox="0 0 28 28" width="2.8rem" xmlns="http://www.w3.org/2000/svg">
                         <path d="M14 15.3125C14.7249 15.3125 15.3125 14.7249 15.3125 14C15.3125 13.2751 14.7249 12.6875 14 12.6875C13.2751 12.6875 12.6875 13.2751 12.6875 14C12.6875 14.7249 13.2751 15.3125 14 15.3125Z" fill="#F97800"></path>
@@ -54,12 +61,13 @@ class ListHotelRoomsHtmlView extends HtmlView implements IView
                 </div>
             </div>
 
-            <input type="hidden" name="hotel_room_id[]" value="<?php print $this->hotel_room->getHotelRoomId()?>">
-            <input type="hidden" name="hotel_room_uploaded_file[]" value="<?php print $this->hotel_room->getUploadedFile(); ?>">
-            <input type="hidden" name="hotel_room_name[]" value="<?php print $this->hotel_room->getName()?>">
-            <input type="hidden" name="hotel_room_description[]" value="<?php print $this->hotel_room->getDescription()?>">
-            <input type="hidden" name="hotel_room_price[]" value="<?php print $this->hotel_room->getPrice();?>">
-
+            <?php if ($this->display_input):?>
+                <input type="hidden" name="hotel_room_id[]" value="<?php print $this->hotel_room->getHotelRoomId()?>">
+                <input type="hidden" name="hotel_room_uploaded_file[]" value="<?php print $this->hotel_room->getUploadedFile(); ?>">
+                <input type="hidden" name="hotel_room_name[]" value="<?php print $this->hotel_room->getName()?>">
+                <input type="hidden" name="hotel_room_description[]" value="<?php print $this->hotel_room->getDescription()?>">
+                <input type="hidden" name="hotel_room_price[]" value="<?php print $this->hotel_room->getPrice();?>">
+            <?php endif; ?>
         </li>
 
         <?php

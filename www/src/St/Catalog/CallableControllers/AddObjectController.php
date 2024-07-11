@@ -7,6 +7,7 @@ use St\Catalog\AddHotelRoom;
 use St\Catalog\AddObject;
 use St\Catalog\Views\AddObject\AddObjectHtmlView;
 use St\CatalogObject;
+use St\CatalogObjectsStatusesEnum;
 use St\Countries\GetVisibleCountries;
 use St\FrontController\CallableControllerException;
 use St\FrontController\ICallableController;
@@ -84,12 +85,11 @@ class AddObjectController extends UserCallableController implements ICallableCon
                 ->setContactPhone($this->getUserInputData("contact_phone") ?? "")
                 ->setContactEmail($this->getUserInputData("contact_email") ?? "")
                 ->setWebSiteUrl($this->getUserInputData("web_site_url") ?? "")
+                ->setStatus(CatalogObjectsStatusesEnum::Wait->name)
                 ;
 
             $store = new AddObject($object);
             $store->add();
-
-            $this->getView()->setAdded($result->isSuccess());
 
             $uploaded_image = $this->getUserInputData("uploaded_image");
 
@@ -126,8 +126,9 @@ class AddObjectController extends UserCallableController implements ICallableCon
 
                 $rooms_store = new AddHotelRoom( $hotel_room );
                 $rooms_store->add();
-
             }
+
+            $this->getView()->setStored($result->isSuccess());
 
         } catch (CallableControllerException $e) {
             $result->addError($e->getMessage());

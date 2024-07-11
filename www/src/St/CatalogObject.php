@@ -102,6 +102,17 @@ class CatalogObject implements IReadDb
      * @var Review[]|null
      */
     protected ?array $all_reviews = null;
+    /**
+     * Статус объекта
+     * @see CatalogObjectsStatusesEnum
+     * @var string
+     */
+    protected string $status = "Wait";
+    /**
+     * Идентификатор пользователя, который последним принимал решение о публикации объекта
+     * @var string|null
+     */
+    protected ?string $processed_user_id = null;
 
     /**
      * Возвращает объект по идентификатору
@@ -522,6 +533,50 @@ class CatalogObject implements IReadDb
     public function setWebSiteUrl(string $web_site_url): CatalogObject
     {
         $this->web_site_url = $web_site_url;
+        return $this;
+    }
+
+    /**
+     * Возвращает status
+     * @return string
+     * @see status
+     */
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
+    /**
+     * Устанавливает status
+     * @param string $status
+     * @return CatalogObject
+     * @see status
+     */
+    public function setStatus(string $status): CatalogObject
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+    /**
+     * Возвращает processed_user_id
+     * @return string|null
+     * @see processed_user_id
+     */
+    public function getProcessedUserId(): ?string
+    {
+        return $this->processed_user_id;
+    }
+
+    /**
+     * Устанавливает processed_user_id
+     * @param string|null $processed_user_id
+     * @return CatalogObject
+     * @see processed_user_id
+     */
+    public function setProcessedUserId(?string $processed_user_id): CatalogObject
+    {
+        $this->processed_user_id = $processed_user_id;
         return $this;
     }
 

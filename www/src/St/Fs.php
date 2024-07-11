@@ -106,4 +106,24 @@ class Fs
             }
         }
     }
+
+    /**
+     * Удаляет оригинальный файл и миниатюры из файловой системы
+     * @param string $dirname
+     * @param string $purge_image_filename
+     * @return void
+     */
+    public static function purge_thumbs(string $dirname, string $purge_image_filename): void
+    {
+        $files = scandir($dirname);
+
+        foreach ($files as $file) {
+            $path = sprintf("%s/%s", $dirname, $file);
+            if ($file !== "." && $file !== ".." and is_dir($path) && is_executable($path)) {
+                self::purge_thumbs($path, $purge_image_filename);
+            } elseif (is_file($path) && basename($path) === $purge_image_filename ) {
+                unlink($path);
+            }
+        }
+    }
 }

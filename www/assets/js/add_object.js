@@ -132,4 +132,59 @@ $(document).ready(function() {
         });
     });
 
+    $("a[data-image-id]").click(function(e) {
+        e.preventDefault();
+
+        if (!confirm("Данная фотография будет полностью удалена из системы без возможности восстановления, продолжить?")) {
+            return;
+        }
+
+        const image_id = $(this).attr("data-image-id");
+        const $relative_div = $(this).closest("div");
+
+        $.ajax({
+            url: "Edit/" + image_id + "/PurgeImage",
+            method: "GET",
+            success: function(res) {
+                if (res.result?.success) {
+                    $relative_div.fadeOut();
+                } else {
+                    alert(res.result?.errors_as_string);
+                }
+            },
+            error: function(err) {
+                alert("Произошла непредвиденная ошибка при выполнении запроса к серверу хранения данных. Пожалуйста, проверьте наличие интернета и попробуйте еще раз");
+            }
+
+        })
+    });
+
+    $("a.j-remove-room").click(function(e) {
+        e.preventDefault();
+
+        if (!confirm("Вы уверены что хотите удалить указанный номер? Данные нельзя будет восстановить")) {
+            return;
+        }
+
+        let room_id = Number($(e.target).attr("data-room-id"));
+        if ( room_id > 0 ) {
+            const $relative_div = $(this).closest("li.j-room-item");
+
+            $.ajax({
+                url: "Edit/" + room_id + '/RemoveRoom',
+                method: "GET",
+                success: function(res) {
+                    if (res.result?.success) {
+                        $relative_div.remove();
+                    } else {
+                        alert(res.result.errors_as_string);
+                    }
+                },
+                error: function() {
+                    alert("Произошла непредвиденная ошибка при выполнении запроса к серверу. Пожалуйста, попробуйте еще раз");
+                }
+            });
+        }
+    });
+
 });
