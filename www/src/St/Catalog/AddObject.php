@@ -45,6 +45,8 @@ class AddObject implements IWriteDb
                 object_id,
                 object_type,
                 user_id,
+                posted_datetime,
+                last_modified_datetime,
                 name,
                 country_id,
                 region_id,
@@ -57,13 +59,16 @@ class AddObject implements IWriteDb
                 contact_phone,
                 contact_email,
                 web_site_url,
-                start_price
+                start_price,
+                status
             ) 
             values
             (
                 :object_id,
                 :object_type,
                 :user_id,
+                :posted_datetime,
+                :last_modified_datetime,
                 :name,
                 :country_id,
                 :region_id,
@@ -76,7 +81,8 @@ class AddObject implements IWriteDb
                 :contact_phone,
                 :contact_email,
                 :web_site_url,
-                :start_price
+                :start_price,
+                :status
             )   
         ");
 
@@ -84,6 +90,8 @@ class AddObject implements IWriteDb
             ":object_id" => null,
             ":object_type" => $this->catalog_object->getObjectType(),
             ":user_id" => $this->catalog_object->getUserId(),
+            ":posted_datetime" => $this->catalog_object->getPostedDatetime(),
+            ":last_modified_datetime" => $this->catalog_object->getLastModifiedDatetime(),
             ":name" => $this->catalog_object->getName(),
             ":country_id" => $this->catalog_object->getCountryId(),
             ":region_id" => $this->catalog_object->getRegionId(),
@@ -96,7 +104,8 @@ class AddObject implements IWriteDb
             ":start_price" => $this->catalog_object->getStartPrice(),
             ":contact_phone" => $this->catalog_object->getContactPhone(),
             ":contact_email" => $this->catalog_object->getContactEmail(),
-            ":web_site_url" => $this->catalog_object->getWebSiteUrl()
+            ":web_site_url" => $this->catalog_object->getWebSiteUrl(),
+            ":status" => $this->catalog_object->getStatus()
         ));
 
         $this->catalog_object->setObjectId($this->dbh->lastInsertId());

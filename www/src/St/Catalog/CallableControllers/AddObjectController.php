@@ -9,6 +9,7 @@ use St\Catalog\Views\AddObject\AddObjectHtmlView;
 use St\CatalogObject;
 use St\CatalogObjectsStatusesEnum;
 use St\Countries\GetVisibleCountries;
+use St\DateTimeHelper;
 use St\FrontController\CallableControllerException;
 use St\FrontController\ICallableController;
 use St\FrontController\UserCallableController;
@@ -72,6 +73,8 @@ class AddObjectController extends UserCallableController implements ICallableCon
             $object
                 ->setObjectType($this->getUserInputData("object_type") ?? "")
                 ->setUserId($this->getUser()->getUserId())
+                ->setPostedDatetime(DateTimeHelper::now()->format("Y-m-d H:i:s"))
+                ->setLastModifiedDatetime(DateTimeHelper::now()->format("Y-m-d H:i:s"))
                 ->setName($this->getUserInputData("name") ?? "")
                 ->setCountryId($this->getUserInputData("country_id") ?? 0)
                 ->setRegionId($this->getUserInputData("region_id") ?? 0)
