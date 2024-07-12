@@ -344,4 +344,13 @@ class User implements \JsonSerializable, IUseRedis
         return UserRole::{$this->user_role};
     }
 
+    /**
+     * Возвращает хелпер по ролям пользователя
+     * @return UserRoleHelper
+     */
+    public function getUserRoleHelper(): UserRoleHelper
+    {
+        return new UserRoleHelper($this);
+    }
+
 }

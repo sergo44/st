@@ -18,6 +18,7 @@ enum UserRole
     case Administrator;
     /**
      * Владелец
+     * @todo А надо ли??!
      */
     case Owner;
 

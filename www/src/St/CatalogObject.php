@@ -2,6 +2,8 @@
 
 namespace St;
 
+use DateTime;
+use Exception;
 use PDO;
 use St\Reviews\GetAllObjectReviews;
 
@@ -27,6 +29,16 @@ class CatalogObject implements IReadDb
      * @var int
      */
     protected int $user_id = 0;
+    /**
+     * Дата и время публикации (UTC)
+     * @var string|null
+     */
+    protected ?string $posted_datetime = null;
+    /**
+     * Дата и время последнего редактирования. В случае создания объекта указывать дату и время создания
+     * @var string|null
+     */
+    protected ?string $last_modified_datetime = null;
     /**
      * Наименование объекта
      * @var string
@@ -91,7 +103,7 @@ class CatalogObject implements IReadDb
      * Адрес веб сайта
      * @var string|null
      */
-    protected ?string $web_site_url = null;
+    protected ?string $web_site_url = "";
     /**
      * Номера
      * @var HotelRoom[]|null
@@ -206,6 +218,63 @@ class CatalogObject implements IReadDb
     {
         $this->user_id = $user_id;
         return $this;
+    }
+
+    /**
+     * Возвращает posted_datetime
+     * @return string|null
+     * @see posted_datetime
+     */
+    public function getPostedDatetime(): ?string
+    {
+        return $this->posted_datetime;
+    }
+
+    /**
+     * Устанавливает posted_datetime
+     * @param string|null $posted_datetime
+     * @return CatalogObject
+     * @see posted_datetime
+     */
+    public function setPostedDatetime(?string $posted_datetime): CatalogObject
+    {
+        $this->posted_datetime = $posted_datetime;
+        return $this;
+    }
+
+    /**
+     * Возвращает last_modified_datetime
+     * @return string|null
+     * @see last_modified_datetime
+     */
+    public function getLastModifiedDatetime(): ?string
+    {
+        return $this->last_modified_datetime;
+    }
+
+    /**
+     * Устанавливает last_modified_datetime
+     * @param string|null $last_modified_datetime
+     * @return CatalogObject
+     * @see last_modified_datetime
+     */
+    public function setLastModifiedDatetime(?string $last_modified_datetime): CatalogObject
+    {
+        $this->last_modified_datetime = $last_modified_datetime;
+        return $this;
+    }
+
+    /**
+     * Возвращает дату последнего редактирования (создания) объекта в виде Datetime объекта
+     * @return DateTime
+     */
+    public function getLastModifiedDatetimeAsObject(): DateTime
+    {
+        try {
+            return new DateTime($this->getLastModifiedDatetime());
+        } catch (Exception $e) {
+            return new DateTime("@0");
+        }
     }
 
     /**
