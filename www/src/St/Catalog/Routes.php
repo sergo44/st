@@ -35,6 +35,21 @@ class Routes extends FileRoute implements IRoute
             return (new Catalog\CallableControllers\ListObjectsController($_REQUEST, new Layouts\Site\UserHtmlLayout(), new Catalog\Views\ListObjects\ListObjectsHtmlView()))->index();
         }
 
+        if (preg_match("#^/?Catalog/Objects/([1-9][0-9]*)/Edit/?$#ui", $this->dispatcher->getPath(), $match)) {
+            return (new Catalog\CallableControllers\EditObjectController($_REQUEST, new Layouts\Site\UserHtmlLayout(), new Catalog\Views\EditObject\EditObjectHtmlView()))->index($match[1]);
+        }
+
+        if (preg_match("#^/?Catalog/Objects/([1-9][0-9]*)/Edit/([1-9][0-9]*)/PurgeImage/?$#ui", $this->dispatcher->getPath(), $match)) {
+            return (new Catalog\CallableControllers\PurgeObjectImageController($_REQUEST, new Layouts\JsonLayout(), new Catalog\Views\EditObject\PurgeImageJsonView()))->index((int)$match[1], (int)$match[2]);
+        }
+
+        if (preg_match("#^/?Catalog/Objects/([1-9][0-9]*)/Edit/([1-9][0-9]*)/RemoveRoom/?$#ui", $this->dispatcher->getPath(), $match)) {
+            return (new Catalog\CallableControllers\RemoveRoomController($_REQUEST, new Layouts\JsonLayout(), new Catalog\Views\EditObject\RemoveRoomJsonView()))->index((int)$match[1], (int)$match[2]);
+        }
+
+        if (preg_match("#^/?Catalog/Objects/([1-9][0-9]*)/Edit/Go?$#ui", $this->dispatcher->getPath(), $match)) {
+            return (new Catalog\CallableControllers\EditObjectController($_REQUEST, new Layouts\Site\UserHtmlLayout(), new Catalog\Views\EditObject\EditObjectHtmlView()))->editGo($match[1]);
+        }
 
         if (preg_match("#^/?Catalog/Objects/Hotels/?$#ui", $this->dispatcher->getPath())) {
             return (new Catalog\CallableControllers\ShowObjectsController($_REQUEST, new Layouts\Site\CatalogHtmlLayout(), new Catalog\Views\ShowObjects\ShowObjectsHtmlView()))->index(CatalogObjectType::Hotel);

@@ -102,6 +102,17 @@ class CatalogObject implements IReadDb
      * @var Review[]|null
      */
     protected ?array $all_reviews = null;
+    /**
+     * Статус объекта
+     * @see CatalogObjectsStatusesEnum
+     * @var string
+     */
+    protected string $status = "Wait";
+    /**
+     * Идентификатор пользователя, который последним принимал решение о публикации объекта
+     * @var string|null
+     */
+    protected ?string $processed_user_id = null;
 
     /**
      * Возвращает объект по идентификатору
@@ -242,6 +253,17 @@ class CatalogObject implements IReadDb
     }
 
     /**
+     * Возвращает страну, к которой отнесен объект. Если страна не найдена, то будет возвращен
+     * новый пустой объект. Если идентификтаор страны неуказан для объекта, будет возвращен null
+     * @return Country|null
+     * @throws ApplicationError
+     */
+    public function getCountry(): ?Country
+    {
+        return $this->getCountryId() ? Country::get($this->getCountryId()) : null;
+    }
+
+    /**
      * Возвращает region_id
      * @return int
      * @see region_id
@@ -264,6 +286,22 @@ class CatalogObject implements IReadDb
     }
 
     /**
+     * Возвращает регион
+     * @return Region|null Если для объекта указан регион, то будет возвращен регион.
+     * Если он не будет найден по какой-то причине, будет возвращен новый объект типа Region.
+     * В случае если region_id не указан для объекта, будет возвращен NULL
+     * @throws ApplicationError
+     */
+    public function getRegion(): ?Region
+    {
+        if ($this->getRegionId()) {
+            return Region::get($this->getRegionId());
+        }
+
+        return null;
+    }
+
+    /**
      * Возвращает city_id
      * @return int
      * @see city_id
@@ -283,6 +321,21 @@ class CatalogObject implements IReadDb
     {
         $this->city_id = $city_id;
         return $this;
+    }
+
+    /**
+     * Возвращает город, указанный для объекта
+     * @return City|null Возвращает null, если для объекта не указан $city_id, кроме того,
+     * если город не существует с указанным, будет возвращен новый объект типа City
+     * @throws ApplicationError
+     */
+    public function getCity(): ?City
+    {
+        if ($this->getCityId()) {
+            return City::get($this->getCityId());
+        }
+
+        return null;
     }
 
     /**
@@ -480,6 +533,50 @@ class CatalogObject implements IReadDb
     public function setWebSiteUrl(string $web_site_url): CatalogObject
     {
         $this->web_site_url = $web_site_url;
+        return $this;
+    }
+
+    /**
+     * Возвращает status
+     * @return string
+     * @see status
+     */
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
+    /**
+     * Устанавливает status
+     * @param string $status
+     * @return CatalogObject
+     * @see status
+     */
+    public function setStatus(string $status): CatalogObject
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+    /**
+     * Возвращает processed_user_id
+     * @return string|null
+     * @see processed_user_id
+     */
+    public function getProcessedUserId(): ?string
+    {
+        return $this->processed_user_id;
+    }
+
+    /**
+     * Устанавливает processed_user_id
+     * @param string|null $processed_user_id
+     * @return CatalogObject
+     * @see processed_user_id
+     */
+    public function setProcessedUserId(?string $processed_user_id): CatalogObject
+    {
+        $this->processed_user_id = $processed_user_id;
         return $this;
     }
 

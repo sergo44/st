@@ -12,6 +12,7 @@ const setCoordinatesModal = document.getElementById("setCoordinatesModal");
 
 if (setCoordinatesModal) {
     let map;
+    let setCoordinatesLayerVector;
 
     $(setCoordinatesModal).find("button:last").on("click", function() {
         let modal = bootstrap.Modal.getInstance(setCoordinatesModal);
@@ -36,7 +37,35 @@ if (setCoordinatesModal) {
             }));
         }
 
-        let setCoordinatesLayerVector;
+         if (typeof jsEditObjectLocation !== "undefined") {
+
+            if (typeof setCoordinatesLayerVector !== "undefined") {
+                map.removeLayer(setCoordinatesLayerVector);
+            }
+
+            let latLon = fromLonLat([jsEditObjectLocation.lat, jsEditObjectLocation.lon]);
+
+            let iconFeatures = new Feature({
+                geometry: new Point(latLon)
+            });
+
+            iconFeatures.setStyle(new Style({
+                image: new Icon({
+                    color: '#BADA55',
+                    crossOrigin: 'anonymous',
+                    src: '/images/map-marker.svg',
+                    height: 35,
+                    anchor: [0.5, 1]
+                })
+            }));
+
+            let sourceVector = new SourceVector({features: [iconFeatures]});
+            setCoordinatesLayerVector = new LayerVector({source: sourceVector})
+
+            map.addLayer(setCoordinatesLayerVector);
+
+
+        }
 
         map.on('singleclick', function(e) {
 

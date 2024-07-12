@@ -96,10 +96,10 @@ class HotelRoom implements \JsonSerializable
     /**
      * Устанавливает hotel_room_id
      * @param int|null $hotel_room_id
-     * @return HotelRoomOrder
+     * @return HotelRoom
      * @see hotel_room_id
      */
-    public function setHotelRoomId(?int $hotel_room_id): HotelRoomOrder
+    public function setHotelRoomId(?int $hotel_room_id): HotelRoom
     {
         $this->hotel_room_id = $hotel_room_id;
         return $this;
@@ -118,10 +118,10 @@ class HotelRoom implements \JsonSerializable
     /**
      * Устанавливает object_id
      * @param int|null $object_id
-     * @return HotelRoomOrder
+     * @return HotelRoom
      * @see object_id
      */
-    public function setObjectId(?int $object_id): HotelRoomOrder
+    public function setObjectId(?int $object_id): HotelRoom
     {
         $this->object_id = $object_id;
         return $this;
@@ -140,10 +140,10 @@ class HotelRoom implements \JsonSerializable
     /**
      * Устанавливает image
      * @param string $image
-     * @return HotelRoomOrder
+     * @return HotelRoom
      * @see image
      */
-    public function setImage(string $image): HotelRoomOrder
+    public function setImage(string $image): HotelRoom
     {
         $this->image = $image;
         return $this;
@@ -188,7 +188,7 @@ class HotelRoom implements \JsonSerializable
      * @return HotelRoomOrder
      * @see name
      */
-    public function setName(string $name): HotelRoomOrder
+    public function setName(string $name): HotelRoom
     {
         $this->name = $name;
         return $this;
@@ -207,10 +207,10 @@ class HotelRoom implements \JsonSerializable
     /**
      * Устанавливает description
      * @param string $description
-     * @return HotelRoomOrder
+     * @return HotelRoom
      * @see description
      */
-    public function setDescription(string $description): HotelRoomOrder
+    public function setDescription(string $description): HotelRoom
     {
         $this->description = $description;
         return $this;
@@ -229,10 +229,10 @@ class HotelRoom implements \JsonSerializable
     /**
      * Устанавливает price
      * @param float $price
-     * @return HotelRoomOrder
+     * @return HotelRoom
      * @see price
      */
-    public function setPrice(float $price): HotelRoomOrder
+    public function setPrice(float $price): HotelRoom
     {
         $this->price = $price;
         return $this;
@@ -251,10 +251,10 @@ class HotelRoom implements \JsonSerializable
     /**
      * Устанавливает uploaded_file
      * @param string $uploaded_file
-     * @return HotelRoomOrder
+     * @return HotelRoom
      * @see uploaded_file
      */
-    public function setUploadedFile(string $uploaded_file): HotelRoomOrder
+    public function setUploadedFile(string $uploaded_file): HotelRoom
     {
         $this->uploaded_file = $uploaded_file;
         return $this;

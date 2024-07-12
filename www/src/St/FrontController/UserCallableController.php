@@ -29,7 +29,7 @@ class UserCallableController extends CallableController
      * Возвращает текущего пользователя
      * @throws ApplicationError
      */
-    public function getUser(): User
+    public function getUser(): ?User
     {
         return Auth::getInstance()->get();
     }
