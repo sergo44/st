@@ -21,6 +21,9 @@ module.exports = {
         ],
         about_object: [
             './assets/js/about_object.js'
+        ],
+        manage_wait_objects: [
+            './assets/js/manage_wait_objects.js'
         ]
     },
     output: {

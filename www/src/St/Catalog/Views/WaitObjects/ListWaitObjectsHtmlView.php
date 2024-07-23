@@ -43,9 +43,8 @@ class ListWaitObjectsHtmlView extends HtmlView implements IView
     public function out(): void
     {
         ?>
-        <h1 class="d-flex align-items-center justify-content-between">Объявления ожидающие проверки</h1>
-
-        <ul class="section-ads__list">
+        <?php if (sizeof($this->getCatalogObjects())):?>
+        <ul class="section-ads__list " id="waitObjectsList">
 
             <?php foreach ($this->getCatalogObjects() as $catalog_object):?>
 
@@ -68,8 +67,8 @@ class ListWaitObjectsHtmlView extends HtmlView implements IView
                     </div>
                     <div class="d-flex mt-2 justify-content-end">
                         <ul class="list-inline">
-                            <li class="list-inline-item"><a class="d-block mb-2" href="/Catalog/Objects/<?php print $catalog_object->getObjectId();?>/Approved">Допустить публикацию</a></li>
-                            | <li class="list-inline-item"><a class="d-block mb-2" href="/Catalog/Objects/<?php print $catalog_object->getObjectId();?>/Decline">Отклонить публикацию</a></li>
+                            <li class="list-inline-item"><a class="d-block mb-2" href="/Catalog/Objects/<?php print $catalog_object->getObjectId();?>/Approve" data-ajax-url="/Api/Catalog/Objects/<?php print $catalog_object->getObjectId();?>/Approve" data-manage-object="1">Допустить публикацию</a></li>
+                            | <li class="list-inline-item"><a class="d-block mb-2" href="/Catalog/Objects/<?php print $catalog_object->getObjectId();?>/Decline" data-ajax-url="/Api/Catalog/Objects/<?php print $catalog_object->getObjectId();?>/Decline" data-manage-object="1">Отклонить публикацию</a></li>
                             | <li class="list-inline-item"><a class="d-block mb-2" href="/Catalog/Objects/<?php print $catalog_object->getObjectId();?>/Edit">Редактировать</a></li>
                             | <li class="list-inline-item"><a class="d-block mb-2" href="/Catalog/Objects/<?php print $catalog_object->getObjectId();?>/About">Подробнее</a></li>
                         </ul>
@@ -79,6 +78,11 @@ class ListWaitObjectsHtmlView extends HtmlView implements IView
             <?php endforeach; ?>
 
         </ul>
+        <?php else: ?>
+        <div class="d-flex w-100 justify-content-start">Объекты, ожидающие модерацию не найдены</div>
+        <?php endif; ?>
+
+
 
         <?php
     }

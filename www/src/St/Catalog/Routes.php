@@ -47,8 +47,24 @@ class Routes extends FileRoute implements IRoute
             return (new Catalog\CallableControllers\RemoveRoomController($_REQUEST, new Layouts\JsonLayout(), new Catalog\Views\EditObject\RemoveRoomJsonView()))->index((int)$match[1], (int)$match[2]);
         }
 
-        if (preg_match("#^/?Catalog/Objects/([1-9][0-9]*)/Edit/Go?$#ui", $this->dispatcher->getPath(), $match)) {
+        if (preg_match("#^/?Catalog/Objects/([1-9][0-9]*)/Edit/Go/?$#ui", $this->dispatcher->getPath(), $match)) {
             return (new Catalog\CallableControllers\EditObjectController($_REQUEST, new Layouts\Site\UserHtmlLayout(), new Catalog\Views\EditObject\EditObjectHtmlView()))->editGo($match[1]);
+        }
+
+        if (preg_match("#^/?Catalog/Objects/([1-9][0-9]*)/Approve/?$#ui", $this->dispatcher->getPath(), $match)) {
+            return (new Catalog\CallableControllers\ManageObjectsController($_REQUEST, new Layouts\Site\UserHtmlLayout(), new Catalog\Views\ManageObjects\ManageObjectsHtmlView()))->approve($match[1]);
+        }
+
+        if (preg_match("#^/?Api/Catalog/Objects/([1-9][0-9]*)/Approve/?$#ui", $this->dispatcher->getPath(), $match)) {
+            return (new Catalog\CallableControllers\ManageObjectsController($_REQUEST, new Layouts\JsonLayout(), new Catalog\Views\ManageObjects\ManageObjectsJsonView()))->approve($match[1]);
+        }
+
+        if (preg_match("#^/?Catalog/Objects/([1-9][0-9]*)/Decline/?$#ui", $this->dispatcher->getPath(), $match)) {
+            return (new Catalog\CallableControllers\ManageObjectsController($_REQUEST, new Layouts\Site\UserHtmlLayout(), new Catalog\Views\ManageObjects\ManageObjectsHtmlView()))->approve($match[1]);
+        }
+
+        if (preg_match("#^/?Api/Catalog/Objects/([1-9][0-9]*)/Decline/?$#ui", $this->dispatcher->getPath(), $match)) {
+            return (new Catalog\CallableControllers\ManageObjectsController($_REQUEST, new Layouts\JsonLayout(), new Catalog\Views\ManageObjects\ManageObjectsJsonView()))->approve($match[1]);
         }
 
         if (preg_match("#^/?Catalog/Objects/Hotels/?$#ui", $this->dispatcher->getPath())) {

@@ -136,7 +136,7 @@ class CatalogObject implements IReadDb
     {
         $dbh = $dbh ?? Db::getReadPDOInstance();
 
-        $sth = $dbh->prepare(/** @lang MariaDB */"SELECT * FROM catalog_objects WHERE object_id = :object_id");
+        $sth = $dbh->prepare(/** @lang MariaDB */ "SELECT * FROM catalog_objects WHERE object_id = :object_id");
         $sth->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, CatalogObject::class);
         $sth->execute(array(
             ":object_id" => $object_id
@@ -625,6 +625,15 @@ class CatalogObject implements IReadDb
     {
         $this->status = $status;
         return $this;
+    }
+
+    /**
+     * Возвращает статус объекта как Enum объект
+     * @return CatalogObjectsStatusesEnum
+     */
+    public function getStatusAsEnum(): CatalogObjectsStatusesEnum
+    {
+        return CatalogObjectsStatusesEnum::{$this->status};
     }
 
     /**

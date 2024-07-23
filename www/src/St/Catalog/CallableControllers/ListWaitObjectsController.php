@@ -9,6 +9,7 @@ use St\FrontController\CallableControllerException;
 use St\FrontController\ICallableController;
 use St\FrontController\UserCallableController;
 use St\HttpError403Exception;
+use St\Result;
 use St\Views\IView;
 
 class ListWaitObjectsController extends UserCallableController implements ICallableController
@@ -32,6 +33,15 @@ class ListWaitObjectsController extends UserCallableController implements ICalla
     {
         try {
 
+            $this->getView()
+                ->setResult( $result = new Result() )
+            ;
+
+            $this->getLayout()
+                ->setSectionTitle("Проверка объектов")
+                ->addJs("/build/manage_wait_objects.bundle.js")
+            ;
+
             if (!$this->getUser()->getUserRoleHelper()->canModerationObjects()) {
                 throw new HttpError403Exception(sprintf("У вас нет доступа к разделу управления ожидающих объектов (user_id %u", $this->getUser()->getUserId()));
             }
@@ -40,7 +50,7 @@ class ListWaitObjectsController extends UserCallableController implements ICalla
             $this->getView()->setCatalogObjects( $objects );
 
         } catch (CallableControllerException $e) {
-
+            $this->getView()->getResult()->addError($e->getMessage());
         }
 
         return $this;
