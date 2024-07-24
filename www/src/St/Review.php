@@ -2,7 +2,10 @@
 
 namespace St;
 
-class Review
+use Override;
+use PDO;
+
+class Review implements IReadDb, \JsonSerializable
 {
     /**
      * Идентификатор отзыва
@@ -65,6 +68,45 @@ class Review
      */
     protected ?array $images = null;
 
+    /**
+     * Возвращает отзыв по идентификатору
+     * @param int $review_id
+     * @param PDO|null $dbh
+     * @return Review|null
+     */
+    public static function get(int $review_id, ?PDO $dbh = null): ?Review
+    {
+        $dbh = $dbh ?: Db::getReadPDOInstance();
+
+        $sth = $dbh->prepare(/** @lang MariaDB */"SELECT * FROM reviews where review_id = :review_id");
+
+        $sth->execute(array(
+            ":review_id" => $review_id
+        ));
+
+        $sth->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, Review::class);
+
+        return $sth->rowCount() ? $sth->fetch() : null;
+    }
+
+    /**
+     * @inheritdoc
+     * @return array
+     */
+    #[Override] public function jsonSerialize(): array
+    {
+        return array(
+            "review_id" => $this->review_id,
+            "user_id" => $this->user_id,
+            "object_id" => $this->object_id,
+            "publish_datetime_utc" => $this->publish_datetime_utc,
+            "rest_period" => $this->rest_period,
+            "mark" => $this->mark,
+            "review_text" => $this->review_text,
+            "status" => $this->status,
+            "images" => $this->getImages()
+        );
+    }
     /**
      * Возвращает review_id
      * @return int|null
@@ -151,6 +193,11 @@ class Review
     {
         $this->publish_datetime_utc = $publish_datetime_utc;
         return $this;
+    }
+
+    public function getPublishDatetime(): ?\DateTime
+    {
+        return $this->getPublishDatetimeUtc() ? DateTimeHelper::create($this->publish_datetime_utc) : null;
     }
 
     /**
@@ -309,12 +356,36 @@ class Review
             $sth->execute(array(
                 ":review_id" => $this->getReviewId()
             ));
-            $this->images = $sth->fetchAll(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, ReviewImage::class);
+            $this->images = $sth->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, ReviewImage::class);
         }
 
         return $this->images;
     }
 
+    /**
+     * Возвращает первое изображение
+     * @return ReviewImage|null
+     */
+    public function getFirstImage(): ?ReviewImage
+    {
+        return sizeof($this->getImages()) ? $this->getImages()[0] : null;
+    }
 
+    /**
+     * Удаляет изображение из lazy load
+     * @param int $review_image_id
+     * @return ReviewImage|null
+     */
+    public function removeImageUsingPrimaryKey(int $review_image_id): ?ReviewImage
+    {
+        foreach ($this->getImages() as $key => $image) {
+            if ($image->getReviewImageId() === $review_image_id) {
+                unset($this->images[$key]);
+                return $image;
+            }
+        }
+
+        return null;
+    }
 
 }

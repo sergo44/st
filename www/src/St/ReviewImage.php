@@ -4,7 +4,7 @@
  */
 namespace St;
 
-class ReviewImage
+class ReviewImage implements \JsonSerializable
 {
     /**
      * Идентификатор изображения
@@ -26,6 +26,20 @@ class ReviewImage
      * @var string
      */
     protected string $filename;
+
+    /**
+     * @inheritdoc
+     * @return array
+     */
+    #[\Override] public function jsonSerialize(): array
+    {
+        return array(
+            "review_image_id" => $this->review_image_id,
+            "review_id" => $this->review_id,
+            "directory" => $this->directory,
+            "filename" => $this->filename
+        );
+    }
 
     /**
      * Возвращает review_image_id

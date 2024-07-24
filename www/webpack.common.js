@@ -24,6 +24,9 @@ module.exports = {
         ],
         manage_wait_objects: [
             './assets/js/manage_wait_objects.js'
+        ],
+        manage_wait_review: [
+            './assets/js/manage_wait_reviews.js'
         ]
     },
     output: {

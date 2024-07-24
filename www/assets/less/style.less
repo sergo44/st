@@ -7,6 +7,36 @@
 @import "up-button.less";
 @import "~ol/ol.css";
 
+.form-control {
+  height: 4rem;
+}
+
+
+.form-select {
+  top: 6.8rem;
+  left: 0;
+  height: 4rem;
+  padding-left: 1.2rem;
+  z-index: 1;
+  border-radius: 0.4rem;
+  outline: none;
+  border: 0.1rem solid #ECECEC;
+  font-size: inherit;
+}
+
+.h-250 {
+  height: 250px !important;
+}
+
+.form-label {
+  color: #C8C8C8;
+  font-family: Inter;
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1.6rem;
+  text-align: left;
+}
+
 section {
   padding-bottom: 14rem;
   background-repeat: no-repeat;
@@ -291,7 +321,7 @@ header {
   padding-left: 2rem;
 }
 
-.form-control:focus {
+.form-control:focus, .form-select:focus {
   border-color: @orange;
   border-width: .1rem;
   outline: 0;

@@ -57,10 +57,24 @@ abstract class HtmlView
     /**
      * Выполняет Escape HTML строки
      * @param mixed $escape_string
+     * @param bool $nl2br
      * @return string
      */
-    public function escape(mixed $escape_string): string
+    public function escape(mixed $escape_string, bool $nl2br = false): string
     {
-        return htmlspecialchars(string: (string)$escape_string, encoding: 'UTF-8');
+        $content = htmlspecialchars(string: (string)$escape_string, encoding: 'UTF-8');
+        return $nl2br ? nl2br($content) : $content;
+    }
+
+    /**
+     * Alias для escape()
+     * @see self::escape()
+     * @param mixed $escape_string
+     * @param bool $nl2br
+     * @return string
+     */
+    public function e(mixed $escape_string, bool $nl2br = false): string
+    {
+        return $this->escape($escape_string, $nl2br);
     }
 }
