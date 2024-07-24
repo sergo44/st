@@ -6,8 +6,9 @@ use PDO;
 use St\Db;
 use St\IReadDb;
 use St\Review;
+use St\ReviewStatusesEnum;
 
-class GetAllObjectReviews implements IReadDb
+class GetApprovedObjectReviews implements IReadDb
 {
     /**
      * Идентификатор объекта
@@ -39,9 +40,10 @@ class GetAllObjectReviews implements IReadDb
      */
     public function getReviews(): array
     {
-        $sth = $this->dbh->prepare(/** @lang MariaDB */"SELECT * FROM reviews where object_id = :object_id order by publish_datetime_utc");
+        $sth = $this->dbh->prepare(/** @lang MariaDB */"SELECT * FROM reviews where object_id = :object_id && status = :status order by publish_datetime_utc ");
         $sth->execute(array(
-            "object_id" => $this->object_id
+            "object_id" => $this->object_id,
+            "status" => ReviewStatusesEnum::Approved->name
         ));
 
         return $sth->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, Review::class);

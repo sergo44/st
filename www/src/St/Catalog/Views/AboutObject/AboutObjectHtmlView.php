@@ -227,7 +227,7 @@ class AboutObjectHtmlView extends HtmlView implements IView
                             <?php endif; ?>
                         </div>
                     <?php else: ?>
-                        <?php foreach ($this->catalog_object->getAllReviews() as $review): ?>
+                        <?php foreach ($this->catalog_object->getApprovedReviews() as $review): ?>
                             <div class="reviews-block review-item">
                                 <div class="reviews-block__top d-flex justify-content-between">
                                     <div class="reviews-block__person d-flex gap-4 align-items-center">
@@ -257,7 +257,7 @@ class AboutObjectHtmlView extends HtmlView implements IView
 
                                     <div class="reviews-block__photo-slider owl-carousel">
                                         <?php foreach ($review->getImages() as $image):?>
-                                            <div class="reviews-block__photo">
+                                            <div class="reviews-block__photo m-1">
                                                 <a href="<?php print $image->getUri(1000, 1000, false)?>" data-fancybox="review-<?php print $review->getReviewId();?>"><img src="<?php print $image->getUri(293, 158)?>" alt=""></a>
                                             </div>
                                         <?php endforeach; ?>

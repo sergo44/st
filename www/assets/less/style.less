@@ -661,10 +661,6 @@ input[type="checkbox"] + label:before {
   position: absolute;
   left: -2.9rem;
   top: 0;
-  background: url("../images/icons/checkbox.svg") 0 0 no-repeat;
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
 input[type="checkbox"]:checked + label {
@@ -1177,6 +1173,8 @@ input[type="checkbox"]:checked + label:before {
   color: #2a2a2a;
   margin-top: 2rem;
   position: relative;
+  overflow: hidden;
+  max-height: 100px;
 }
 
 .review__text_long {
@@ -1214,7 +1212,7 @@ input[type="checkbox"]:checked + label:before {
   transition: all ease .2s;
 }
 
-.review__text:after {
+.review__text_smooth:after {
   content: "";
   position: absolute;
   left: 0;

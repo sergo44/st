@@ -6,6 +6,7 @@ use DateTime;
 use Exception;
 use PDO;
 use St\Reviews\GetAllObjectReviews;
+use St\Reviews\GetApprovedObjectReviews;
 
 class CatalogObject implements IReadDb
 {
@@ -125,6 +126,11 @@ class CatalogObject implements IReadDb
      * @var string|null
      */
     protected ?string $processed_user_id = null;
+    /**
+     * Содержит одобренные отзывы
+     * @var Review[]|null
+     */
+    protected ?array $approved_reviews = null;
 
     /**
      * Возвращает объект по идентификатору
@@ -727,6 +733,19 @@ class CatalogObject implements IReadDb
         }
 
         return $this->all_reviews ?: array();
+    }
+
+    /**
+     * Возвращает одобренные отзывы
+     * @return Review[]
+     */
+    public function getApprovedReviews(): array
+    {
+        if (!isset($this->approved_reviews)) {
+            $this->approved_reviews = (new GetApprovedObjectReviews($this->getObjectId()))->getReviews();
+        }
+
+        return $this->approved_reviews;
     }
 
 }

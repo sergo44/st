@@ -94,6 +94,41 @@ $(document).ready(function() {
         $addReviewForm[0].reset();
     });
 
+    function checkOverflow(el)
+    {
+        let curOverflow = el.style.overflow;
+
+        if ( !curOverflow || curOverflow === "visible" )
+            el.style.overflow = "hidden";
+
+        let isOverflowing = el.clientWidth < el.scrollWidth
+            || el.clientHeight < el.scrollHeight;
+
+        el.style.overflow = curOverflow;
+
+        return isOverflowing;
+    }
+
+    $(".review__text").each(function(e) {
+        if (!checkOverflow(this)) {
+            $(this).closest("div.review-item").find(".link-warning").remove();
+        } else {
+            $(this).closest("div.review-item").find(".review__text").addClass('review__text_smooth');
+        }
+    });
+
+    $(".review-item").find(".link-warning").click(function(e) {
+        e.preventDefault();
+
+        let $txt = $(this).closest("div.review-item").find(".review__text");
+        $txt.removeClass('review__text_smooth');
+        $txt.css("overflow", "initial");
+        $txt.css("max-height", "initial");
+
+        $(this).closest("div.review-item").find(".link-warning").remove();
+
+    });
+
     Fancybox.bind("[data-fancybox]", {
         // Your custom options
     });
