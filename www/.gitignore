@@ -4,3 +4,5 @@ node_modules
 config.global.php
 /composer.lock
 public/build/
+composer.lock
+package-lock.json
