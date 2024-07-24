@@ -6,3 +6,4 @@ config.global.php
 public/build/
 composer.lock
 package-lock.json
+vendor/*
