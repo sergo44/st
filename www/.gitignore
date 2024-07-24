@@ -3,3 +3,4 @@ yarn-error.log
 node_modules
 config.global.php
 /composer.lock
+/www/public/build/
