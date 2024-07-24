@@ -13,7 +13,7 @@ use St\Images\ImageException;
 use St\Result;
 use St\Review;
 use St\ReviewImage;
-use St\Reviews\AddReview;
+use St\Reviews\ReviewStore;
 use St\ReviewStatusesEnum;
 use St\UploadedFile;
 
@@ -81,11 +81,11 @@ class AddReviewController extends UserCallableController implements ICallableCon
                 $review->addNewImage($review_image);
             }
 
-            $add_review = new AddReview(Db::getWritePDOInstance(), $review);
+            $add_review = new ReviewStore($review);
             $add_review->check($result);
 
             if ($result->isSuccess()) {
-                $add_review->saveToDb();
+                $add_review->add();
             }
 
         } catch (CallableControllerException | ImageException $e) {

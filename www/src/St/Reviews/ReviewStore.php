@@ -5,12 +5,15 @@
 namespace St\Reviews;
 
 use PDO;
+use St\ApplicationError;
+use St\Db;
+use St\Fs;
 use St\IWriteDb;
 use St\Result;
 use St\Review;
 use St\ReviewStatusesEnum;
 
-class AddReview implements IWriteDb
+class ReviewStore implements IWriteDb
 {
     /**
      * Объект отзыва, который добавляется в базу данных
@@ -26,11 +29,12 @@ class AddReview implements IWriteDb
     /**
      * Конструктор объекта
      * @param Review $review
+     * @param PDO|null $dbh
      */
-    public function __construct(PDO $dbh, Review $review)
+    public function __construct(Review $review,  ?PDO $dbh = null)
     {
         $this->review = $review;
-        $this->dbh = $dbh;
+        $this->dbh = $dbh ?? Db::getWritePDOInstance();
     }
 
     public function check(Result $result): Result
@@ -70,7 +74,7 @@ class AddReview implements IWriteDb
      * Метод добавления нового отзыва
      * @return $this
      */
-    public function saveToDb(): AddReview
+    public function add(): ReviewStore
     {
         $sth = $this->dbh->prepare(/** @lang MariaDB */"
             INSERT INTO reviews
@@ -149,4 +153,64 @@ class AddReview implements IWriteDb
 
         return $this;
     }
+
+    /**
+     * Обновляет данные об отзыве
+     * @return ReviewStore
+     * @throws ApplicationError
+     */
+    public function update(): ReviewStore
+    {
+        $sth = $this->dbh->prepare(/** @lang MariaDB */"
+            UPDATE
+                reviews 
+            SET
+                user_id = :user_id,
+                object_id = :object_id,
+                publish_datetime_utc = :publish_datetime_utc,
+                rest_period = :rest_period,
+                mark = :mark,
+                review_text = :review_text,
+                status = :status,
+                processed_user_id = :processed_user_id
+            WHERE
+                review_id = :review_id
+        ");
+
+        $sth->execute(array(
+            ":user_id" => $this->review->getUser()->getUserId(),
+            ":object_id" => $this->review->getObjectId(),
+            ":publish_datetime_utc" => $this->review->getPublishDatetimeUtc(),
+            ":rest_period" => $this->review->getRestPeriod(),
+            ":mark" => $this->review->getMark(),
+            ":review_text" => $this->review->getReviewText() ,
+            ":status" => $this->review->getStatus(),
+            ":processed_user_id" => $this->review->getProcessedUserId(),
+            ":review_id" => $this->review->getReviewId(),
+        ));
+
+        return $this;
+    }
+
+    /**
+     * Удаляет изображение по идентификатору
+     * @param int $review_image_id
+     * @return $this
+     */
+    public function removeImageUsingPrimaryKey(int $review_image_id): ReviewStore
+    {
+        $image = $this->review->removeImageUsingPrimaryKey($review_image_id);
+
+        if ($image) {
+            Fs::purge_thumbs($image->getDirectory(), $image->getFilename());
+
+            $sth = $this->dbh->prepare(/** @lang MariaDB */"DELETE FROM reviews_image where review_image_id = :review_image_id");
+            $sth->execute(array(
+                ":review_image_id" => $review_image_id
+            ));
+        }
+
+        return $this;
+    }
+
 }

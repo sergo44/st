@@ -10,9 +10,8 @@ use St\HttpError403Exception;
 use St\HttpError404Exception;
 use St\Result;
 use St\Review;
-use St\Reviews\EditReview;
+use St\Reviews\ReviewStore;
 use St\Reviews\Views\WaitReviews\ApproveReviewHtmlStatusView;
-use St\Reviews\Views\WaitReviews\DeclineReviewHtmlView;
 use St\ReviewStatusesEnum;
 use St\Views\IView;
 
@@ -91,8 +90,8 @@ class ManageWaitReviewsController extends UserCallableController implements ICal
                 ->setStatus($statuses_enum->name)
             ;
 
-            $store = new EditReview($review);
-            $store->save();
+            $store = new ReviewStore($review);
+            $store->update();
 
 
         } catch(CallableControllerException $e) {

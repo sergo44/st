@@ -52,6 +52,14 @@ class Routes extends FileRoute implements IRoute
             return (new Reviews\CallableControllers\ManageWaitReviewsController($_REQUEST, new JsonLayout(), new Views\WaitReviews\DeclineReviewJsonView()))->decline((int)$match[1]);
         }
 
+        if (preg_match("#^/?Reviews/([1-9][0-9]*)/Edit/?$#ui", $this->dispatcher->getPath(), $match)) {
+            return (new Reviews\CallableControllers\EditReviewController($_REQUEST, new UserHtmlLayout(), new Views\EditReview\EditReviewHtmlView()))->index((int)$match[1]);
+        }
+
+        if (preg_match("#^/?Reviews/([1-9][0-9]*)/Edit/Go/?$#ui", $this->dispatcher->getPath(), $match)) {
+            return (new Reviews\CallableControllers\EditReviewGoController($_REQUEST, new UserHtmlLayout(), new Views\EditReview\EditReviewGoHtmlView()))->index((int)$match[1]);
+        }
+
         return null;
     }
 }

@@ -371,4 +371,21 @@ class Review implements IReadDb, \JsonSerializable
         return sizeof($this->getImages()) ? $this->getImages()[0] : null;
     }
 
+    /**
+     * Удаляет изображение из lazy load
+     * @param int $review_image_id
+     * @return ReviewImage|null
+     */
+    public function removeImageUsingPrimaryKey(int $review_image_id): ?ReviewImage
+    {
+        foreach ($this->getImages() as $key => $image) {
+            if ($image->getReviewImageId() === $review_image_id) {
+                unset($this->images[$key]);
+                return $image;
+            }
+        }
+
+        return null;
+    }
+
 }
