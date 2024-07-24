@@ -211,13 +211,9 @@ class AboutObjectHtmlView extends HtmlView implements IView
                         <?php endforeach; ?>
                     </ul>
                 </div>
+                <div class="empty-block"></div>
                 <?php endif; ?>
-                <div class="empty-block"></div>
-                <div class="section-object__description">
-                    <h3>Описание</h3>
-                    <p>Посмотрите объекты рядом</p>
-                </div>
-                <div class="empty-block"></div>
+
 
 
                 <div class="section-object__description reviews">
@@ -281,11 +277,11 @@ class AboutObjectHtmlView extends HtmlView implements IView
                             </div>
                         <?php endif; ?>
 
-                        <div class="d-none sorting-block d-none d-sm-flex flex-wrap align-items-center gap-4 ps-0">
+                        <!-- <div class="d-none sorting-block d-none d-sm-flex flex-wrap align-items-center gap-4 ps-0">
                             Сортировать по:
                             <a class="sorting-variant active" href="#">С высокой оценкой</a>
                             <a class="sorting-variant" href="#">С низкой оценкой</a>
-                        </div>
+                        </div> -->
 
 
 

@@ -14,6 +14,7 @@ use St\Result;
 use St\Review;
 use St\ReviewImage;
 use St\Reviews\AddReview;
+use St\ReviewStatusesEnum;
 use St\UploadedFile;
 
 class AddReviewController extends UserCallableController implements ICallableController
@@ -38,6 +39,7 @@ class AddReviewController extends UserCallableController implements ICallableCon
                 ->setRestPeriod($this->getUserInputData("rest_period", 255) ?: "")
                 ->setMark((int)$this->getUserInputData("mark"))
                 ->setReviewText($this->getUserInputData("review_text", 65535) ?: "")
+                ->setStatus(ReviewStatusesEnum::Wait->name)
             ;
 
             $images = $_FILES['images'] ?: null;
