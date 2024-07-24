@@ -117,50 +117,29 @@ class IndexHtmlLayout extends HtmlLayout implements ILayout
             </section>
             <section class="section-popular">
                 <div class="container">
-                    <h2>Популярные направления</h2>
                     <ul class="section-popular__list row">
                         <li class="col-lg-4 col-6">
-                            <a class="card border-0" href="#">
-                                <img alt="тур" class="card-img-top" src="/images/card-image.jpg">
+                            <a class="card border-0" href="/Catalog/Objects/UlanUde/WarmLake">
+                                <img alt="тур" class="card-img-top" src="/images/index/Warn-Lake.jpg">
                                 <div class="card-body">
                                     <h5 class="card-title mt-2">Тёплые озера</h5>
-                                    <div class="card-raiting d-flex align-items-center gap-3">
-                                        <span>4.9</span>
-                                        <div class="card-raiting__wrapper-stars">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/semi-star.svg">
-                                        </div>
-                                    </div>
-                                    <div class="card__wrapper-house d-flex align-items-center gap-3 mt-2">
+                                    <div class="card__wrapper-house d-flex align-items-center gap-3 mt-5">
                                         <img alt="" src="/images/icons/house.svg">
                                         <span>Отели, гостевые дома, хостелы, квартиры, кемпинги </span>
                                     </div>
                                     <div class="card__wrapper-house d-flex align-items-center gap-3 mt-2">
                                         <img alt="" src="/images/icons/bus.svg">
-                                        <span>Автобус, автомобиль, катер</span>
+                                        <span>Автобус, автомобиль</span>
                                     </div>
                                 </div>
                             </a>
                         </li>
                         <li class="col-lg-4 col-6">
-                            <a class="card border-0" href="#">
-                                <img alt="тур" class="card-img-top rounded-0" src="/images/card-image.jpg">
+                            <a class="card border-0" href="/Catalog/Objects/Irkutsk/Listvyanka">
+                                <img alt="тур" class="card-img-top rounded-0" src="/images/index/Listvanka.jpg">
                                 <div class="card-body">
                                     <h5 class="card-title mt-2">Листвянка</h5>
-                                    <div class="card-raiting d-flex align-items-center gap-3">
-                                        <span>4.9</span>
-                                        <div class="card-raiting__wrapper-stars">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/semi-star.svg">
-                                        </div>
-                                    </div>
-                                    <div class="card__wrapper-house d-flex align-items-center gap-3 mt-2">
+                                    <div class="card__wrapper-house d-flex align-items-center gap-3 mt-5">
                                         <img alt="" src="/images/icons/house.svg">
                                         <span>Отели, гостевые дома, хостелы, квартиры, кемпинги </span>
                                     </div>
@@ -172,47 +151,27 @@ class IndexHtmlLayout extends HtmlLayout implements ILayout
                             </a>
                         </li>
                         <li class="col-lg-4 col-12">
-                            <a class="card border-0" href="#">
-                                <img alt="тур" class="card-img-top rounded-0" src="/images/card-image.jpg">
+                            <a class="card border-0" href="/Catalog/Objects/UlanUde/Goryachinsk">
+                                <img alt="тур" class="card-img-top rounded-0" src="/images/index/Goryachinsk.jpg">
+                                <div class="card-body">
+                                    <h5 class="card-title mt-2">Горячинск</h5>
+                                    <div class="card__wrapper-house d-flex align-items-center gap-3 mt-5">
+                                        <img alt="" src="/images/icons/house.svg">
+                                        <span>Отели, гостевые дома, хостелы, квартиры, кемпинги </span>
+                                    </div>
+                                    <div class="card__wrapper-house d-flex align-items-center gap-3 mt-2">
+                                        <img alt="" src="/images/icons/bus.svg">
+                                        <span>Автобус, автомобиль, катер</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="col-lg-8 col-6">
+                            <a class="card border-0" href="/Catalog/Objects/Irkutsk/Olkhon">
+                                <img alt="тур" class="card-img-top rounded-0" src="/images/index/Olkhon.jpg">
                                 <div class="card-body">
                                     <h5 class="card-title mt-2">Ольхон</h5>
-                                    <div class="card-raiting d-flex align-items-center gap-3">
-                                        <span>4.9</span>
-                                        <div class="card-raiting__wrapper-stars">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/semi-star.svg">
-                                        </div>
-                                    </div>
-                                    <div class="card__wrapper-house d-flex align-items-center gap-3 mt-2">
-                                        <img alt="" src="/images/icons/house.svg">
-                                        <span>Отели, гостевые дома, хостелы, квартиры, кемпинги </span>
-                                    </div>
-                                    <div class="card__wrapper-house d-flex align-items-center gap-3 mt-2">
-                                        <img alt="" src="/images/icons/bus.svg">
-                                        <span>Автобус, автомобиль, катер</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="col-lg-8 col-6">
-                            <a class="card border-0" href="#">
-                                <img alt="тур" class="card-img-top rounded-0" src="/images/card-image.jpg">
-                                <div class="card-body">
-                                    <h5 class="card-title mt-2">Тёплые озера на реке Снежная</h5>
-                                    <div class="card-raiting d-flex align-items-center gap-3">
-                                        <span>4.9</span>
-                                        <div class="card-raiting__wrapper-stars">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/semi-star.svg">
-                                        </div>
-                                    </div>
-                                    <div class="card__wrapper-house d-flex align-items-center gap-3 mt-2">
+                                    <div class="card__wrapper-house d-flex align-items-center gap-3 mt-5">
                                         <img alt="" src="/images/icons/house.svg">
                                         <span>Отели, гостевые дома, хостелы, квартиры, кемпинги </span>
                                     </div>
@@ -225,20 +184,10 @@ class IndexHtmlLayout extends HtmlLayout implements ILayout
                         </li>
                         <li class="col-lg-4 col-6">
                             <a class="card border-0" href="#">
-                                <img alt="тур" class="card-img-top rounded-0" src="/images/card-image.jpg">
+                                <img alt="тур" class="card-img-top rounded-0" src="/images/index/Arshan.jpg">
                                 <div class="card-body">
                                     <h5 class="card-title mt-2">Аршан</h5>
-                                    <div class="card-raiting d-flex align-items-center gap-3">
-                                        <span>4.9</span>
-                                        <div class="card-raiting__wrapper-stars">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/semi-star.svg">
-                                        </div>
-                                    </div>
-                                    <div class="card__wrapper-house d-flex align-items-center gap-3 mt-2">
+                                    <div class="card__wrapper-house d-flex align-items-center gap-3 mt-5">
                                         <img alt="" src="/images/icons/house.svg">
                                         <span>Отели, гостевые дома, хостелы, квартиры, кемпинги </span>
                                     </div>
@@ -249,226 +198,13 @@ class IndexHtmlLayout extends HtmlLayout implements ILayout
                                 </div>
                             </a>
                         </li>
-                        <li class="col-lg-4 col-12">
-                            <a class="card border-0" href="#">
-                                <img alt="тур" class="card-img-top rounded-0" src="/images/card-image.jpg">
-                                <div class="card-body">
-                                    <h5 class="card-title mt-2">Аршан</h5>
-                                    <div class="card-raiting d-flex align-items-center gap-3">
-                                        <span>4.9</span>
-                                        <div class="card-raiting__wrapper-stars">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/semi-star.svg">
-                                        </div>
-                                    </div>
-                                    <div class="card__wrapper-house d-flex align-items-center gap-3 mt-2">
-                                        <img alt="" src="/images/icons/house.svg">
-                                        <span>Отели, гостевые дома, хостелы, квартиры, кемпинги </span>
-                                    </div>
-                                    <div class="card__wrapper-house d-flex align-items-center gap-3 mt-2">
-                                        <img alt="" src="/images/icons/bus.svg">
-                                        <span>Автобус, автомобиль, катер</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
+
                     </ul>
                 </div>
 
             </section>
-            <section class="section-hotels">
-                <div class="container">
-                    <h2>Отели и гостиницы на <br> берегу Байкала</h2>
-                    <ul class="section-popular__list section-hotels__list row">
-                        <li class="col-lg-4 col-6">
-                            <a class="card border-0" href="#">
-                                <img alt="тур" class="card-img-top rounded-0" src="/images/hotel.jpg">
-                                <div class="card-body">
-                                    <h5 class="card-title mt-2">Аршан</h5>
-                                    <div class="card-raiting d-flex align-items-center gap-3">
-                                        <span>4.9</span>
-                                        <div class="card-raiting__wrapper-stars">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/semi-star.svg">
-                                        </div>
-                                    </div>
-                                    <div class="card__wrapper-house d-flex align-items-center gap-3 mt-2">
-                                        <img alt="" src="/images/icons/geo.svg">
-                                        <span>р.п. Листвянка, улица Горького, 85</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="col-lg-4 col-6">
-                            <a class="card border-0" href="#">
-                                <img alt="тур" class="card-img-top rounded-0" src="/images/hotel.jpg">
-                                <div class="card-body">
-                                    <h5 class="card-title mt-2">Аршан</h5>
-                                    <div class="card-raiting d-flex align-items-center gap-3">
-                                        <span>4.9</span>
-                                        <div class="card-raiting__wrapper-stars">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/semi-star.svg">
-                                        </div>
-                                    </div>
-                                    <div class="card__wrapper-house d-flex align-items-center gap-3 mt-2">
-                                        <img alt="" src="/images/icons/geo.svg">
-                                        <span>р.п. Листвянка, улица Горького, 85</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="col-lg-4 col-12">
-                            <a class="card border-0" href="#">
-                                <img alt="тур" class="card-img-top rounded-0" src="/images/hotel.jpg">
-                                <div class="card-body">
-                                    <h5 class="card-title mt-2">Аршан</h5>
-                                    <div class="card-raiting d-flex align-items-center gap-3">
-                                        <span>4.9</span>
-                                        <div class="card-raiting__wrapper-stars">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/semi-star.svg">
-                                        </div>
-                                    </div>
-                                    <div class="card__wrapper-house d-flex align-items-center gap-3 mt-2">
-                                        <img alt="" src="/images/icons/geo.svg">
-                                        <span>р.п. Листвянка, улица Горького, 85</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        </li>
-                    </ul>
-                    <a class="btn btn-outline-secondary" href="#">Смотреть еще</a>
-                </div>
-            </section>
-            <section class="section-popular">
-                <div class="container">
-                    <h2>Популярные <br>достопримечательности</h2>
-                    <ul class="section-popular__list row">
-                        <li class="col-lg-4 col-6">
-                            <a class="card border-0" href="#">
-                                <img alt="тур" class="card-img-top rounded-0" src="/images/card-image.jpg">
-                                <div class="card-body">
-                                    <h5 class="card-title mt-2">Аршан</h5>
-                                    <div class="card-raiting d-flex align-items-center gap-3">
-                                        <span>4.9</span>
-                                        <div class="card-raiting__wrapper-stars">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/semi-star.svg">
-                                        </div>
-                                    </div>
-                                    <div class="card__wrapper-house d-flex align-items-center gap-3 mt-2">
-                                        <span>Мыс в средней части западного побережья острова Ольхон, на озере Байкал.</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="col-lg-8 col-6">
-                            <a class="card border-0" href="#">
-                                <img alt="тур" class="card-img-top rounded-0" src="/images/card-image.jpg">
-                                <div class="card-body">
-                                    <h5 class="card-title mt-2">Тёплые озера на реке Снежная</h5>
-                                    <div class="card-raiting d-flex align-items-center gap-3">
-                                        <span>4.9</span>
-                                        <div class="card-raiting__wrapper-stars">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/semi-star.svg">
-                                        </div>
-                                    </div>
-                                    <div class="card__wrapper-house d-flex align-items-center gap-3 mt-2">
-                                        <span>Хобой - самый северный край Ольхона. Отсюда открывается прекрасный и незабываемый вид на огромные водные просторы озера.</span>
-                                    </div>
 
-                                </div>
-                            </a>
-                        </li>
-                        <li class="col-lg-8 col-12">
-                            <a class="card border-0" href="#">
-                                <img alt="тур" class="card-img-top rounded-0" src="/images/card-image.jpg">
-                                <div class="card-body">
-                                    <h5 class="card-title mt-2">Тёплые озера на реке Снежная</h5>
-                                    <div class="card-raiting d-flex align-items-center gap-3">
-                                        <span>4.9</span>
-                                        <div class="card-raiting__wrapper-stars">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/semi-star.svg">
-                                        </div>
-                                    </div>
-                                    <div class="card__wrapper-house d-flex align-items-center gap-3 mt-2">
-                                        <span>Хобой - самый северный край Ольхона. Отсюда открывается прекрасный и незабываемый вид на огромные водные просторы озера.</span>
-                                    </div>
 
-                                </div>
-                            </a>
-                        </li>
-                        <li class="col-lg-4 col-6">
-                            <a class="card border-0" href="#">
-                                <img alt="тур" class="card-img-top rounded-0" src="/images/card-image.jpg">
-                                <div class="card-body">
-                                    <h5 class="card-title mt-2">Аршан</h5>
-                                    <div class="card-raiting d-flex align-items-center gap-3">
-                                        <span>4.9</span>
-                                        <div class="card-raiting__wrapper-stars">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/semi-star.svg">
-                                        </div>
-                                    </div>
-                                    <div class="card__wrapper-house d-flex align-items-center gap-3 mt-2">
-                                        <span>Мыс в средней части западного побережья острова Ольхон, на озере Байкал.</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="col-lg-4 col-6">
-                            <a class="card border-0" href="#">
-                                <img alt="тур" class="card-img-top rounded-0" src="/images/card-image.jpg">
-                                <div class="card-body">
-                                    <h5 class="card-title mt-2">Аршан</h5>
-                                    <div class="card-raiting d-flex align-items-center gap-3">
-                                        <span>4.9</span>
-                                        <div class="card-raiting__wrapper-stars">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/star.svg">
-                                            <img alt="" src="/images/icons/semi-star.svg">
-                                        </div>
-                                    </div>
-                                    <div class="card__wrapper-house d-flex align-items-center gap-3 mt-2">
-                                        <span>Мыс в средней части западного побережья острова Ольхон, на озере Байкал.</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                    <a class="btn btn-outline-secondary" href="#">Больше достопримечательностей</a>
-                </div>
-            </section>
         </main>
 
         <footer class="footer d-flex align-items-center">

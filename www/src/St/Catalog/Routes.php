@@ -91,6 +91,31 @@ class Routes extends FileRoute implements IRoute
             return (new Catalog\CallableControllers\ShowObjectsController($_REQUEST, new Layouts\Site\CatalogHtmlLayout(), new Catalog\Views\ShowObjects\ShowObjectsHtmlView()))->index(CatalogObjectType::Camping);
         }
 
+        if (preg_match("#^/?Catalog/Objects/UlanUde/WarmLake/?$#ui", $this->dispatcher->getPath(), $match)) {
+            return (new Catalog\CallableControllers\ShowCityObjectsController($_REQUEST, new Layouts\Site\CatalogHtmlLayout(), new Catalog\Views\ShowObjects\ShowObjectsHtmlView()))->index(6);
+        }
+
+        if (preg_match("#^/?Catalog/Objects/UlanUde/Goryachinsk/?$#ui", $this->dispatcher->getPath(), $match)) {
+            return (new Catalog\CallableControllers\ShowCityObjectsController($_REQUEST, new Layouts\Site\CatalogHtmlLayout(), new Catalog\Views\ShowObjects\ShowObjectsHtmlView()))->index(4);
+        }
+
+        if (preg_match("#^/?Catalog/Objects/UlanUde/Arshan/?$#ui", $this->dispatcher->getPath(), $match)) {
+            return (new Catalog\CallableControllers\ShowCityObjectsController($_REQUEST, new Layouts\Site\CatalogHtmlLayout(), new Catalog\Views\ShowObjects\ShowObjectsHtmlView()))->index(5);
+        }
+
+        if (preg_match("#^/?Catalog/Objects/Irkutsk/Olkhon/?$#ui", $this->dispatcher->getPath(), $match)) {
+            return (new Catalog\CallableControllers\ShowCityObjectsController($_REQUEST, new Layouts\Site\CatalogHtmlLayout(), new Catalog\Views\ShowObjects\ShowObjectsHtmlView()))->index(3);
+        }
+
+        if (preg_match("#^/?Catalog/Objects/Irkutsk/Listvyanka/?$#ui", $this->dispatcher->getPath(), $match)) {
+            return (new Catalog\CallableControllers\ShowCityObjectsController($_REQUEST, new Layouts\Site\CatalogHtmlLayout(), new Catalog\Views\ShowObjects\ShowObjectsHtmlView()))->index(2);
+        }
+
+
+        if (preg_match("#^/?Catalog/Objects/City/([1-9][0-9]*)/List/?$#ui", $this->dispatcher->getPath(), $match)) {
+            return (new Catalog\CallableControllers\ShowCityObjectsController($_REQUEST, new Layouts\Site\CatalogHtmlLayout(), new Catalog\Views\ShowObjects\ShowObjectsHtmlView()))->index($match[1]);
+        }
+
         if (preg_match("#^/?Catalog/Objects/([1-9]+[0-9]*)/About/?$#ui", $this->dispatcher->getPath(), $match)) {
             return (new Catalog\CallableControllers\AboutObjectController($_REQUEST, new Layouts\Site\AboutObjectHtmlLayout(), new Catalog\Views\AboutObject\AboutObjectHtmlView()))->index($match[1]);
         }

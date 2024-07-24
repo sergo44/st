@@ -105,10 +105,10 @@ class City implements \JsonSerializable
     }
     /**
      * Возвращает city_id
-     * @return int
+     * @return int|null
      * @see city_id
      */
-    public function getCityId(): int
+    public function getCityId(): int|null
     {
         return $this->city_id;
     }

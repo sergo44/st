@@ -28,8 +28,13 @@ class ShowObjectsController extends CallableController implements ICallableContr
     public function index(CatalogObjectType $object_type): ICallableController
     {
 
-        $this->getLayout()->setSectionTitle("Поиск проживания");
-        $this->getView()->setCatalogObjects( (new GetObjectsByType($object_type))->getCatalogObjects() );
+        $this->getLayout()
+            ->setSectionTitle("Поиск проживания")
+        ;
+
+        $this->getView()
+            ->setCatalogObjects( (new GetObjectsByType($object_type))->getCatalogObjects() )
+        ;
 
         return $this;
     }
