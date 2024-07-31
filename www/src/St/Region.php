@@ -167,7 +167,7 @@ class Region implements IUseRedis, \JsonSerializable
     {
         return match($this->region_id) {
             1 => "/Catalog/Objects/Irkutsk/",
-            2 => "/Catalog/Objects/UlanUde/"
+            2 => "/Catalog/Objects/Buryatia/"
         };
     }
 
