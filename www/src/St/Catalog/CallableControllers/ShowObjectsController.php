@@ -2,6 +2,8 @@
 
 namespace St\Catalog\CallableControllers;
 
+use St\BreadCrumbs;
+use St\BreadCrumbsItem;
 use St\Catalog\GetObjectsByType;
 use St\Catalog\Views\ShowObjects\ShowObjectsHtmlView;
 use St\CatalogObjectType;
@@ -28,6 +30,8 @@ class ShowObjectsController extends CallableController implements ICallableContr
     public function index(CatalogObjectType $object_type): ICallableController
     {
 
+        BreadCrumbs::getInstance()->add( new BreadCrumbsItem($object_type->label()) );
+
         $this->getLayout()
             ->setSectionTitle("Поиск проживания")
         ;
@@ -35,6 +39,7 @@ class ShowObjectsController extends CallableController implements ICallableContr
         $this->getView()
             ->setCatalogObjects( (new GetObjectsByType($object_type))->getCatalogObjects() )
         ;
+
 
         return $this;
     }

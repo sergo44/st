@@ -183,7 +183,7 @@ class IndexHtmlLayout extends HtmlLayout implements ILayout
                             </a>
                         </li>
                         <li class="col-lg-4 col-6">
-                            <a class="card border-0" href="#">
+                            <a class="card border-0" href="/Catalog/Objects/UlanUde/Arshan">
                                 <img alt="тур" class="card-img-top rounded-0" src="/images/index/Arshan.jpg">
                                 <div class="card-body">
                                     <h5 class="card-title mt-2">Аршан</h5>

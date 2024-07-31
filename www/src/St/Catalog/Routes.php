@@ -91,6 +91,14 @@ class Routes extends FileRoute implements IRoute
             return (new Catalog\CallableControllers\ShowObjectsController($_REQUEST, new Layouts\Site\CatalogHtmlLayout(), new Catalog\Views\ShowObjects\ShowObjectsHtmlView()))->index(CatalogObjectType::Camping);
         }
 
+        if (preg_match("#^/?Catalog/Objects/Irkutsk/?$#ui", $this->dispatcher->getPath(), $match)) {
+            return (new Catalog\CallableControllers\ShowRegionObjectsController($_REQUEST, new Layouts\Site\CatalogHtmlLayout(), new Catalog\Views\ShowObjects\ShowObjectsHtmlView()))->index(1);
+        }
+
+        if (preg_match("#^/?Catalog/Objects/UlanUde/?$#ui", $this->dispatcher->getPath(), $match)) {
+            return (new Catalog\CallableControllers\ShowRegionObjectsController($_REQUEST, new Layouts\Site\CatalogHtmlLayout(), new Catalog\Views\ShowObjects\ShowObjectsHtmlView()))->index(2);
+        }
+
         if (preg_match("#^/?Catalog/Objects/UlanUde/WarmLake/?$#ui", $this->dispatcher->getPath(), $match)) {
             return (new Catalog\CallableControllers\ShowCityObjectsController($_REQUEST, new Layouts\Site\CatalogHtmlLayout(), new Catalog\Views\ShowObjects\ShowObjectsHtmlView()))->index(6);
         }

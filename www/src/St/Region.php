@@ -159,5 +159,17 @@ class Region implements IUseRedis, \JsonSerializable
         return $this;
     }
 
+    /**
+     * Возвращает URL для хлебных крошек
+     * @return string
+     */
+    public function getBreadcrumbsUrl(): string
+    {
+        return match($this->region_id) {
+            1 => "/Catalog/Objects/Irkutsk/",
+            2 => "/Catalog/Objects/UlanUde/"
+        };
+    }
+
 
 }

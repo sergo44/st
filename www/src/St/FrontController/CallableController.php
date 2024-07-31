@@ -2,6 +2,8 @@
 
 namespace St\FrontController;
 
+use St\BreadCrumbs;
+use St\BreadCrumbsItem;
 use St\Layouts\ILayout;
 use St\Views\IView;
 
@@ -34,6 +36,8 @@ class CallableController
         $this->user_input_data = $user_input_data;
         $this->layout = $layout;
         $this->view = $view;
+
+        BreadCrumbs::getInstance()->add( new BreadCrumbsItem("Главная", "/") );
     }
 
     /**

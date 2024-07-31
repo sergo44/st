@@ -40,5 +40,20 @@ enum CatalogObjectType
         );
     }
 
+    /**
+     * Возвращает заголовок
+     * @return string
+     */
+    public function label(): string
+    {
+        return match($this) {
+            self::Hotel => "Гостиницы",
+            self::Guest_House => "Гостевые дома",
+            self::Hostel => "Хостелы",
+            self::Apartment => "Апартаменты",
+            self::Camping => "Кемпинги"
+        };
+    }
+
 
 }

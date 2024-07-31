@@ -2,7 +2,7 @@
 
 namespace St\Layouts\Site;
 
-use St\ApplicationError;use St\Auth;use St\Db;use St\Db\Views\ProfileHtmlView;use St\Layouts\HtmlLayout;
+use St\ApplicationError;use St\Auth;use St\BreadCrumbs;use St\Db;use St\Db\Views\ProfileHtmlView;use St\Layouts\HtmlLayout;
 use St\Layouts\ILayout;use St\Layouts\Site\CommonHtmlWidgets\RegisterFormHtmlWidget;use St\Layouts\Site\CommonHtmlWidgets\RestoreAccessHtmlWidget;use St\Layouts\Site\CommonHtmlWidgets\SignInFormHtmlWidget;use St\User\Views\Sign\UserSignedHtmlWidget;use St\User\Views\Sign\UserSignInHtmlWidget;use St\Utils\TemplatesUtils;
 
 class AboutObjectHtmlLayout extends HtmlLayout implements ILayout
@@ -98,9 +98,13 @@ class AboutObjectHtmlLayout extends HtmlLayout implements ILayout
     <section class="section-object">
         <div class="container">
             <ul class="breadcrumbs d-flex align-items-center flex-wrap">
-                <li><a href="/">Главная</a><span> / </span></li>
-                <li><a href="/catalog">Проживание</a><span> / </span></li>
-                <li><a class="active" href="#">Иркутск</a></li>
+                <?php foreach (BreadCrumbs::getInstance()->get() as $key => $item):?>
+                    <?php if ($item->getUri()):?>
+                        <li><a href="<?php print $item->getUri()?>"><?php print $item->getLabel();?></a><span> <?php print $key < sizeof(BreadCrumbs::getInstance()->get()) - 1 ? "/" : null;?> </span></li>
+                    <?php else: ?>
+                        <li><a href="<?php print $item->getUri()?>"><?php print $item->getLabel();?></a><span> <?php print $key < sizeof(BreadCrumbs::getInstance()->get()) - 1  ? "/" : null;?>  </span></li>
+                    <?php endif; ?>
+                <?php endforeach; ?>
             </ul>
             <h1><?php print $this->getSectionTitle();?></h1>
             <?php print $this->getContent();?>

@@ -3,6 +3,8 @@
 namespace St\Catalog\CallableControllers;
 
 use St\ApplicationError;
+use St\BreadCrumbs;
+use St\BreadCrumbsItem;
 use St\Catalog\GetObjectsByCity;
 use St\Catalog\GetWaitCatalogObjects;
 use St\Catalog\Views\ShowObjects\ShowObjectsHtmlView;
@@ -37,6 +39,11 @@ class ShowCityObjectsController extends CallableController implements ICallableC
         if (!$city->getCityId()) {
             throw new HttpError404Exception(sprintf("Город с идентификатором %u не найден", $city_id));
         }
+
+        BreadCrumbs::getInstance()
+            ->add( new BreadCrumbsItem($city->getRegion()->getName(), $city->getRegion()->getBreadcrumbsUrl()) )
+            ->add( new BreadCrumbsItem($city->getName(), sprintf("%s/City/%u", ltrim($city->getRegion()->getBreadcrumbsUrl(), "/"), $city->getCityId())))
+            ;
 
         $this->getView()
             ->setCatalogObjects( (new GetObjectsByCity($city))->getObjects() );

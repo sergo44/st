@@ -2,7 +2,7 @@
 
 namespace St\Layouts\Site;
 
-use St\ApplicationError;use St\Auth;use St\Db;
+use St\ApplicationError;use St\Auth;use St\BreadCrumbs;use St\Db;
 use St\Db\Views\ProfileHtmlView;
 use St\Layouts\HtmlLayout;
 use St\Layouts\ILayout;
@@ -104,9 +104,13 @@ class CatalogHtmlLayout extends HtmlLayout implements ILayout
     <section class="index__wrapper-banner d-flex flex-column justify-content-center mb-0" style="height: 27.2rem;background:url('/images/bg-banner.png'); ">
         <div class="container">
             <ul class="breadcrumbs d-flex align-items-center flex-wrap">
-                <li><a href="/">Главная</a><span> / </span></li>
-                <li><a href="/catalog">Проживание</a><span> / </span></li>
-                <li><a class="active" href="#">Листвянка</a></li>
+                <?php foreach (BreadCrumbs::getInstance()->get() as $key => $item):?>
+                    <?php if ($item->getUri()):?>
+                        <li><a href="<?php print $item->getUri()?>"><?php print $item->getLabel();?></a><span> <?php print $key < sizeof(BreadCrumbs::getInstance()->get()) - 1 ? "/" : null;?> </span></li>
+                    <?php else: ?>
+                        <li><a href="<?php print $item->getUri()?>"><?php print $item->getLabel();?></a><span> <?php print $key < sizeof(BreadCrumbs::getInstance()->get()) - 1  ? "/" : null;?>  </span></li>
+                    <?php endif; ?>
+                <?php endforeach; ?>
             </ul>
             <h1><?php print $this->getSectionTitle(); ?></h1>
 

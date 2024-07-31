@@ -26,6 +26,11 @@ class City implements \JsonSerializable
      * @var string
      */
     protected string $name = "";
+    /**
+     * Регион
+     * @var Region|null
+     */
+    protected Region|null $region = null;
 
     /**
      * Магический метод __sleep(),
@@ -170,6 +175,20 @@ class City implements \JsonSerializable
     }
 
     /**
+     * Возвращает регион
+     * @return Region
+     * @throws ApplicationError
+     */
+    public function getRegion(): Region
+    {
+        if (!isset($this->region)) {
+            $this->region = Region::get($this->region_id);
+        }
+
+        return $this->region;
+    }
+
+    /**
      * Возвращает name
      * @return string
      * @see name
@@ -190,4 +209,6 @@ class City implements \JsonSerializable
         $this->name = $name;
         return $this;
     }
+
+
 }
