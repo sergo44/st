@@ -27,6 +27,10 @@ module.exports = {
         ],
         manage_wait_review: [
             './assets/js/manage_wait_reviews.js'
+        ],
+        add_sight: [
+            './assets/js/set_coordinates.js',
+            './assets/js/add_sight.js'
         ]
     },
     output: {

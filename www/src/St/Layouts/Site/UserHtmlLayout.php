@@ -150,8 +150,19 @@ class UserHtmlLayout extends HtmlLayout implements ILayout
                                                         d="M3.125 13.1255C8.125 9.3755 11.875 16.8755 16.875 13.1255V3.7505C11.875 7.5005 8.125 0.000500485 3.125 3.7505"
                                                         stroke="#170B00" stroke-linecap="round" stroke-linejoin="round"/>
                                             </svg>
-                                            Мои объявления
+                                            Мои объявления размещения
                                         </a></li>
+
+                                    <li class="mb-4"><a href="/Sights/List">
+                                        <svg fill="none" height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M3.125 16.875V3.75" stroke="#170B00" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path
+                                                    d="M3.125 13.1255C8.125 9.3755 11.875 16.8755 16.875 13.1255V3.7505C11.875 7.5005 8.125 0.000500485 3.125 3.7505"
+                                                    stroke="#170B00" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        Мои достопримечательности
+                                    </a></li>
+
                                     <li class="mb-4 d-none"><a href="#">
                                             <svg fill="none" height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
                                                 <path
