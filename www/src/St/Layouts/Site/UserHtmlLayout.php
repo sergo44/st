@@ -124,7 +124,7 @@ class UserHtmlLayout extends HtmlLayout implements ILayout
                         <div class="section-profile__side-bar">
                             <div class="section-profile__side-bar-top d-flex flex-column align-items-center gap-3 p-4">
                                 <div class="section-profile__wrapper-photo">
-                                    <img alt="" src="/images/account-photo.png">
+                                    <img alt="" src="/images/no-avatar.svg">
                                 </div>
                                 <div class="section-profile__account-name">
                                     <?php print $this->escape(Auth::getInstance()->get()->getName());?>
