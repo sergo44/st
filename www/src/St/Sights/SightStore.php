@@ -132,22 +132,22 @@ class SightStore implements IWriteDb
         ");
 
         $sth->execute(array(
-            "sight_id" => $this->sight->getSightId(),
-            "user_id" => $this->sight->getUserId(),
-            "country_id" => $this->sight->getCountryId(),
-            "region_id" => $this->sight->getRegionId(),
-            "city_id" => $this->sight->getCityId(),
-            "name" => $this->sight->getName(),
-            "created_datetime_utc" => $this->sight->getCreatedDatetimeUtc(),
-            "lat" => $this->sight->getLat(),
-            "lon" => $this->sight->getLon(),
-            "description" => $this->sight->getDescription(),
-            "operating_mode" => $this->sight->getOperatingMode(),
-            "price" => $this->sight->getPrice(),
-            "contact_phone" => $this->sight->getContactPhone(),
-            "contact_email" => $this->sight->getContactEmail(),
-            "web_site_url" => $this->sight->getWebSiteUrl(),
-            "status" => $this->sight->getStatus()
+            ":sight_id" => $this->sight->getSightId(),
+            ":user_id" => $this->sight->getUserId(),
+            ":country_id" => $this->sight->getCountryId(),
+            ":region_id" => $this->sight->getRegionId(),
+            ":city_id" => $this->sight->getCityId(),
+            ":name" => $this->sight->getName(),
+            ":created_datetime_utc" => $this->sight->getCreatedDatetimeUtc(),
+            ":lat" => $this->sight->getLat(),
+            ":lon" => $this->sight->getLon(),
+            ":description" => $this->sight->getDescription(),
+            ":operating_mode" => $this->sight->getOperatingMode(),
+            ":price" => $this->sight->getPrice(),
+            ":contact_phone" => $this->sight->getContactPhone(),
+            ":contact_email" => $this->sight->getContactEmail(),
+            ":web_site_url" => $this->sight->getWebSiteUrl(),
+            ":status" => $this->sight->getStatus()
         ));
 
         return $this;
