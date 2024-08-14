@@ -123,8 +123,8 @@ class SightStore implements IWriteDb
                 operating_mode = :operating_mode,
                 price = :price, 
                 contact_phone = :contact_phone,
-                contact_email = :contact_phone, 
-                web_site_url = :contact_phone, 
+                contact_email = :contact_email, 
+                web_site_url = :web_site_url, 
                 status = :status
             WHERE
                 sight_id = :sight_id
