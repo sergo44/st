@@ -210,7 +210,7 @@ class IndexHtmlLayout extends HtmlLayout implements ILayout
                         <?php foreach ( (new GetPopularSights(6))->getSights() as $sight):?>
                         <?php if (!$sight->getMainImage()) continue; ?>
                         <li class="col-lg-4 col-6">
-                            <a class="card border-0" href="#">
+                            <a class="card border-0" href="<?php print $sight->getAboutUrl();?>">
                                 <img alt="Достопримечательность" class="card-img-top rounded-0" src="/<?php print $sight->getMainImage()->getUri(1000, 1000);?>">
                                 <div class="card-body">
                                     <h5 class="card-title mt-2"><?php print $this->e($sight->getName());?></h5>
