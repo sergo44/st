@@ -11,7 +11,7 @@ use St\Layouts\ILayout;
 use St\Layouts\Site\CommonHtmlWidgets\RegisterFormHtmlWidget;
 use St\Layouts\Site\CommonHtmlWidgets\RestoreAccessHtmlWidget;
 use St\Layouts\Site\CommonHtmlWidgets\SignInFormHtmlWidget;
-use St\User\Views\Sign\UserSignedHtmlWidget;
+use St\Sights\GetPopularSights;use St\User\Views\Sign\UserSignedHtmlWidget;
 use St\User\Views\Sign\UserSignInHtmlWidget;
 use St\Utils\TemplatesUtils;
 
@@ -201,7 +201,32 @@ class IndexHtmlLayout extends HtmlLayout implements ILayout
 
                     </ul>
                 </div>
+            </section>
 
+            <section class="section-popular">
+                <div class="container">
+                    <h2>Популярные <br>достопримечательности</h2>
+                    <ul class="section-popular__list row">
+                        <?php foreach ( (new GetPopularSights(6))->getSights() as $sight):?>
+                        <?php if (!$sight->getMainImage()) continue; ?>
+                        <li class="col-lg-4 col-6">
+                            <a class="card border-0" href="#">
+                                <img alt="Достопримечательность" class="card-img-top rounded-0" src="/<?php print $sight->getMainImage()->getUri(1000, 1000);?>">
+                                <div class="card-body">
+                                    <h5 class="card-title mt-2"><?php print $this->e($sight->getName());?></h5>
+
+                                    <div class="card__wrapper-house d-flex align-items-center gap-3 mt-2">
+                                        <span>
+                                            <?php print $sight->getAnnounce();?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <?php endforeach; ?>
+                    </ul>
+                    <a class="btn btn-outline-secondary" href="/Sights/List">Больше достопримечательностей</a>
+                </div>
             </section>
 
 

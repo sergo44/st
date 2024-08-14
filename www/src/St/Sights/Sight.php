@@ -521,4 +521,19 @@ class Sight
     {
         return sprintf("/Sights/%u/About", $this->getSightId());
     }
+
+    /**
+     * Возвращает анонс на основе описания
+     * @param int $length
+     * @return string
+     */
+    public function getAnnounce(int $length = 150): string
+    {
+        $return = strip_tags($this->getDescription());
+        if (strlen($return) > $length) {
+            return substr($return, 0, $length) . "...";
+        }
+
+        return $return;
+    }
 }
