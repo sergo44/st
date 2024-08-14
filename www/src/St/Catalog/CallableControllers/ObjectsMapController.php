@@ -3,6 +3,7 @@
 namespace St\Catalog\CallableControllers;
 
 use St\Catalog\Views\ObjectsMap\ObjectsMapHtmlView;
+use St\CatalogObjectsStatusesEnum;
 use St\Db;
 use St\FrontController\CallableController;
 use St\FrontController\ICallableController;
@@ -10,6 +11,7 @@ use St\Layouts\HtmlLayout;
 use St\Ol\Feature;
 use St\Ol\FeatureCollection;
 use St\Ol\FeatureGeometry;
+use St\Sights\SightStatusEnum;
 use St\Views\IView;
 
 class ObjectsMapController extends CallableController implements ICallableController
@@ -36,13 +38,33 @@ class ObjectsMapController extends CallableController implements ICallableContro
         $feature_collection = new FeatureCollection();
 
         $dbh = Db::getReadPDOInstance();
-        $sth = $dbh->query(/** @lang MariaDB */"SELECT object_id, name, lat, lon FROM catalog_objects");
+
+        $sth = $dbh->prepare(/** @lang MariaDB */"SELECT object_id, name, lat, lon FROM catalog_objects WHERE status = :status");
+        $sth->execute(array(
+            ":status" => CatalogObjectsStatusesEnum::Approved->name
+        ));
         while ($row = $sth->fetch(\PDO::FETCH_ASSOC)) {
             $feature = new Feature();
             $feature
                 ->setId($row['object_id'])
                 ->setGeometry(new FeatureGeometry($row['lat'], $row['lon']))
                 ->setTooltipContent($row['name'])
+                ->setAboutUrl(sprintf("/Catalog/Objects/%u/About", $row['object_id']))
+            ;
+            $feature_collection->addFeature($feature);
+        }
+
+        $sth = $dbh->prepare(/** @lang MariaDB */"SELECT sight_id, name, lat, lon FROM sights WHERE status = :status");
+        $sth->execute(array(
+            ":status" => SightStatusEnum::Approved->name
+        ));
+        while ($row = $sth->fetch(\PDO::FETCH_ASSOC)) {
+            $feature = new Feature();
+            $feature
+                ->setId($row['sight_id'])
+                ->setGeometry(new FeatureGeometry($row['lat'], $row['lon']))
+                ->setTooltipContent($row['name'])
+                ->setAboutUrl(sprintf("/Sights/%u/About", $row['sight_id']))
             ;
             $feature_collection->addFeature($feature);
         }

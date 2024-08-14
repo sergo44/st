@@ -7,7 +7,6 @@ use St\Auth;
 use St\Catalog\Views\AboutObject\Widgets\OrderRoomModalDialogHtmlWidget;
 use St\CatalogObject;
 use St\Reviews\Views\AddReviewModalDialogHtmlView;
-use St\User;
 use St\Views\HtmlView;
 use St\Views\IView;
 

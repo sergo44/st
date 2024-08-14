@@ -102,6 +102,62 @@ class SightStore implements IWriteDb
         return $this;
     }
 
+    /**
+     * Обновляет данные о достопримечательности в базе данных
+     * @return $this
+     */
+    public function update(): SightStore
+    {
+        $sth = $this->dbh->prepare(/** @lang MariaDB */"
+            UPDATE sights
+            SET
+                user_id = :user_id,
+                country_id = :country_id,
+                region_id = :region_id,
+                city_id = :city_id, 
+                name = :name, 
+                created_datetime_utc = :created_datetime_utc, 
+                lat = :lat, 
+                lon = :lon,
+                description = :description,
+                operating_mode = :operating_mode,
+                price = :price, 
+                contact_phone = :contact_phone,
+                contact_email = :contact_phone, 
+                web_site_url = :contact_phone, 
+                status = :status
+            WHERE
+                sight_id = :sight_id
+                
+        ");
+
+        $sth->execute(array(
+            "sight_id" => $this->sight->getSightId(),
+            "user_id" => $this->sight->getUserId(),
+            "country_id" => $this->sight->getCountryId(),
+            "region_id" => $this->sight->getRegionId(),
+            "city_id" => $this->sight->getCityId(),
+            "name" => $this->sight->getName(),
+            "created_datetime_utc" => $this->sight->getCreatedDatetimeUtc(),
+            "lat" => $this->sight->getLat(),
+            "lon" => $this->sight->getLon(),
+            "description" => $this->sight->getDescription(),
+            "operating_mode" => $this->sight->getOperatingMode(),
+            "price" => $this->sight->getPrice(),
+            "contact_phone" => $this->sight->getContactPhone(),
+            "contact_email" => $this->sight->getContactEmail(),
+            "web_site_url" => $this->sight->getWebSiteUrl(),
+            "status" => $this->sight->getStatus()
+        ));
+
+        return $this;
+    }
+
+    /**
+     * Добавляет изображение в базу данных
+     * @param SightImage $image
+     * @return $this
+     */
     public function addImage( SightImage $image): SightStore
     {
 
@@ -148,4 +204,6 @@ class SightStore implements IWriteDb
 
         return $this;
     }
+
+
 }

@@ -2,6 +2,8 @@
 
 namespace St\Ol;
 
+use Override;
+
 class Feature implements \JsonSerializable
 {
     /**
@@ -24,6 +26,11 @@ class Feature implements \JsonSerializable
      * @var string
      */
     protected string $tooltip_content = "";
+    /**
+     * УРЛ до подробной информации
+     * @var string
+     */
+    protected string $about_url = "";
     /**
      * Геометрия объекта
      * @var FeatureGeometry
@@ -67,10 +74,33 @@ class Feature implements \JsonSerializable
     }
 
     /**
+     * Возвращает about_url
+     * @return string
+     * @see about_url
+     */
+    public function getAboutUrl(): string
+    {
+        return $this->about_url;
+    }
+
+    /**
+     * Устанавливает about_url
+     * @param string $about_url
+     * @return Feature
+     * @see about_url
+     */
+    public function setAboutUrl(string $about_url): Feature
+    {
+        $this->about_url = $about_url;
+        return $this;
+    }
+
+
+    /**
      * @inheritDoc
      * @return array
      */
-    #[\Override] public function jsonSerialize(): array
+    #[Override] public function jsonSerialize(): array
     {
         return array(
             "type" => $this->type,
@@ -78,7 +108,8 @@ class Feature implements \JsonSerializable
             "geometry" => $this->geometry,
             "properties" => array(
                 "source_id" => $this->id,
-                "tooltip_content" => $this->tooltip_content
+                "tooltip_content" => $this->tooltip_content,
+                "about_url" => $this->about_url
             ),
             "tooltip_content" => $this->tooltip_content
         );

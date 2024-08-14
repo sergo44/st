@@ -76,7 +76,7 @@ class ListSightsHtmlView extends HtmlView implements IView
 
                             <ul class="section-ads__edit position-absolute">
                                 <li><a class="d-block mb-2" href="/Sights/<?php print $sight->getSightId();?>/Edit">Редактировать</a></li>
-                                <li><a class="ads-remove" href="#">Удалить</a></li>
+                                <li><a class="d-block mb-2" href="<?php print $sight->getAboutUrl();?>">Просмотреть</a></li>
                             </ul>
                             <svg fill="none" height="2.8rem" viewBox="0 0 28 28" width="2.8rem"
                                  xmlns="http://www.w3.org/2000/svg">

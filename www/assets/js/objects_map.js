@@ -247,7 +247,7 @@ map.on('click', (event) => {
             const clusterMembers = features[0].get('features');
 
             if (clusterMembers.length === 1) {
-                document.location.href = "/Catalog/Objects/"+clusterMembers[0].get("source_id")+"/About";
+                document.location.href = clusterMembers[0].get("about_url");
 
             } else if (clusterMembers.length > 1) {
                 // Calculate the extent of the cluster members.

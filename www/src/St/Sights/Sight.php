@@ -2,6 +2,9 @@
 
 namespace St\Sights;
 
+use DateTime;
+use PDO;
+use St\DateTimeHelper;
 use St\Db;
 
 class Sight
@@ -91,6 +94,26 @@ class Sight
      * @var SightImage[]
      */
     protected ?array $images = null;
+
+    /**
+     * Возвращает достопримечательность по идентификатору
+     * @param int $sight_id
+     * @param PDO|null $dbh
+     * @return Sight|null
+     */
+    public static function get(int $sight_id, ?PDO $dbh = null): Sight|null
+    {
+        $dbh = $dbh ?? Db::getReadPDOInstance();
+
+        $sth = $dbh->prepare(/** @lang MariaDB */"SELECT * FROM sights where sight_id = :sight_id");
+        $sth->execute(array(
+            ":sight_id" => $sight_id
+        ));
+
+        $sth->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, Sight::class);
+
+        return $sth->rowCount() ? $sth->fetch() : null;
+    }
 
     /**
      * Возвращает sight_id
@@ -226,11 +249,17 @@ class Sight
 
     /**
      * Возвращает created_datetime_utc
-     * @return string
+     * @param bool $as_datetime_object
+     * @return Datetime|string
      * @see created_datetime_utc
      */
-    public function getCreatedDatetimeUtc(): string
+    public function getCreatedDatetimeUtc(bool $as_datetime_object = false): DateTime|string
     {
+
+        if ($as_datetime_object) {
+            return DateTimeHelper::create($this->created_datetime_utc);
+        }
+
         return $this->created_datetime_utc;
     }
 
@@ -473,5 +502,23 @@ class Sight
     public function getMainImage(): SightImage|null
     {
         return $this->getImages()[0] ?? null;
+    }
+
+    /**
+     * Возвращает дополнительные изображения
+     * @return SightImage[]
+     */
+    public function getAdditionalImages(int $length = 4): array
+    {
+        return array_slice($this->getImages(), 1, $length);
+    }
+
+    /**
+     * Возвращает URL до просмотра объекта
+     * @return string
+     */
+    public function getAboutUrl(): string
+    {
+        return sprintf("/Sights/%u/About", $this->getSightId());
     }
 }
