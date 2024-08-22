@@ -97,12 +97,15 @@ class AboutSightHtmlView extends HtmlView implements IView
                     <h3>Описание</h3>
                     <?php print $this->sight->getDescription();?>
                 </div>
+                <?php if ($this->sight->getContactPhone() || $this->sight->getContactEmail() || $this->sight->getWebSiteUrl()):?>
                 <div class="we-have">
                     <div class="section-object__check">
                         Уточнить дополнительную информацию
                     </div>
-                    <div class="tel-title">Тел.</div>
-                    <div class="tel-value"><?php print $this->sight->getContactPhone();?></div>
+                    <?php if ($this->sight->getContactPhone()):?>
+                        <div class="tel-title">Тел.</div>
+                        <div class="tel-value"><?php print $this->sight->getContactPhone();?></div>
+                    <?php endif; ?>
                     <?php if ($this->sight->getContactEmail()):?>
                         <div class="tel-title">E-mail</div>
                         <div class="tel-value"><?php print $this->escape($this->sight->getContactEmail()); ?></div>
@@ -112,6 +115,7 @@ class AboutSightHtmlView extends HtmlView implements IView
                         <div class="tel-value"><?php print $this->escape($this->sight->getWebSiteUrl()); ?></div>
                     <?php endif; ?>
                 </div>
+                <?php endif; ?>
 
                 <div class="section-object__wrapper-prices d-flex flex-wrap">
                     <?php if ($this->sight->getOperatingMode()):?>
