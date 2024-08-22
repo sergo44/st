@@ -95,6 +95,7 @@ class DefaultHtmlLayout extends HtmlLayout implements ILayout
                         <li class="col-auto"><a href="/Catalog/Objects/Hostel">Хостелы</a></li>
                         <li class="col-auto"><a href="/Catalog/Objects/Apartment">Апартаменты</a></li>
                         <li class="col-auto"><a href="/Catalog/Objects/Camping">Кемпинг</a></li>
+                        <li><a href="/Sights/Show">Достопримечательности</a></li>
                     </ul>
                     <a
                         class="header__wrapper-entry header__account-name gap-4 col-sm-auto col d-flex justify-content-end align-items-center"

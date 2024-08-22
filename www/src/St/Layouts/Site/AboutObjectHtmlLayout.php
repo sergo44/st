@@ -54,6 +54,7 @@ class AboutObjectHtmlLayout extends HtmlLayout implements ILayout
             <li><a href="/Catalog/Objects/Hostel">Хостелы</a></li>
             <li><a href="/Catalog/Objects/Apartment">Апартаменты</a></li>
             <li><a href="/Catalog/Objects/Camping">Кемпинг</a></li>
+            <li><a href="/Sights/Show">Достопримечательности</a></li>
         </ul>
     </div>
     <div class="container h-100">
@@ -83,6 +84,7 @@ class AboutObjectHtmlLayout extends HtmlLayout implements ILayout
                 <li class="col-auto"><a href="/Catalog/Objects/Hostel">Хостелы</a></li>
                 <li class="col-auto"><a href="/Catalog/Objects/Apartment">Апартаменты</a></li>
                 <li class="col-auto"><a href="/Catalog/Objects/Camping">Кемпинг</a></li>
+                <li><a href="/Sights/Show">Достопримечательности</a></li>
             </ul>
 
             <?php if (!Auth::getInstance()->get() || !Auth::getInstance()->get()->getUserId()):?>
