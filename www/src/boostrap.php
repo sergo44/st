@@ -79,6 +79,7 @@ try {
     }
 } catch (HttpError404Exception $e) {
     $layout = new St\Layouts\Error404HtmlLayout();
+    $layout->setMessage($e->getMessage());
     $layout->out();
 } catch (\St\HttpError403Exception $e) {
     $layout = new St\Layouts\Error403HtmlLayout();

@@ -26,7 +26,7 @@ $(document).ready(function() {
         let $jsUploadImageErrorCnt = $("#jsUploadImageErrorCnt");
 
         $.ajax({
-            url: "/Images/Upload/CatalogObject",
+            url: "/Images/Upload/Sight",
             type: "POST",
             data: new FormData(this),
             processData: false,

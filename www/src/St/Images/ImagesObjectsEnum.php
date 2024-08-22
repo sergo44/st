@@ -3,6 +3,7 @@
 namespace St\Images;
 
 use St\CatalogObject;
+use St\Sights\Sight;
 
 enum ImagesObjectsEnum: string
 {
@@ -10,6 +11,11 @@ enum ImagesObjectsEnum: string
      * Объект каталога
      */
     case CatalogObject = CatalogObject::class;
+    /**
+     * Объект каталога
+     */
+    case Sight = Sight::class;
+
 
     /**
      * Возвращает отношение сторон
@@ -18,7 +24,8 @@ enum ImagesObjectsEnum: string
     public function ratio(): float
     {
         return match($this) {
-            ImagesObjectsEnum::CatalogObject => 1 // 640/640
+            ImagesObjectsEnum::CatalogObject,
+            ImagesObjectsEnum::Sight => 1
         };
     }
 }
