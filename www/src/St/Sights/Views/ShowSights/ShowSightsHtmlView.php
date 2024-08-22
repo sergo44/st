@@ -62,7 +62,7 @@ class ShowSightsHtmlView extends HtmlView implements IView
                     </div>
                 </div>
                 <div class="section-catalog__wrapper-sort flex-grow-1">
-                    <div class="section-catalog__top__sort mt-5 d-flex align-items-center justify-content-between flex-grow-1">
+                    <div class="section-catalog__top__sort d-flex align-items-center justify-content-between flex-grow-1">
                         <div class="section-catalog__founded">
                             <span>Найдено <?php print sizeof($this->getSights());?> варианта</span>
                             Показано <?php print min(10, sizeof($this->getSights()));?> из <?php print sizeof($this->getSights());?>
