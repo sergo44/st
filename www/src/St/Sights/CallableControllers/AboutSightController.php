@@ -57,6 +57,10 @@ class AboutSightController extends CallableController implements ICallableContro
             ;
 
             BreadCrumbs::getInstance()
+                ->add( new BreadCrumbsItem("Достопримечательности", "/Sights/Show") )
+            ;
+
+            BreadCrumbs::getInstance()
                 ->add( new BreadCrumbsItem($sight->getName(), $sight->getAboutUrl()) )
             ;
 
