@@ -225,7 +225,7 @@ class IndexHtmlLayout extends HtmlLayout implements ILayout
                         </li>
                         <?php endforeach; ?>
                     </ul>
-                    <a class="btn btn-outline-secondary" href="/Sights/List">Больше достопримечательностей</a>
+                    <a class="btn btn-outline-secondary" href="/Sights/Show">Больше достопримечательностей</a>
                 </div>
             </section>
 

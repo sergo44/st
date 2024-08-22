@@ -116,6 +116,14 @@ class Routes extends FileRoute implements IRoute
             ))->index($match[1]);
         }
 
+        if (preg_match("#^/?Sights/Show/?$#", $this->dispatcher->getPath(), $match)) {
+            return (new Sights\CallableControllers\ShowSightsController(
+                $_REQUEST,
+                new Layouts\Site\AboutObjectHtmlLayout(),
+                new Sights\Views\ShowSights\ShowSightsHtmlView()
+            ))->index();
+        }
+
 
         return null;
     }
