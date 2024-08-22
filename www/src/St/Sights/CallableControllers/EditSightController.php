@@ -162,11 +162,17 @@ class EditSightController extends UserCallableController implements ICallableCon
                 }
             }
 
-            $this->getView()
-                ->setSight($sight)
-                ->setEdit(true)
-                ->setShowSuccessWindow(true)
-            ;
+            if (!$result->hasErrors()) {
+
+                $store
+                    ->update();
+
+                $this->getView()
+                    ->setSight($sight)
+                    ->setEdit(true)
+                    ->setShowSuccessWindow(true)
+                ;
+            }
 
         } catch (CallableControllerException $e) {
 
