@@ -71,10 +71,13 @@ class AboutSightHtmlView extends HtmlView implements IView
                     <div class="section-object__wrapper-image<?php if ($key === 3 && sizeof($this->getSight()->getImages()) > 4):?> position-relative<?php endif;?>">
                         <?php if ($key === 3 && sizeof($this->getSight()->getImages()) > 4):?>
                             <a href="/<?php print $image->getUri(2000, 2000);?>" data-fancybox="sight-<?php print $this->sight->getSightId();?>" class="overlay-object-foto"><?php print sizeof($this->sight->getImages());?> фото</a>
-                        <?php endif;?>
-                        <a href="/<?php print $image->getUri(2000, 2000);?>" data-fancybox="sight-<?php print $this->sight->getSightId();?>">
                             <img alt="" class="w-100 h-100 object-fit-cover" src="/<?php print $image->getUri(296, 296, true)?>">
-                        </a>
+                        <?php else: ?>
+                            <a href="/<?php print $image->getUri(2000, 2000);?>" data-fancybox="sight-<?php print $this->sight->getSightId();?>">
+                                <img alt="" class="w-100 h-100 object-fit-cover" src="/<?php print $image->getUri(296, 296, true)?>">
+                            </a>
+                        <?php endif;?>
+
 
                     </div>
                 <?php endforeach; ?>
