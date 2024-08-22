@@ -81,7 +81,7 @@ class AboutSightHtmlView extends HtmlView implements IView
 
                 <?php if (sizeof($this->getSight()->getImages()) > 0):?>
                 <div class="d-none">
-                <?php foreach (array_slice($this->getSight()->getImages(), 6) as $image):?>
+                <?php foreach (array_slice($this->getSight()->getImages(), 7) as $image):?>
                     <a href="/<?php print $image->getUri(2000, 2000);?>" data-fancybox="sight-<?php print $this->sight->getSightId();?>">
                         <img alt="" class="w-100 h-100 object-fit-cover" src="/<?php print $image->getUri(296, 296, true)?>">
                     </a>
