@@ -8,9 +8,9 @@ class SightImage
 {
     /**
      * Идентификатор изображения в БД
-     * @var int
+     * @var int|null
      */
-    protected int $sight_image_id;
+    protected ?int $sight_image_id;
     /**
      * Идентификатор объекта достопримечательности
      * @var int
@@ -59,21 +59,21 @@ class SightImage
 
     /**
      * Возвращает sight_image_id
-     * @return int
+     * @return int|null
      * @see sight_image_id
      */
-    public function getSightImageId(): int
+    public function getSightImageId(): ?int
     {
         return $this->sight_image_id;
     }
 
     /**
      * Устанавливает sight_image_id
-     * @param int $sight_image_id
+     * @param int|null $sight_image_id
      * @return SightImage
      * @see sight_image_id
      */
-    public function setSightImageId(int $sight_image_id): SightImage
+    public function setSightImageId(?int $sight_image_id): SightImage
     {
         $this->sight_image_id = $sight_image_id;
         return $this;

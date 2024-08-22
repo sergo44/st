@@ -95,4 +95,31 @@ $(document).ready(function() {
             }
         });
     });
+
+    $("a[data-image-id]").click(function(e) {
+        e.preventDefault();
+
+        if (!confirm("Данная фотография будет полностью удалена из системы без возможности восстановления, продолжить?")) {
+            return;
+        }
+
+        const image_id = $(this).attr("data-image-id");
+        const $relative_div = $(this).closest("div");
+
+        $.ajax({
+            url: "Edit/" + image_id + "/PurgeImage",
+            method: "GET",
+            success: function(res) {
+                if (res.result?.success) {
+                    $relative_div.fadeOut();
+                } else {
+                    alert(res.result?.errors_as_string);
+                }
+            },
+            error: function(err) {
+                alert("Произошла непредвиденная ошибка при выполнении запроса к серверу хранения данных. Пожалуйста, проверьте наличие интернета и попробуйте еще раз");
+            }
+
+        })
+    });
 });

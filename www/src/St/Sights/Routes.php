@@ -11,6 +11,7 @@ use St\HttpError404Exception;
 use St\Layouts\Site\UserHtmlLayout;
 use St\Sights;
 use St\Layouts;
+use St\Views;
 
 class Routes extends FileRoute implements IRoute
 {
@@ -48,6 +49,33 @@ class Routes extends FileRoute implements IRoute
             ))->index();
         }
 
+        if (preg_match("#^/?Sights/([1-9][0-9]*)/Edit/?$#", $this->dispatcher->getPath(), $match)) {
+            return (new Sights\CallableControllers\EditSightController(
+                $_REQUEST,
+                new UserHtmlLayout(),
+                new Sights\Views\EditSight\EditSightHtmlView()
+            ))->index((int)$match[1]);
+        }
+
+        if (preg_match("#^/?Sights/Edit/([1-9][0-9]*)/Go/?$#", $this->dispatcher->getPath(), $match)) {
+            return (new Sights\CallableControllers\EditSightController(
+                $_REQUEST,
+                new UserHtmlLayout(),
+                new Sights\Views\EditSight\EditSightHtmlView()
+            ))->go((int)$match[1]);
+        }
+
+        if (
+            preg_match("#^/?Sights/([1-9][0-9]*)/Edit/([1-9][0-9]*)/PurgeImage/?$#", $this->dispatcher->getPath(), $match)
+            || preg_match("#^/?Sights/([1-9][0-9]*)/Edit/Go/([1-9][0-9]*)/PurgeImage/?$#", $this->dispatcher->getPath(), $match)
+        ) {
+            return (new Sights\CallableControllers\PurgeSightImageController(
+                $_REQUEST,
+                new Layouts\JsonLayout(),
+                new Views\Common\ResultJsonView()
+            ))->index((int)$match[1], (int)$match[2]);
+        }
+
         if (preg_match("#^/?Sights/Wait/?$#", $this->dispatcher->getPath(), $match)) {
             return (new Sights\CallableControllers\WaitSightsController(
                 $_REQUEST,
@@ -71,6 +99,15 @@ class Routes extends FileRoute implements IRoute
                 new Sights\Views\WaitSights\ManageSightHtmlView()
             ))->approve($match[1], SightStatusEnum::Decline);
         }
+
+        if (preg_match("#^/?Sights/([1-9][0-9]*)/About/?$#", $this->dispatcher->getPath(), $match)) {
+            return (new Sights\CallableControllers\AboutSightController(
+                $_REQUEST,
+                new Layouts\Site\AboutObjectHtmlLayout(),
+                new Sights\Views\AboutSight\AboutSightHtmlView()
+            ))->index($match[1]);
+        }
+
         if (preg_match("#^/?Sights/([1-9][0-9]*)/About/?$#", $this->dispatcher->getPath(), $match)) {
             return (new Sights\CallableControllers\AboutSightController(
                 $_REQUEST,

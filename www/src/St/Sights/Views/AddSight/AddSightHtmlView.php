@@ -3,7 +3,10 @@
 namespace St\Sights\Views\AddSight;
 
 use Override;
+use St\ApplicationError;
+use St\City;
 use St\Country;
+use St\Region;
 use St\Sights\Sight;
 use St\Views\HtmlView;
 use St\Views\IView;
@@ -16,6 +19,16 @@ class AddSightHtmlView extends HtmlView implements IView
      */
     protected array $countries_list = array();
     /**
+     * Возвращает регионы
+     * @var Region[]
+     */
+    protected array $regions_list = array();
+    /**
+     * Возвращает города
+     * @var City[]
+     */
+    protected array $cities_list = array();
+    /**
      * Объект
      * @var Sight|null
      */
@@ -25,6 +38,11 @@ class AddSightHtmlView extends HtmlView implements IView
      * @var bool
      */
     protected bool $show_success_window = false;
+    /**
+     * Признак, что объект редактируется
+     * @var bool
+     */
+    protected bool $edit = false;
 
     /**
      * Возвращает countries_list
@@ -45,6 +63,50 @@ class AddSightHtmlView extends HtmlView implements IView
     public function setCountriesList(array $countries_list): AddSightHtmlView
     {
         $this->countries_list = $countries_list;
+        return $this;
+    }
+
+    /**
+     * Возвращает regions_list
+     * @return array
+     * @see regions_list
+     */
+    public function getRegionsList(): array
+    {
+        return $this->regions_list;
+    }
+
+    /**
+     * Устанавливает regions_list
+     * @param array $regions_list
+     * @return AddSightHtmlView
+     * @see regions_list
+     */
+    public function setRegionsList(array $regions_list): AddSightHtmlView
+    {
+        $this->regions_list = $regions_list;
+        return $this;
+    }
+
+    /**
+     * Возвращает cities_list
+     * @return array
+     * @see cities_list
+     */
+    public function getCitiesList(): array
+    {
+        return $this->cities_list;
+    }
+
+    /**
+     * Устанавливает cities_list
+     * @param array $cities_list
+     * @return AddSightHtmlView
+     * @see cities_list
+     */
+    public function setCitiesList(array $cities_list): AddSightHtmlView
+    {
+        $this->cities_list = $cities_list;
         return $this;
     }
 
@@ -93,23 +155,62 @@ class AddSightHtmlView extends HtmlView implements IView
     }
 
     /**
+     * Возвращает edit
+     * @return bool
+     * @see edit
+     */
+    public function isEdit(): bool
+    {
+        return $this->edit;
+    }
+
+    /**
+     * Устанавливает edit
+     * @param bool $edit
+     * @return AddSightHtmlView
+     * @see edit
+     */
+    public function setEdit(bool $edit): AddSightHtmlView
+    {
+        $this->edit = $edit;
+        return $this;
+    }
+
+    /**
+     * Возвращает действие
+     * @return string
+     */
+    public function getAction(): string
+    {
+        return !$this->getSight() ? "/Sights/Add/Go" : sprintf("/Sights/Edit/%u/Go", $this->getSight()->getSightId());
+    }
+
+    /**
      * @inheritdoc
      * @return void
+     * @throws ApplicationError
      */
     #[Override] public function out(): void
     {
         ?>
 
         <?php if ($this->show_success_window):?>
+            <?php if (!$this->edit):?>
             <div class="alert alert-success">
                 <h4>ОК</h4>
-                <p>Достопримечательность успшено добавлена и будет отображена после того, как ее проверит администратор ресурса</p>
+                <p>Достопримечательность успешно добавлена и будет отображена после того, как ее проверит администратор ресурса</p>
             </div>
+            <?php else: ?>
+            <div class="alert alert-success">
+                <h4>ОК</h4>
+                <p>Достопримечательность успешно изменена и будет отображена после того, как ее проверит администратор ресурса</p>
+            </div>
+            <?php endif; ?>
 
         <?php else: ?>
 
             <div class="pt-3">
-                <form action="/Sights/Add/Go" method="post" enctype="multipart/form-data">
+                <form action="<?php print $this->getAction();?>" method="post" enctype="multipart/form-data">
 
                     <h5>Локация</h5>
                     <div class="d-flex gap-5 flex-wrap">
@@ -120,7 +221,7 @@ class AddSightHtmlView extends HtmlView implements IView
                             </svg>
                             <label class="form-label" for="objectCountry">Страна<span>*</span></label>
                             <input type="hidden" name="country_id" value="<?php print $this->sight?->getCountryId()?>">
-                            <input class="form-control input-services-list" id="objectCountry" placeholder="Не выбрано" required type="text" value="">
+                            <input class="form-control input-services-list" id="objectCountry" placeholder="Не выбрано" required type="text" value="<?php print $this->sight?->getCountry()?->getName();?>">
                             <ul class="add-adv__services-list position-absolute w-100">
                                 <?php foreach ($this->countries_list as $country):?>
                                     <li><a class="d-block" href="#" data-value="<?php print $country->getCountryId()?>" data-toggle-country="1"><?php print $country->getName();?></a></li>
@@ -134,9 +235,16 @@ class AddSightHtmlView extends HtmlView implements IView
                             </svg>
                             <label class="form-label" for="objectRegion">Регион<span>*</span></label>
                             <input type="hidden" name="region_id"  value="<?php print $this->sight?->getRegionId()?>">
-                            <input class="form-control input-services-list" id="objectRegion" placeholder="Не выбрано" required type="text" readonly value="">
+                            <input class="form-control input-services-list" id="objectRegion" placeholder="Не выбрано" required type="text" readonly value="<?php print $this->sight?->getRegion()?->getName(); ?>">
                             <ul class="add-adv__services-list position-absolute w-100 j-region-ul-list">
-                                <li>Выберите страну</li>
+
+                                <?php if (sizeof($this->getRegionsList())):?>
+                                    <?php foreach ($this->getRegionsList() as $region):?>
+                                        <a class="d-block" href="#" data-value="<?php print $region->getRegionId(); ?>" data-toggle-region="1"><?php print $region->getName();?></a>
+                                    <?php endforeach; ?>
+                                <?php else:?>
+                                    <li>Выберите страну</li>
+                                <?php endif; ?>
                             </ul>
                         </div>
                     </div>
@@ -148,9 +256,16 @@ class AddSightHtmlView extends HtmlView implements IView
                             </svg>
                             <label class="form-label" for="objectCity">Населенный пункт<span>*</span></label>
                             <input type="hidden" name="city_id" value="<?php print $this->sight?->getCityId()?>">
-                            <input class="form-control input-services-list" id="objectCity" placeholder="Не выбрано" required type="text" readonly value="">
+                            <input class="form-control input-services-list" id="objectCity" placeholder="Не выбрано" required type="text" readonly value="<?php print $this->getSight()?->getCity()?->getName();?>">
                             <ul class="add-adv__services-list position-absolute w-100 j-city-ul-list">
-                                <li class="text-muted">Выберите регион</li>
+                                <?php if ($this->getCitiesList()): ?>
+                                    <?php foreach ($this->getCitiesList() as $city):?>
+                                        <a class="d-block" href="#" data-value="<?php print $city->getCityId();?>" data-toggle-region="1"><?php print $city->getName();?></a>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <li class="text-muted">Выберите регион</li>
+                                <?php endif; ?>
+
                             </ul>
                         </div>
                     </div>
@@ -180,8 +295,8 @@ class AddSightHtmlView extends HtmlView implements IView
                     <div class="add-new-adv__photos d-flex gap-4" id="jsObjectPhotos">
                         <?php foreach ($this->sight? $this->sight->getImages() : array() as $image):?>
                             <div style="position: relative">
-                                <img src="<?php print $image->getUri(150, 150, true)?>" alt="" data-image-id="<?php print $image->getImageId()?>">
-                                <a class="jsEditObjectRemoveImage" style="position: absolute; top: -10px; right: -10px;" href="#" data-image-id="<?php print $image->getImageId()?>"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <img src="/<?php print $image->getUri(150, 150)?>" alt="" data-image-id="<?php print $image->getSightImageId()?>">
+                                <a class="jsEditObjectRemoveImage" style="position: absolute; top: -10px; right: -10px;" href="#" data-image-id="<?php print $image->getSightImageId()?>"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M16 3C13.4288 3 10.9154 3.76244 8.77759 5.1909C6.63975 6.61935 4.97351 8.64968 3.98957 11.0251C3.00563 13.4006 2.74819 16.0144 3.2498 18.5362C3.75141 21.0579 4.98953 23.3743 6.80762 25.1924C8.6257 27.0105 10.9421 28.2486 13.4638 28.7502C15.9856 29.2518 18.5995 28.9944 20.9749 28.0104C23.3503 27.0265 25.3807 25.3603 26.8091 23.2224C28.2376 21.0846 29 18.5712 29 16C28.996 12.5534 27.6251 9.24912 25.188 6.81201C22.7509 4.3749 19.4466 3.00398 16 3ZM20.707 19.293C20.8 19.3858 20.8739 19.496 20.9242 19.6174C20.9746 19.7387 21.0006 19.8688 21.0007 20.0002C21.0007 20.1316 20.9749 20.2617 20.9246 20.3832C20.8744 20.5046 20.8007 20.6149 20.7078 20.7078C20.6149 20.8007 20.5046 20.8744 20.3832 20.9246C20.2617 20.9749 20.1316 21.0007 20.0002 21.0006C19.8688 21.0006 19.7387 20.9746 19.6174 20.9242C19.496 20.8738 19.3858 20.8 19.293 20.707L16 17.4141L12.707 20.707C12.5195 20.8942 12.2652 20.9993 12.0002 20.9991C11.7352 20.999 11.4811 20.8937 11.2937 20.7063C11.1063 20.5189 11.001 20.2648 11.0009 19.9998C11.0007 19.7348 11.1058 19.4806 11.293 19.293L14.5859 16L11.293 12.707C11.1058 12.5194 11.0007 12.2652 11.0009 12.0002C11.001 11.7352 11.1063 11.4811 11.2937 11.2937C11.4811 11.1063 11.7352 11.001 12.0002 11.0009C12.2652 11.0007 12.5195 11.1058 12.707 11.293L16 14.5859L19.293 11.293C19.4806 11.1058 19.7348 11.0007 19.9998 11.0009C20.2648 11.001 20.5189 11.1063 20.7063 11.2937C20.8937 11.4811 20.999 11.7352 20.9991 12.0002C20.9993 12.2652 20.8942 12.5194 20.707 12.707L17.4141 16L20.707 19.293Z" fill="black"/>
                                     </svg></a>
                             </div>
@@ -196,7 +311,7 @@ class AddSightHtmlView extends HtmlView implements IView
                     <div class="mb-5 d-flex gap-5 flex-wrap">
                         <div class="mb-0 col-sm-5 wrapper-services-input" style="width:63rem">
                             <label class="form-label" for="inputName">Название объекта<span>*</span></label>
-                            <input class="form-control input-services-list" id="inputName" name="name" placeholder="Укажите название объекта" required="required" type="text" value="">
+                            <input class="form-control input-services-list" id="inputName" name="name" placeholder="Укажите название объекта" required="required" type="text" value="<?php print $this->escape($this->sight?->getName());?>">
                         </div>
                     </div>
 
@@ -217,28 +332,28 @@ class AddSightHtmlView extends HtmlView implements IView
                     <div class="mb-5 d-flex gap-5 flex-wrap">
                         <div class="mb-0 col-sm-5 wrapper-services-input" style="width:63rem">
                             <label class="form-label" for="inputPrice">Стоимость посещения</label>
-                            <input class="form-control input-services-list" id="inputPrice" name="price" placeholder="Укажите стоимость посещения" required="required" type="text" value="">
+                            <input class="form-control input-services-list" id="inputPrice" name="price" placeholder="Укажите стоимость посещения" required="required" type="text" value="<?php print $this->escape($this->sight?->getPrice());?>">
                         </div>
                     </div>
 
                     <div class="mb-5 d-flex gap-5 flex-wrap">
                         <div class="mb-0 col-sm-5 wrapper-services-input" style="width:63rem">
                             <label class="form-label" for="inputContactPhone">Контактный номер телефона</label>
-                            <input class="form-control input-services-list" id="inputContactPhone" name="contact_phone" placeholder="Укажите номер телефона (при наличии)" required="required" type="text" value="">
+                            <input class="form-control input-services-list" id="inputContactPhone" name="contact_phone" placeholder="Укажите номер телефона (при наличии)" required="required" type="text" value="<?php print $this->escape($this->sight?->getContactPhone());?>">
                         </div>
                     </div>
 
                     <div class="mb-5 d-flex gap-5 flex-wrap">
                         <div class="mb-0 col-sm-5 wrapper-services-input" style="width:63rem">
                             <label class="form-label" for="inputContactEmail">Контактный адрес электронной почты</label>
-                            <input class="form-control input-services-list" id="inputContactEmail" name="contact_email" placeholder="Укажите адрес электронной почты (при наличии)" required="required" type="text" value="">
+                            <input class="form-control input-services-list" id="inputContactEmail" name="contact_email" placeholder="Укажите адрес электронной почты (при наличии)" required="required" type="text" value="<?php print $this->escape($this->sight?->getContactEmail());?>">
                         </div>
                     </div>
 
                     <div class="mb-5 d-flex gap-5 flex-wrap">
                         <div class="mb-0 col-sm-5 wrapper-services-input" style="width:63rem">
                             <label class="form-label" for="inputWebSiteUrl">Адрес веб сайта</label>
-                            <input class="form-control input-services-list" id="inputWebSiteUrl" name="web_site_url" placeholder="Укажите адрес веб сайта (при наличии)" required="required" type="text" value="">
+                            <input class="form-control input-services-list" id="inputWebSiteUrl" name="web_site_url" placeholder="Укажите адрес веб сайта (при наличии)" required="required" type="text" value="<?php print $this->escape($this->sight?->getWebSiteUrl());?>">
                         </div>
                     </div>
 

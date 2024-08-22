@@ -4,8 +4,12 @@ namespace St\Sights;
 
 use DateTime;
 use PDO;
+use St\ApplicationError;
+use St\City;
+use St\Country;
 use St\DateTimeHelper;
 use St\Db;
+use St\Region;
 
 class Sight
 {
@@ -182,6 +186,16 @@ class Sight
     }
 
     /**
+     * Возвращает страну
+     * @return Country|null
+     * @throws ApplicationError
+     */
+    public function getCountry(): ?Country
+    {
+        return $this->getCountryId() ? Country::get($this->getCountryId()) : null;
+    }
+
+    /**
      * Возвращает region_id
      * @return int
      * @see region_id
@@ -204,6 +218,16 @@ class Sight
     }
 
     /**
+     * Возвращает регион
+     * @return Region|null
+     * @throws ApplicationError
+     */
+    public function getRegion(): ?Region
+    {
+        return $this->region_id ? Region::get($this->region_id) : null;
+    }
+
+    /**
      * Возвращает city_id
      * @return int
      * @see city_id
@@ -223,6 +247,16 @@ class Sight
     {
         $this->city_id = $city_id;
         return $this;
+    }
+
+    /**
+     * Возвращает город
+     * @return City|null
+     * @throws ApplicationError
+     */
+    public function getCity(): ?City
+    {
+        return $this->city_id ? City::get($this->city_id) : null;
     }
 
     /**

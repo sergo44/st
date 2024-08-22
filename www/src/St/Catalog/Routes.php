@@ -39,7 +39,10 @@ class Routes extends FileRoute implements IRoute
             return (new Catalog\CallableControllers\EditObjectController($_REQUEST, new Layouts\Site\UserHtmlLayout(), new Catalog\Views\EditObject\EditObjectHtmlView()))->index($match[1]);
         }
 
-        if (preg_match("#^/?Catalog/Objects/([1-9][0-9]*)/Edit/([1-9][0-9]*)/PurgeImage/?$#ui", $this->dispatcher->getPath(), $match)) {
+        if (
+            preg_match("#^/?Catalog/Objects/([1-9][0-9]*)/Edit/([1-9][0-9]*)/PurgeImage/?$#ui", $this->dispatcher->getPath(), $match)
+            || preg_match("#^/?Catalog/Objects/([1-9][0-9]*)/Edit/Go/([1-9][0-9]*)/PurgeImage/?$#ui", $this->dispatcher->getPath(), $match)
+        ) {
             return (new Catalog\CallableControllers\PurgeObjectImageController($_REQUEST, new Layouts\JsonLayout(), new Catalog\Views\EditObject\PurgeImageJsonView()))->index((int)$match[1], (int)$match[2]);
         }
 

@@ -1,18 +1,18 @@
 <?php
 
-namespace St\Catalog\Views\EditObject;
+namespace St\Views\Common;
 
-use Override;
+use JsonSerializable;
 use St\Views\IView;
 use St\Views\JsonView;
 
-class PurgeImageJsonView extends JsonView implements \JsonSerializable, IView
+class ResultJsonView extends JsonView  implements JsonSerializable, IView
 {
     /**
      * @inheritDoc
      * @return array
      */
-    #[Override] public function jsonSerialize(): array
+    #[\Override] public function jsonSerialize(): array
     {
         return array(
             "result" => $this->getResult()
