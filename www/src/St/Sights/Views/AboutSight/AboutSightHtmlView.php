@@ -62,14 +62,32 @@ class AboutSightHtmlView extends HtmlView implements IView
 
             <div class="section-object__wrapper-photos d-grid">
                 <div class="section-object__wrapper-main-image">
-                    <img alt="" class="w-100 h-100 object-fit-cover" src="/<?php print $this->sight->getMainImage()->getUri(633, 633, true)?>">
+                    <a href="/<?php print $this->sight->getMainImage()->getUri(2000, 2000, true);?>" data-fancybox="sight-<?php print $this->sight->getSightId();?>">
+                        <img alt="" class="w-100 h-100 object-fit-cover" src="/<?php print $this->sight->getMainImage()->getUri(633, 633, true)?>">
+                    </a>
                 </div>
 
-                <?php foreach ($this->getSight()->getAdditionalImages(4) as $image):?>
-                    <div class="section-object__wrapper-image">
-                        <img alt="" class="w-100 h-100 object-fit-cover" src="/<?php print $image->getUri(296, 296, true)?>">
+                <?php foreach ($this->getSight()->getAdditionalImages(4) as $key => $image):?>
+                    <div class="section-object__wrapper-image<?php if ($key === 3 && sizeof($this->getSight()->getImages()) > 4):?> position-relative<?php endif;?>">
+                        <?php if ($key === 3 && sizeof($this->getSight()->getImages()) > 4):?>
+                            <a href="/<?php print $image->getUri(2000, 2000);?>" data-fancybox="sight-<?php print $this->sight->getSightId();?>" class="overlay-object-foto"><?php print sizeof($this->sight->getImages());?> фото</a>
+                        <?php endif;?>
+                        <a href="/<?php print $image->getUri(2000, 2000);?>" data-fancybox="sight-<?php print $this->sight->getSightId();?>">
+                            <img alt="" class="w-100 h-100 object-fit-cover" src="/<?php print $image->getUri(296, 296, true)?>">
+                        </a>
+
                     </div>
                 <?php endforeach; ?>
+
+                <?php if (sizeof($this->getSight()->getImages()) > 0):?>
+                <div class="d-none">
+                <?php foreach (array_slice($this->getSight()->getImages(), 4) as $image):?>
+                    <a href="/<?php print $image->getUri(2000, 2000);?>" data-fancybox="sight-<?php print $this->sight->getSightId();?>">
+                        <img alt="" class="w-100 h-100 object-fit-cover" src="/<?php print $image->getUri(296, 296, true)?>">
+                    </a>
+                <?php endforeach;?>
+                </div>
+                <?php endif;?>
             </div>
             <div class="section-object__wrapper-description d-grid">
                 <div class="section-object__description">

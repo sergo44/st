@@ -31,7 +31,11 @@ module.exports = {
         add_sight: [
             './assets/js/set_coordinates.js',
             './assets/js/add_sight.js'
+        ],
+        about_sight: [
+            './assets/js/about_sight.js'
         ]
+
     },
     output: {
         filename: '[name].bundle.js',

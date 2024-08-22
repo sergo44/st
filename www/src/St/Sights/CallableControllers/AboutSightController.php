@@ -49,6 +49,7 @@ class AboutSightController extends CallableController implements ICallableContro
 
             $this->getLayout()
                 ->setSectionTitle($sight->getName())
+                ->addJs("/build/about_sight.bundle.js")
             ;
 
             $this->getView()
