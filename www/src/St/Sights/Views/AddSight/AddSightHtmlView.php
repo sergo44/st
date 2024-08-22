@@ -332,28 +332,28 @@ class AddSightHtmlView extends HtmlView implements IView
                     <div class="mb-5 d-flex gap-5 flex-wrap">
                         <div class="mb-0 col-sm-5 wrapper-services-input" style="width:63rem">
                             <label class="form-label" for="inputPrice">Стоимость посещения</label>
-                            <input class="form-control input-services-list" id="inputPrice" name="price" placeholder="Укажите стоимость посещения" required="required" type="text" value="<?php print $this->escape($this->sight?->getPrice());?>">
+                            <input class="form-control input-services-list" id="inputPrice" name="price" placeholder="Укажите стоимость посещения" type="text" value="<?php print $this->escape($this->sight?->getPrice());?>">
                         </div>
                     </div>
 
                     <div class="mb-5 d-flex gap-5 flex-wrap">
                         <div class="mb-0 col-sm-5 wrapper-services-input" style="width:63rem">
                             <label class="form-label" for="inputContactPhone">Контактный номер телефона</label>
-                            <input class="form-control input-services-list" id="inputContactPhone" name="contact_phone" placeholder="Укажите номер телефона (при наличии)" required="required" type="text" value="<?php print $this->escape($this->sight?->getContactPhone());?>">
+                            <input class="form-control input-services-list" id="inputContactPhone" name="contact_phone" placeholder="Укажите номер телефона (при наличии)" type="text" value="<?php print $this->escape($this->sight?->getContactPhone());?>">
                         </div>
                     </div>
 
                     <div class="mb-5 d-flex gap-5 flex-wrap">
                         <div class="mb-0 col-sm-5 wrapper-services-input" style="width:63rem">
                             <label class="form-label" for="inputContactEmail">Контактный адрес электронной почты</label>
-                            <input class="form-control input-services-list" id="inputContactEmail" name="contact_email" placeholder="Укажите адрес электронной почты (при наличии)" required="required" type="text" value="<?php print $this->escape($this->sight?->getContactEmail());?>">
+                            <input class="form-control input-services-list" id="inputContactEmail" name="contact_email" placeholder="Укажите адрес электронной почты (при наличии)"  type="text" value="<?php print $this->escape($this->sight?->getContactEmail());?>">
                         </div>
                     </div>
 
                     <div class="mb-5 d-flex gap-5 flex-wrap">
                         <div class="mb-0 col-sm-5 wrapper-services-input" style="width:63rem">
                             <label class="form-label" for="inputWebSiteUrl">Адрес веб сайта</label>
-                            <input class="form-control input-services-list" id="inputWebSiteUrl" name="web_site_url" placeholder="Укажите адрес веб сайта (при наличии)" required="required" type="text" value="<?php print $this->escape($this->sight?->getWebSiteUrl());?>">
+                            <input class="form-control input-services-list" id="inputWebSiteUrl" name="web_site_url" placeholder="Укажите адрес веб сайта (при наличии)" type="text" value="<?php print $this->escape($this->sight?->getWebSiteUrl());?>">
                         </div>
                     </div>
 
