@@ -61,7 +61,7 @@ class ListWaitSightsHtmlView extends HtmlView implements IView
                                 <div class="section-ads__wrapper-description">
                                     <h5 class="section-catalog__card-title"><?php print $this->escape($sight->getName())?></h5>
                                     <div class="section-catalog__card-advantages d-flex align-items-center gap-3 mt-2">
-                                        <span><?php print $this->escape(substr(strip_tags($sight->getDescription()), 0, 150));?></span>
+                                        <span><?php print $this->escape(mb_substr(strip_tags($sight->getDescription()), 0, 150));?></span>
                                     </div>
                                     <div class="d-flex section-catalog__card-advantages gap-3">
                                         Дата публикации (редактирования): <?php print $sight->getCreatedDatetimeUtc(true)->format("d.m.Y H:i"); ?>

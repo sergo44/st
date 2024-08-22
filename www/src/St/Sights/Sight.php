@@ -564,8 +564,8 @@ class Sight
     public function getAnnounce(int $length = 150): string
     {
         $return = strip_tags($this->getDescription());
-        if (strlen($return) > $length) {
-            return substr($return, 0, $length) . "...";
+        if (mb_strlen($return) > $length) {
+            return mb_substr($return, 0, $length) . "...";
         }
 
         return $return;
