@@ -6,6 +6,7 @@ use St\ApplicationError;
 use St\BreadCrumbs;
 use St\BreadCrumbsItem;
 use St\Cities\GetAllCities;
+use St\City;
 use St\Countries\CountriesEnumHelper;
 use St\FrontController\CallableController;
 use St\FrontController\CallableControllerException;
@@ -37,7 +38,7 @@ class ShowSightsController extends CallableController implements ICallableContro
      * @throws ApplicationError
      * @throws HttpError404Exception
      */
-    public function index($region_id = null): ShowSightsController
+    public function index($city_id = null): ShowSightsController
     {
 
         $this->getView()
@@ -54,12 +55,21 @@ class ShowSightsController extends CallableController implements ICallableContro
                 ->add( new BreadCrumbsItem("Достопримечательности", "/Sights/Show") )
             ;
 
-            if ($region_id) {
-                $region = Region::get($region_id);
+            if ($city_id) {
 
-                if (!$region->getRegionId()) {
-                    throw new HttpError404Exception(sprintf("Регион с указанным идентификатором [%u] не найден", $region_id));
+                $city = City::get($city_id);
+
+                if (!$city->getCityId()) {
+                    throw new HttpError404Exception(sprintf("Город с указанным идентификатором [%u] не найден", $city_id));
                 }
+
+                $this->getLayout()
+                    ->setSectionTitle($city->getName())
+                ;
+
+                BreadCrumbs::getInstance()
+                    ->add( new BreadCrumbsItem($city->getName()) )
+                ;
             }
 
 
@@ -67,17 +77,6 @@ class ShowSightsController extends CallableController implements ICallableContro
             $filter_html_widget
                 ->setInputData( $this->getUserInputData() )
             ;
-
-            //if (isset($region)) {
-            //    $filter_html_widget
-            //        ->setRegions( (new GetCountryRegions($region->getRegionId()))->getRegions() )
-            //    ;
-            //} else {
-                $filter_html_widget
-                    ->setCities( (new GetAllCities())->getCities() )
-                    ->setRegions( (new GetCountryRegions(CountriesEnumHelper::Russia->value))->getRegions() )
-                ;
-            //}
 
             $sight_filter = new SightFilter();
 
@@ -87,6 +86,23 @@ class ShowSightsController extends CallableController implements ICallableContro
 
             if ($this->getUserInputData("city")) {
                 $sight_filter->setCityIds($this->getUserInputData("city"));
+            }
+
+            if (isset($city)) {
+                $filter_html_widget
+                    ->setRegions( (new GetCountryRegions($city->getCountryId()))->getRegions() )
+                    ->setCities( (new GetAllCities())->getCities() )
+                    ->addSelectedCity($city_id)
+                ;
+
+                $sight_filter
+                    ->addCityId($city_id)
+                ;
+            } else {
+                $filter_html_widget
+                    ->setCities( (new GetAllCities())->getCities() )
+                    ->setRegions( (new GetCountryRegions(CountriesEnumHelper::Russia->value))->getRegions() )
+                ;
             }
 
             $sights = new GetVisibleSights();

@@ -3,6 +3,7 @@
 namespace St\Sights;
 
 use St\ApplicationError;
+use St\Cities\CitiesEnumHelper;
 use St\FrontController\FileRoute;
 use St\FrontController\ICallableController;
 use St\FrontController\IRoute;
@@ -122,6 +123,46 @@ class Routes extends FileRoute implements IRoute
                 new Layouts\Site\AboutObjectHtmlLayout(),
                 new Sights\Views\ShowSights\ShowSightsHtmlView()
             ))->index();
+        }
+
+        if (preg_match("#^/?Sights/Buryatia/WarmLake/?$#", $this->dispatcher->getPath(), $match)) {
+            return (new Sights\CallableControllers\ShowSightsController(
+                $_REQUEST,
+                new Layouts\Site\AboutObjectHtmlLayout(),
+                new Sights\Views\ShowSights\ShowSightsHtmlView()
+            ))->index(CitiesEnumHelper::WarnLake->value);
+        }
+
+        if (preg_match("#^/?Sights/Irkutsk/Listvyanka/?$#", $this->dispatcher->getPath(), $match)) {
+            return (new Sights\CallableControllers\ShowSightsController(
+                $_REQUEST,
+                new Layouts\Site\AboutObjectHtmlLayout(),
+                new Sights\Views\ShowSights\ShowSightsHtmlView()
+            ))->index(CitiesEnumHelper::Listvyanka->value);
+        }
+
+        if (preg_match("#^/?Sights/Buryatia/Goryachinsk/?$#", $this->dispatcher->getPath(), $match)) {
+            return (new Sights\CallableControllers\ShowSightsController(
+                $_REQUEST,
+                new Layouts\Site\AboutObjectHtmlLayout(),
+                new Sights\Views\ShowSights\ShowSightsHtmlView()
+            ))->index(CitiesEnumHelper::Goryachinsk->value);
+        }
+
+        if (preg_match("#^/?Sights/Irkutsk/Olkhon/?$#", $this->dispatcher->getPath(), $match)) {
+            return (new Sights\CallableControllers\ShowSightsController(
+                $_REQUEST,
+                new Layouts\Site\AboutObjectHtmlLayout(),
+                new Sights\Views\ShowSights\ShowSightsHtmlView()
+            ))->index(CitiesEnumHelper::Olkhon->value);
+        }
+
+        if (preg_match("#^/?Sights/Buryatia/Arshan/?$#", $this->dispatcher->getPath(), $match)) {
+            return (new Sights\CallableControllers\ShowSightsController(
+                $_REQUEST,
+                new Layouts\Site\AboutObjectHtmlLayout(),
+                new Sights\Views\ShowSights\ShowSightsHtmlView()
+            ))->index(CitiesEnumHelper::Arshan->value);
         }
 
 

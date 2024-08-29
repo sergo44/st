@@ -2,7 +2,7 @@
 
 namespace St\Cities;
 
-enum CitiesHelper: int
+enum CitiesEnumHelper: int
 {
     case Irkutsk = 1;
     case Listvyanka = 2;

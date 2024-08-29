@@ -11,7 +11,7 @@ class Region implements IUseRedis, \JsonSerializable
      * Идентификатор региона
      * @var int|null
      */
-    protected ?int $region_id;
+    protected ?int $region_id = null;
     /**
      * Идентификатор страны,
      * к которому принадлежит регион

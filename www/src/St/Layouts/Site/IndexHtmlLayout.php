@@ -121,7 +121,7 @@ class IndexHtmlLayout extends HtmlLayout implements ILayout
                 <div class="container">
                     <ul class="section-popular__list row">
                         <li class="col-lg-4 col-6">
-                            <a class="card border-0" href="/Catalog/Objects/Buryatia/WarmLake">
+                            <a class="card border-0" href="/Sights/Buryatia/WarmLake">
                                 <img alt="тур" class="card-img-top" src="/images/index/Warn-Lake.jpg">
                                 <div class="card-body">
                                     <h5 class="card-title mt-2">Тёплые озера</h5>
@@ -137,7 +137,7 @@ class IndexHtmlLayout extends HtmlLayout implements ILayout
                             </a>
                         </li>
                         <li class="col-lg-4 col-6">
-                            <a class="card border-0" href="/Catalog/Objects/Irkutsk/Listvyanka">
+                            <a class="card border-0" href="/Sights/Irkutsk/Listvyanka">
                                 <img alt="тур" class="card-img-top rounded-0" src="/images/index/Listvanka.jpg">
                                 <div class="card-body">
                                     <h5 class="card-title mt-2">Листвянка</h5>
@@ -153,7 +153,7 @@ class IndexHtmlLayout extends HtmlLayout implements ILayout
                             </a>
                         </li>
                         <li class="col-lg-4 col-12">
-                            <a class="card border-0" href="/Catalog/Objects/Buryatia/Goryachinsk">
+                            <a class="card border-0" href="/Sights/Buryatia/Goryachinsk">
                                 <img alt="тур" class="card-img-top rounded-0" src="/images/index/Goryachinsk.jpg">
                                 <div class="card-body">
                                     <h5 class="card-title mt-2">Горячинск</h5>
@@ -169,7 +169,7 @@ class IndexHtmlLayout extends HtmlLayout implements ILayout
                             </a>
                         </li>
                         <li class="col-lg-8 col-6">
-                            <a class="card border-0" href="/Catalog/Objects/Irkutsk/Olkhon">
+                            <a class="card border-0" href="/Sights/Irkutsk/Olkhon">
                                 <img alt="тур" class="card-img-top rounded-0" src="/images/index/Olkhon.jpg">
                                 <div class="card-body">
                                     <h5 class="card-title mt-2">Ольхон</h5>
@@ -185,7 +185,7 @@ class IndexHtmlLayout extends HtmlLayout implements ILayout
                             </a>
                         </li>
                         <li class="col-lg-4 col-6">
-                            <a class="card border-0" href="/Catalog/Objects/Buryatia/Arshan">
+                            <a class="card border-0" href="/Sights/Buryatia/Arshan">
                                 <img alt="тур" class="card-img-top rounded-0" src="/images/index/Arshan.jpg">
                                 <div class="card-body">
                                     <h5 class="card-title mt-2">Аршан</h5>

@@ -5,7 +5,6 @@ namespace St\Sights\Views;
 use Override;
 use St\City;
 use St\Region;
-use St\Result;
 use St\Views\Common\ILeftFilterView;
 use St\Views\HtmlView;
 
@@ -72,6 +71,18 @@ class SightFilterHtmlView extends HtmlView implements ILeftFilterView
     }
 
     /**
+     * Добавляет выбранный элемент
+     * @param int $city_id
+     * @return $this
+     */
+    public function addSelectedCity(int $city_id): self
+    {
+        $this->input_data['city'][] = $city_id;
+        return $this;
+    }
+
+
+    /**
      * Возвращает input_data
      * @return array
      * @see input_data
@@ -114,7 +125,7 @@ class SightFilterHtmlView extends HtmlView implements ILeftFilterView
         $f = 0;
         ?>
 
-        <form action="?" method="get" id="jLeftFilterForm">
+        <form action="/Sights/Show" method="get" id="jLeftFilterForm">
             <div class="section-catalog__filters d-flex justify-content-between align-items-center">
                 Фильтры
                 <a class="link-warning j-reset-left-filter" href="#">Сбросить</a>

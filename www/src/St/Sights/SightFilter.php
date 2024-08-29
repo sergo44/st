@@ -77,6 +77,17 @@ class SightFilter
     }
 
     /**
+     * Добавляет город
+     * @param int $city_id
+     * @return $this
+     */
+    public function addCityId(int $city_id): SightFilter
+    {
+        $this->city_ids[] = $city_id;
+        return $this;
+    }
+
+    /**
      * Возвращает where для SQL
      * @param string $column
      * @param string $operand
@@ -90,7 +101,7 @@ class SightFilter
                 $return[$key] = $this->dbh->quote($value);
             });
 
-            return sprintf(" %s %s IN (%s)", $operand, $column, implode($return));
+            return sprintf(" %s %s IN (%s)", $operand, $column, implode(",", $return));
         }
 
         return "";
@@ -110,7 +121,7 @@ class SightFilter
                 $return[$key] = $this->dbh->quote($value);
             });
 
-            return sprintf(" %s %s IN (%s)", $operand, $column, implode($return));
+            return sprintf(" %s %s IN (%s)", $operand, $column, implode(",", $return));
         }
 
         return "";
