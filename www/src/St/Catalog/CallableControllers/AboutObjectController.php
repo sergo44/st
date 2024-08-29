@@ -39,6 +39,7 @@ class AboutObjectController extends CallableController implements ICallableContr
 
         $this->getLayout()
             ->addJs("/build/about_object.bundle.js")
+            ->addJs("/build/objects_map.bundle.js")
             ->setSectionTitle($this->getView()->escape($catalog_object->getName()))
         ;
 

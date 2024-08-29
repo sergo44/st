@@ -9,6 +9,7 @@ use St\FrontController\CallableController;
 use St\FrontController\CallableControllerException;
 use St\FrontController\ICallableController;
 use St\HttpError404Exception;
+use St\Layouts\HtmlLayout;
 use St\Result;
 use St\Sights\Sight;
 use St\Sights\Views\AboutSight\AboutSightHtmlView;
@@ -58,11 +59,12 @@ class AboutSightController extends CallableController implements ICallableContro
 
             BreadCrumbs::getInstance()
                 ->add( new BreadCrumbsItem("Достопримечательности", "/Sights/Show") )
-            ;
-
-            BreadCrumbs::getInstance()
                 ->add( new BreadCrumbsItem($sight->getName(), $sight->getAboutUrl()) )
             ;
+
+            if ($this->getLayout() instanceof HtmlLayout) {
+                $this->getLayout()->addJs("/build/objects_map.bundle.js");
+            }
 
         } catch (CallableControllerException $e) {
             $result->addError($e->getMessage());

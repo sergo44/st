@@ -4,8 +4,8 @@ namespace St\Sights\Views\AboutSight;
 
 use Override;
 use St\ApplicationError;
-use St\Auth;
 use St\Sights\Sight;
+use St\Views\Common\MapHtmlWidget;
 use St\Views\HtmlView;
 use St\Views\IView;
 
@@ -135,6 +135,8 @@ class AboutSightHtmlView extends HtmlView implements IView
                 <div class="empty-block"></div>
             </div>
         </div>
+
+        <?php (new MapHtmlWidget($this->sight->getLat(), $this->sight->getLon()))->out(); ?>
 
 
         <?php

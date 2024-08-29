@@ -7,6 +7,7 @@ use St\Auth;
 use St\Catalog\Views\AboutObject\Widgets\OrderRoomModalDialogHtmlWidget;
 use St\CatalogObject;
 use St\Reviews\Views\AddReviewModalDialogHtmlView;
+use St\Views\Common\MapHtmlWidget;
 use St\Views\HtmlView;
 use St\Views\IView;
 
@@ -314,6 +315,8 @@ class AboutObjectHtmlView extends HtmlView implements IView
 
 
         </div>
+
+        <?php (new MapHtmlWidget($this->catalog_object->getLat(), $this->catalog_object->getLon()))->out(); ?>
 
         <?php (new OrderRoomModalDialogHtmlWidget(Auth::getInstance()->get()))->out(); ?>
 

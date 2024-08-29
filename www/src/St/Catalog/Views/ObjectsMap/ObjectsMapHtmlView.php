@@ -9,6 +9,22 @@ use St\Views\IView;
 class ObjectsMapHtmlView extends HtmlView implements IView
 {
     /**
+     * Широта центра карты
+     * @var float|null
+     */
+    protected ?float $lat = null;
+    /**
+     * Долгота центра карты
+     * @var float|null
+     */
+    protected ?float $lon = null;
+    /**
+     * Zoom
+     * @var int|null
+     */
+    protected ?int $zoom = null;
+
+    /**
      * Коллекцию, которую необходимо отобразить
      * @var FeatureCollection
      */
@@ -35,6 +51,33 @@ class ObjectsMapHtmlView extends HtmlView implements IView
         $this->feature_collection = $feature_collection;
         return $this;
     }
+
+    /**
+     * Устанавливает центр карты
+     * @param float $lat
+     * @param float $lon
+     * @return $this
+     */
+    public function setCenter(float $lat, float $lon): self
+    {
+        $this->lat = $lat;
+        $this->lon = $lon;
+        return $this;
+    }
+
+    /**
+     * Устанавливает zoom
+     * @param int|null $zoom
+     * @return ObjectsMapHtmlView
+     * @see zoom
+     */
+    public function setZoom(?int $zoom): ObjectsMapHtmlView
+    {
+        $this->zoom = $zoom;
+        return $this;
+    }
+
+
 
     /**
      * @inheritDoc
@@ -70,9 +113,15 @@ class ObjectsMapHtmlView extends HtmlView implements IView
 
         <script>
 const objectsMapFeatures = <?php print json_encode($this->getFeatureCollection(), JSON_PRETTY_PRINT)?>;
+<?php if ($this->lat && $this->lon):?>
+const jCenterMap = <?php print json_encode(array($this->lat, $this->lon)); ?>;
+<?php endif; ?>
+<?php if ($this->zoom):?>
+const jMapZoom = <?php print json_encode($this->zoom); ?>;
+<?php endif; ?>
         </script>
 
-        <div id="catalogObjectsMap">
+        <div id="catalogObjectsMap" class="mt-3">
             <div id="info"></div>
         </div>
         <?php

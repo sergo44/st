@@ -2,6 +2,7 @@
 
 namespace St\Catalog\CallableControllers;
 
+use PDO;
 use St\Catalog\Views\ObjectsMap\ObjectsMapHtmlView;
 use St\CatalogObjectsStatusesEnum;
 use St\Db;
@@ -29,7 +30,7 @@ class ObjectsMapController extends CallableController implements ICallableContro
      * Контроллер вывода карты объектов
      * @return ICallableController
      */
-    public function index(): ICallableController
+    public function index(float $lat = null, float $lon = null): ICallableController
     {
         if ($this->getLayout() instanceof HtmlLayout) {
             $this->getLayout()->addJs("/build/objects_map.bundle.js");
@@ -43,7 +44,7 @@ class ObjectsMapController extends CallableController implements ICallableContro
         $sth->execute(array(
             ":status" => CatalogObjectsStatusesEnum::Approved->name
         ));
-        while ($row = $sth->fetch(\PDO::FETCH_ASSOC)) {
+        while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
             $feature = new Feature();
             $feature
                 ->setId($row['object_id'])
@@ -58,7 +59,7 @@ class ObjectsMapController extends CallableController implements ICallableContro
         $sth->execute(array(
             ":status" => SightStatusEnum::Approved->name
         ));
-        while ($row = $sth->fetch(\PDO::FETCH_ASSOC)) {
+        while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
             $feature = new Feature();
             $feature
                 ->setId($row['sight_id'])

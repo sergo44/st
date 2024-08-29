@@ -153,6 +153,9 @@ function clusterStyle(feature) {
         ];
     }
     const originalFeature = feature.get('features')[0];
+    if (!originalFeature) {
+        return null;
+    }
     return clusterMemberStyle(originalFeature);
 }
 
@@ -215,8 +218,8 @@ const map = new Map({
     ],
     target: 'catalogObjectsMap',
     view: new View({
-        center: fromLonLat([104.27296760599522, 52.28720573818367]),
-        zoom: 10
+        center: fromLonLat((typeof jCenterMap !== "undefined" ? jCenterMap : [104.27296760599522, 52.28720573818367])),
+        zoom: (typeof jMapZoom !== "undefined" ? jMapZoom : 10)
     })
 });
 
