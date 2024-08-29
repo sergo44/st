@@ -3,7 +3,9 @@
 namespace St\Sights\Views\ShowSights;
 
 use Override;
+use St\ApplicationError;
 use St\Sights\Sight;
+use St\Sights\Views\SightFilterHtmlView;
 use St\Views\HtmlView;
 use St\Views\IView;
 
@@ -14,6 +16,11 @@ class ShowSightsHtmlView extends HtmlView implements IView
      * @var Sight[]|null
      */
     protected ?array $sights = null;
+    /**
+     * Фильтр для отображения
+     * @var SightFilterHtmlView|null
+     */
+    protected ?SightFilterHtmlView $filter = null;
 
     /**
      * Возвращает sights
@@ -38,8 +45,31 @@ class ShowSightsHtmlView extends HtmlView implements IView
     }
 
     /**
+     * Возвращает filter
+     * @return SightFilterHtmlView|null
+     * @see filter
+     */
+    public function getFilter(): ?SightFilterHtmlView
+    {
+        return $this->filter;
+    }
+
+    /**
+     * Устанавливает filter
+     * @param SightFilterHtmlView|null $filter
+     * @return ShowSightsHtmlView
+     * @see filter
+     */
+    public function setFilter(?SightFilterHtmlView $filter): ShowSightsHtmlView
+    {
+        $this->filter = $filter;
+        return $this;
+    }
+
+    /**
      * @inheritdoc
      * @return void
+     * @throws ApplicationError
      */
     #[Override] public function out(): void
     {
@@ -60,6 +90,9 @@ class ShowSightsHtmlView extends HtmlView implements IView
                             </svg>
                             Показать на карте</a>
                     </div>
+
+                    <?php $this->filter?->out(); ?>
+
                 </div>
                 <div class="section-catalog__wrapper-sort flex-grow-1">
                     <div class="section-catalog__top__sort d-flex align-items-center justify-content-between flex-grow-1">

@@ -3,6 +3,7 @@
 namespace St\Regions\CallableControllers;
 
 use Override;
+use St\ApplicationError;
 use St\FrontController\CallableController;
 use St\FrontController\ICallableController;
 use St\Regions\GetCountryRegions;
@@ -23,6 +24,7 @@ class GetRegionsController extends CallableController implements ICallableContro
     /**
      * Контроллер получения регионов
      * @return $this
+     * @throws ApplicationError
      */
     public function index(): GetRegionsController
     {

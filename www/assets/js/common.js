@@ -162,6 +162,12 @@ $(document).ready(function() {
             }, 200)
         })
 
+        .on('click', '.j-reset-left-filter', function(e) {
+            e.preventDefault();
+            let $frm = $("#jLeftFilterForm");
+            $frm.find("input[type=checkbox]").prop("checked", false);
+        });
+
 });
 
 $(document).ready(function(){
