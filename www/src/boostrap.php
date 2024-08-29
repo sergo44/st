@@ -9,6 +9,8 @@ use St\HttpError404Exception as HttpError404Exception;
 error_reporting(E_ALL);
 ini_set("display_errors", "on");
 
+ini_set("log_errors", 'on');
+ini_set("error_log", __DIR__ . "/../../var/logs/php-error.log");
 
 const ST_SRC_PATH = __DIR__ . "/";
 const ST_PUBLIC_WEB_PATH = ST_SRC_PATH . "/../public/";

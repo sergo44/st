@@ -408,7 +408,9 @@ class ImageCropper
                 throw new ImageException("Неизвестный тип изображения " . __METHOD__ . " в " . __CLASS__ . " (#unknown demision)");
             }
         } catch (ImagickException $e) {
-            throw new ImageException("Ошибка открытия изображения. Скорее всего вы пытаетесь загрузить/открыть изображение недопустимого формата");
+            error_log(sprintf("ImagickException exception: %s", $e->getMessage()));
+            throw new ImageException("Ошибка открытия изображения. Скорее всего вы пытаетесь загрузить/открыть изображение недопустимого формата (error logged)");
+
         }
 
         return $this;
