@@ -1,0 +1,51 @@
+server {
+
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /var/www/html/www/public;
+    index index.php;
+
+    server_name localhost;
+    client_max_body_size 100M;
+
+    location ~ (\.gitignore) {
+        deny all;
+    }
+
+    location ~ ^/(build|images|upload)/ {
+        access_log off;
+        expires 1h;
+        add_header Cache-Control "public, must-revalidate";
+    }
+
+    location ~* \.php$ {
+        include fastcgi_params;
+        include snippets/fastcgi-php.conf;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param REDIRECT_URL $redirect_url;
+        fastcgi_pass php:9000;
+    }
+
+    location /upload/ {
+        expires 30d;
+        add_header Cache-Control "public, must-revalidate";
+        access_log off;
+        if (!-e $request_filename) {
+            rewrite ^/(upload/[a-zA-z0-9\/]+?)([0-9]+)x([0-9]+)/([A-Za-z0-9\-_]+\.(?:jpe?g|png|gif))$ /thumbs.php?basedir=$1&width=$2&height=$3&image=$4;
+        }
+    }
+
+    location / {
+
+        set $redirect_url $uri;
+
+        if (!-e $request_filename) {
+            rewrite ^(.*)$ /index.php;
+        }
+    }
+
+    access_log /var/log/nginx/access.log combined;
+    error_log  /var/log/nginx/error.log;
+
+}

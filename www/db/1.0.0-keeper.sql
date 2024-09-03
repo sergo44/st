@@ -1,6 +1,8 @@
+/*
 create database st_db default charset utf8;
 grant all privileges on st_db.* to 'st_user'@'%' identified by 'st_pass';
 flush privileges ;
+*/
 
 drop table if exists users;
 create table users

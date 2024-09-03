@@ -1,0 +1,100 @@
+version: '3.3'
+services:
+  php:
+    restart: always
+    build:
+      context: .
+      dockerfile: ./php.Dockerfile
+    container_name: ${APP_NAME:?err}-php
+    environment:
+      - TZ=Europe/Moscow
+    volumes:
+      - '../:/var/www/html'
+      - './etc/php/php.ini:/usr/local/etc/php/php.ini-production'
+      - './etc/php/www.conf:/usr/local/etc/php-fpm.d/www.conf'
+    links:
+      - mariadb
+      - redis
+    networks:
+      - st-net
+
+  nginx:
+    build:
+      context: .
+      dockerfile: ./nginx.Dockerfile
+    container_name: ${APP_NAME:?err}-nginx
+    environment:
+      - TZ=Europe/Moscow
+    volumes:
+      - './etc/nginx/templates:/etc/nginx/templates'
+      - './etc/nginx/snippets:/etc/nginx/snippets'
+      - './etc/nginx/fastcgi.conf:/etc/nginx/fastcgi.conf'
+      - '../var/log/nginx:/var/log/nginx'
+      - '../:/var/www/html'
+    links:
+      - 'php'
+    ports:
+      - '${NGINX_PORT?err}:80'
+    networks:
+      - st-net
+
+  mariadb:
+    restart: always
+    build:
+      context: .
+      dockerfile: ./mariadb.Dockerfile
+    container_name: ${APP_NAME:?err}-mariadb
+    environment:
+      - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD:?err}
+      - MARIADB_AUTO_UPGRADE=${MARIADB_AUTO_UPGRADE:?err}
+      - MARIADB_USER=${MARIADB_USER:?err}
+      - MARIADB_PASSWORD=${MARIADB_PASSWORD:?err}
+      - MARIADB_DATABASE=${MARIADB_DATABASE:?err}
+      - TZ=Europe/Moscow
+    volumes:
+      - './etc/mysql/conf.d:/etc/mysql/conf.d'
+      - './var/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d'
+      - 'st_db:/var/lib/mysql'
+    ports:
+      - '${MARIADB_PORT}:3306'
+    networks:
+      - st-net
+
+  composer:
+      build:
+        context: .
+        dockerfile: composer.Dockerfile
+      container_name: ${APP_NAME?:err}-composer
+      volumes:
+        - '../:/var/www/html'
+      networks:
+        - st-net
+      command: bash -c 'cd /var/www/html/www && composer install --no-scripts --no-autoloader --ignore-platform-reqs && composer dump-autoload && chown -R www-data:www-data /var/www/html/www/vendor'
+
+  node:
+    build:
+      context: .
+      dockerfile: node.Dockerfile
+    container_name: ${APP_NAME?:err}-node
+    volumes:
+      - '../:/var/www/html'
+    networks:
+      - st-net
+    command: bash -c 'cd /var/www/html/www && yarn build && chown -R www-data:www-data /var/www/html/www/node_modules && chown -R www-data:www-data /var/www/html/www/public/build'
+
+  redis:
+    build:
+      context: .
+      dockerfile: ./redis.Dockerfile
+    container_name: ${APP_NAME?:err}-redis
+    networks:
+      - st-net
+
+volumes:
+  st_db:
+
+networks:
+  st-net:
+    driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: 1450

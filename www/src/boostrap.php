@@ -22,13 +22,13 @@ try {
 
     $host = $_SERVER['HTTP_HOST'] ?? null;
 
-    if (!$host || PHP_SAPI === "cli") {
-        if (strpos(__FILE__, "st.test")) {
-            $host = "st.test";
-        }
+    if (strpos($host, ":")) {
+        $host = explode(":", $host)[0];
+    }
 
-        if (strpos(__FILE__, "soberitur.ru")) {
-            $host = "soberitur.ru";
+    if (!$host || PHP_SAPI === "cli") {
+        if (strpos(__FILE__, "html")) {
+            $host = "st.test";
         }
     }
 
@@ -38,20 +38,22 @@ try {
         throw new Error("Host is not defined", 503);
     }
 
-    require __DIR__ . "/../vendor/autoload.php";
+    require_once __DIR__ . "/../vendor/autoload.php";
     require_once __DIR__  . "/config.secret.php";
+    require_once __DIR__ . "/config.local.php";
 
     switch ($host) {
+        case "192.168.56.101";
         case "st.test":
-            require_once __DIR__ . "/config.local.php";
+            define("ST_DEVELOPMENT_VERSION", true);
             break;
 
         case "soberitur.ru":
-            require_once __DIR__ . "/config.global.php";
+            define("ST_DEVELOPMENT_VERSION", false);
             break;
 
         default:
-            throw new Error("Can't load configuration file: unknown host");
+            throw new Error(sprintf("Can't load configuration file: unknown host [%s]", $host));
     }
 
     ini_set("session.save_handler", "redis");
