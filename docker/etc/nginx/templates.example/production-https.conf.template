@@ -9,7 +9,7 @@ server {
         ssl_certificate_key /etc/letsencrypt/live/soberitur.ru/privkey.pem;
 
         index index.php;
-        root /var/www/soberitur.ru/www/public;
+        root /var/www/html/www/public;
         server_name soberitur.ru www.soberitur.ru;
 
         client_max_body_size 100M;
