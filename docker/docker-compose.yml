@@ -82,7 +82,7 @@ services:
       - '../:/var/www/html'
     networks:
       - st-net
-    command: bash -c 'cd /var/www/html/www && yarn build && chown -R www-data:www-data /var/www/html/www/node_modules && chown -R www-data:www-data /var/www/html/www/public/build'
+    command: bash -c 'cd /var/www/html/www && yarn install && yarn build && chown -R www-data:www-data /var/www/html/www/node_modules && chown -R www-data:www-data /var/www/html/www/public/build'
 
   redis:
     build:
