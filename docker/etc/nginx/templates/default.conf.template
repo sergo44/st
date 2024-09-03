@@ -23,7 +23,6 @@ server {
         include fastcgi_params;
         include snippets/fastcgi-php.conf;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        fastcgi_param REDIRECT_URL $redirect_url;
         fastcgi_pass php:9000;
     }
 
