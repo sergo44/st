@@ -6,26 +6,39 @@ server {
         ssl_certificate /etc/letsencrypt/live/soberitur.ru/fullchain.pem;
         ssl_certificate_key /etc/letsencrypt/live/soberitur.ru/privkey.pem;
 
-        server_name soberitur.ru www.soberitur.ru;
-
         index index.php;
+        root /var/www/soberitur.ru/www/public;
+        server_name soberitur.ru www.soberitur.ru;
 
         client_max_body_size 100M;
 
         location ~ /(build|images)/ {
-                root /var/www/soberitur.ru/www/public;
                 expires 1h;
                 add_header Cache-Control "public, must-revalidate";
                 access_log off;
         }
 
+        location ~* \.php$ {
+            include fastcgi_params;
+            include snippets/fastcgi-php.conf;
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            fastcgi_param REDIRECT_URL $redirect_url;
+            fastcgi_pass php:9000;
+        }
+
+        location /upload/ {
+            expires 30d;
+            add_header Cache-Control "public, must-revalidate";
+            access_log off;
+            if (!-e $request_filename) {
+                rewrite ^/(upload/[a-zA-z0-9\/]+?)([0-9]+)x([0-9]+)/([A-Za-z0-9\-_]+\.(?:jpe?g|png|gif))$ /thumbs.php?basedir=$1&width=$2&height=$3&image=$4;
+            }
+        }
+
         location / {
-                proxy_http_version 1.1;
-                proxy_set_header Host $host;
-                proxy_set_header X-Real-IP $remote_addr;
-                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                proxy_set_header X-Forwarded-Proto $scheme;
-                proxy_pass http://localhost:12200;
+            if (!-e $request_filename) {
+                rewrite ^(.*)$ /index.php;
+            }
         }
 
         access_log /var/log/nginx/soberitur.ru.access.log combined;
