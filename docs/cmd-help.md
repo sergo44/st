@@ -37,5 +37,16 @@ sudo -u www-data git clone https://github.com/sergo44/st .
 sudo -u www-data git switch feature/Sight # Temporary most actual branch
 cd docker/
 cp ./.env-example ./.env # replace passwords to secret and port to 80, 433
+cp -RP etc/nginx/templates.example/production-http.conf.template etc/nginx/templates/
 docker compose up -d
+
+apt install certbot
+certbot certonly --webroot -w /var/www/soberitur.ru/www/public -d soberitur.ru -d www.soberitur.ru
+
+#Certificate is saved at: /etc/letsencrypt/live/soberitur.ru/fullchain.pem
+#Key is saved at:         /etc/letsencrypt/live/soberitur.ru/privkey.pem
+
+docker compose down
+cp -RP etc/nginx/templates.example/production-https.conf.template etc/nginx/templates/
+
 ```

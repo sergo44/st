@@ -26,6 +26,7 @@ services:
     environment:
       - TZ=Europe/Moscow
     volumes:
+      - '/etc/letsencrypt:/etc/letsencrypt'
       - './etc/nginx/templates:/etc/nginx/templates'
       - './etc/nginx/snippets:/etc/nginx/snippets'
       - './etc/nginx/fastcgi.conf:/etc/nginx/fastcgi.conf'
@@ -35,6 +36,7 @@ services:
       - 'php'
     ports:
       - '${NGINX_PORT?err}:80'
+      - '${NGINX_SSL_PORT?err}:443'
     networks:
       - st-net
 
