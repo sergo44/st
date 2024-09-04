@@ -49,4 +49,5 @@ certbot certonly --webroot -w /var/www/soberitur.ru/www/public -d soberitur.ru -
 docker compose down
 cp -RP etc/nginx/templates.example/production-https.conf.template etc/nginx/templates/
 docker compose up
+sudo -u www-data touch www/src/config.secret.php
 ```
