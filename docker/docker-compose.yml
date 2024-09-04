@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: ./php.Dockerfile
-    container_name: ${APP_NAME:?err}-php
+    container_name: ${COMPOSE_PROJECT_NAME:?err}_php
     environment:
       - TZ=Europe/Moscow
     volumes:
@@ -15,14 +15,13 @@ services:
     links:
       - mariadb
       - redis
-    networks:
-      - st-net
 
   nginx:
+    restart: always
     build:
       context: .
       dockerfile: ./nginx.Dockerfile
-    container_name: ${APP_NAME:?err}-nginx
+    container_name: ${COMPOSE_PROJECT_NAME:?err}_nginx
     environment:
       - TZ=Europe/Moscow
     volumes:
@@ -37,15 +36,13 @@ services:
     ports:
       - '${NGINX_PORT?err}:80'
       - '${NGINX_SSL_PORT?err}:443'
-    networks:
-      - st-net
 
   mariadb:
     restart: always
     build:
       context: .
       dockerfile: ./mariadb.Dockerfile
-    container_name: ${APP_NAME:?err}-mariadb
+    container_name: ${COMPOSE_PROJECT_NAME:?err}_mariadb
     environment:
       - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD:?err}
       - MARIADB_AUTO_UPGRADE=${MARIADB_AUTO_UPGRADE:?err}
@@ -56,47 +53,40 @@ services:
     volumes:
       - './etc/mysql/conf.d:/etc/mysql/conf.d'
       - './var/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d'
-      - 'st_db:/var/lib/mysql'
+      - 'db:/var/lib/mysql'
     ports:
       - '${MARIADB_PORT}:3306'
-    networks:
-      - st-net
 
   composer:
       build:
         context: .
         dockerfile: composer.Dockerfile
-      container_name: ${APP_NAME?:err}-composer
+      container_name: ${COMPOSE_PROJECT_NAME:?err}_composer
       volumes:
         - '../:/var/www/html'
-      networks:
-        - st-net
       command: bash -c 'cd /var/www/html/www && composer install --no-scripts --no-autoloader --ignore-platform-reqs && composer dump-autoload && chown -R www-data:www-data /var/www/html/www/vendor'
 
   node:
     build:
       context: .
       dockerfile: node.Dockerfile
-    container_name: ${APP_NAME?:err}-node
+    container_name: ${COMPOSE_PROJECT_NAME:?err}_node
     volumes:
       - '../:/var/www/html'
-    networks:
-      - st-net
     command: bash -c 'cd /var/www/html/www && yarn install && yarn build && chown -R www-data:www-data /var/www/html/www/node_modules && chown -R www-data:www-data /var/www/html/www/public/build'
 
   redis:
+    restart: always
     build:
       context: .
       dockerfile: ./redis.Dockerfile
-    container_name: ${APP_NAME?:err}-redis
-    networks:
-      - st-net
+    container_name: ${COMPOSE_PROJECT_NAME:?err}_redis
 
 volumes:
-  st_db:
+  db:
 
 networks:
-  st-net:
+  default:
     driver: bridge
     driver_opts:
       com.docker.network.driver.mtu: 1450
