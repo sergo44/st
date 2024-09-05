@@ -36,15 +36,15 @@ class UploadImageController extends CallableController implements ICallableContr
             throw new HttpError404Exception("Unknown (undeclared) object type {$object_type}");
         }
 
-        $image = $this->getUserInputData("image");
-        if (!$image) {
-            throw new HttpError404Exception("Image not specified");
-        }
-
         $result = new Result();
         $this->getView()->setResult($result);
 
         try {
+
+            $image = $this->getUserInputData("image");
+            if (!$image) {
+                throw new CallableControllerException("Вы не указали файл для загрузки");
+            }
 
             $uploaded_file = new UploadedFile(
                 $image['name'][0] ?? "",

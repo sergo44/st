@@ -303,7 +303,7 @@ class AddSightHtmlView extends HtmlView implements IView
                         <?php endforeach; ?>
                     </div>
                     <div class="add-new-adv__photos d-flex gap-4" style="margin-top: 1rem; margin-bottom: 1rem">
-                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#jsAddImageModal">Загрузить фотографию</button>
+                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#jsMultiImagesUploaderModal">Загрузить фотографию</button>
                     </div>
 
                     <h5>Общая информация</h5>
@@ -381,24 +381,25 @@ class AddSightHtmlView extends HtmlView implements IView
         </div>
 
         <!-- Modal -->
-        <div class="modal modal-lg fade" id="jsAddImageModal" tabindex="-1" role="dialog" aria-labelledby="addPhotoLabel" aria-hidden="true">
+        <div class="modal modal-lg fade" id="jsMultiImagesUploaderModal" tabindex="-1" role="dialog" aria-labelledby="jsMultiImagesUploaderLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <form action="/Images/Upload" id="jsUploadImageForm" method="post" enctype="multipart/form-data">
+                    <form action="/Images/Upload" id="jsMultiImagesUploaderForm" method="post" enctype="multipart/form-data">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="addPhotoLabel">Добавление фотографии</h4>
+                            <h4 class="modal-title" id="jsMultiImagesUploaderLabel">Добавление фотографий</h4>
                         </div>
 
                         <div class="modal-body">
-                            <div style="width: 100%; text-align: center;">
-                                <img id="jsSetAreaImage" src="/images/no-image.svg" width="300rem" title="Image" alt="" />
-                                <p><input id="jsSelectFileInt" type="file" name="image[]" value="" title="Укажите фото для загрузки"></p>
+                            <div>
+                                <p><input id="jsMultiImagesUploaderSelectFileInp" type="file" name="image[]" value="" title="Укажите фото для загрузки" multiple="multiple"></p>
                             </div>
-                            <div id="jsUploadImageErrorCnt"></div>
+                            <div id="jsMultiImagesUploaderErrorCnt"></div>
+                            <div class="alert alert-info fst-italic">
+                                <i class="bi bi-info-circle"></i> Важно Вы можете указать несколько фотографий для загрузки и они по очереди будут загружены на сервер. Для этого на компьютере удерживайте Ctrl при выборе изображений для загрузки, на телефоне - просто выберите нужные фото из галереи
+                            </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-warning" id="jsUploadImageBtn">Загрузить</button>
-                            <button type="button" class="btn btn-warning" id="jsSetAreaBtn">Сохранить область</button>
+                            <button type="submit" class="btn btn-warning" id="jsMultiImagesUploaderBtn">Загрузить</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
                         </div>
                     </form>

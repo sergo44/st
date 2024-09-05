@@ -1,125 +1,96 @@
 import Cropper from "cropperjs";
 
 $(document).ready(function() {
-    let uploaded_image = 0;
-    let cropper;
 
-    $("#jsUploadImageBtn").click(function(e) {
-        e.preventDefault();
-        $("#jsUploadImageForm").trigger("submit");
+    $("#jsMultiImagesUploaderSelectFileInp").change(function(e) {
+        $("#jsMultiImagesUploaderForm").trigger("submit");
     });
 
-    $("#jsSelectFileInt").change(function(e) {
-        $("#jsUploadImageForm").trigger("submit");
-    });
-
-    let jsAddImageModal = document.getElementById("jsAddImageModal");
-    jsAddImageModal.addEventListener("hidden.bs.modal", function(e) {
-        $("#jsSetAreaImage").attr("src", "/images/no-image.svg");
-        $("#jsSetAreaBtn").unbind("click");
-    });
-
-    $("#jsUploadImageForm").on("submit", function(e) {
+    $("#jsMultiImagesUploaderForm").submit(function(e) {
         e.preventDefault();
 
-        let that = this;
-        let $jsUploadImageErrorCnt = $("#jsUploadImageErrorCnt");
+        let files = $("#jsMultiImagesUploaderSelectFileInp")[0].files;
+
+        if (!files.length) {
+            alert("Вы не указали ни одной фотографии для загрузки");
+            return;
+        }
+
+        uploadFile(files, 0);
+    });
+
+    function uploadFile(files, i) {
+
+        let formData = new FormData();
+        formData.append("image[]", files[i]);
+
+        let $jsMultiImagesUploaderModal = $("#jsMultiImagesUploaderModal");
+        let $jsMultiImagesUploaderErrorCnt = $("#jsMultiImagesUploaderErrorCnt");
 
         $.ajax({
             url: "/Images/Upload/Sight",
             type: "POST",
-            data: new FormData(this),
+            data: formData,
             processData: false,
             contentType: false,
             beforeSend: function() {
-                $jsUploadImageErrorCnt.removeClass("alert alert-danger").html(null);
-                $(jsAddImageModal).find("button").prop("disabled", true);
-                $(jsAddImageModal).find("button").first().html("Идет загрузка файла на сервер ...");
+                if (i === 0) {
+                    $jsMultiImagesUploaderErrorCnt.removeClass("alert alert-danger").html(null);
+                }
+
+                $jsMultiImagesUploaderModal.find("button").prop("disabled", true);
+                $jsMultiImagesUploaderModal.find("button").first().html("Идет загрузка файла " + files[i].name + " ...");
             },
             complete: function() {
-                $(jsAddImageModal).find("button").prop("disabled", false);
-                $(jsAddImageModal).find("button").first().html("Загрузить");
+                if (i >= files.length - 1) {
+                    $jsMultiImagesUploaderModal.find("button").prop("disabled", false);
+                    $jsMultiImagesUploaderModal.find("button").first().html("Загрузить");
+                }
             },
             error: function(error) {
                 alert("Произошла непредвиденная ошибка при выполнении запроса к серверу.")
             },
             success: function(res) {
+
                 if (!res.result.success) {
-                    $jsUploadImageErrorCnt.addClass("alert alert-danger").html("<ul></ul>");
+
+                    if (!$jsMultiImagesUploaderErrorCnt.hasClass("alert")) {
+                        $jsMultiImagesUploaderErrorCnt.addClass("alert alert-danger").html("<ul></ul>");
+                    }
+
                     $.each(res.result.errors, function(k, v) {
-                        $jsUploadImageErrorCnt.find("ul").append("<li>"+v.message+"</li>");
+                        $jsMultiImagesUploaderErrorCnt.find("ul").append("<li>Ошибка загрузки файла <strong>" + res.uploaded_file.name + "</strong>: "  + v.message + "</li>");
                     });
-                    return;
+
+                    if (i < files.length - 1) {
+                        uploadFile(files, i+1);
+                    } else {
+                        return;
+                    }
                 }
 
                 if (res.result.success) {
-                    let image = document.getElementById("jsSetAreaImage");
-                    $(image).attr("src", res.file.uri);
+                    let nextImageIncrement = $("img.new-uploaded-image").length + 1;
+                    let jsObjectPhoto = $("#jsObjectPhotos");
 
-                    if (typeof cropper !== "undefined" && cropper) {
-                        cropper.destroy();
-                    }
+                    jsObjectPhoto.append("<img src=\"/" + res.file.directory + "150x150/" + res.file.filename + "?crop=1\" class=\"new-uploaded-image\" alt=\"Uploaded Image\">");
+                    jsObjectPhoto.append("<input type=\"hidden\" name=\"uploaded_image[directory]["+nextImageIncrement+"]\" value=\""+res.file.directory+"\">");
+                    jsObjectPhoto.append("<input type=\"hidden\" name=\"uploaded_image[filename]["+nextImageIncrement+"]\" value=\""+res.file.filename+"\">");
+                    //jsObjectPhoto.append("<input type=\"hidden\" name=\"uploaded_image[x1]["+nextImageIncrement+"]\" value=\""+parseInt(data.x)+"\">");
+                    //jsObjectPhoto.append("<input type=\"hidden\" name=\"uploaded_image[y1]["+nextImageIncrement+"]\" value=\""+parseInt(data.y)+"\">");
+                    //jsObjectPhoto.append("<input type=\"hidden\" name=\"uploaded_image[x2]["+nextImageIncrement+"]\" value=\""+parseInt(data.x+data.width)+"\">");
+                    //jsObjectPhoto.append("<input type=\"hidden\" name=\"uploaded_image[y2]["+nextImageIncrement+"]\" value=\""+parseInt(data.y + data.height)+"\">");
+                    //jsObjectPhoto.append("<input type=\"hidden\" name=\"uploaded_image[ratio]["+nextImageIncrement+"]\" value=\""+res.ratio+"\">");
 
-                    cropper = new Cropper(image, {
-                        aspectRatio: res.ratio,
-                        movable: false,
-                        rotatable: false,
-                        zoomOnWheel: false,
-                        viewMode: 1,
-                        background: false
-                    });
-
-                    $("#jsSetAreaBtn").unbind("click").click(function() {
-                        let data = cropper.getData();
-                        let jsObjectPhoto = $("#jsObjectPhotos");
-
-                        jsObjectPhoto.append("<img src=\"/" + res.file.directory + "150x150/" + res.file.filename + "?crop=1&x1=" + parseInt(data.x) + "&y1=" + parseInt(data.y) + "&x2=" + parseInt(data.x+data.width) + "&y2=" + parseInt(data.y + data.height)+"\">");
-                        jsObjectPhoto.append("<input type=\"hidden\" name=\"uploaded_image[directory]["+uploaded_image+"]\" value=\""+res.file.directory+"\">");
-                        jsObjectPhoto.append("<input type=\"hidden\" name=\"uploaded_image[filename]["+uploaded_image+"]\" value=\""+res.file.filename+"\">");
-                        jsObjectPhoto.append("<input type=\"hidden\" name=\"uploaded_image[x1]["+uploaded_image+"]\" value=\""+parseInt(data.x)+"\">");
-                        jsObjectPhoto.append("<input type=\"hidden\" name=\"uploaded_image[y1]["+uploaded_image+"]\" value=\""+parseInt(data.y)+"\">");
-                        jsObjectPhoto.append("<input type=\"hidden\" name=\"uploaded_image[x2]["+uploaded_image+"]\" value=\""+parseInt(data.x+data.width)+"\">");
-                        jsObjectPhoto.append("<input type=\"hidden\" name=\"uploaded_image[y2]["+uploaded_image+"]\" value=\""+parseInt(data.y + data.height)+"\">");
-                        jsObjectPhoto.append("<input type=\"hidden\" name=\"uploaded_image[ratio]["+uploaded_image+"]\" value=\""+res.ratio+"\">");
-
-                        uploaded_image++;
-
-                        let modal = bootstrap.Modal.getInstance(jsAddImageModal);
+                    if (i < files.length - 1) {
+                        uploadFile(files, i+1);
+                    } else if (!$jsMultiImagesUploaderErrorCnt.hasClass("alert")) {
+                        let modal = bootstrap.Modal.getInstance($jsMultiImagesUploaderModal[0]);
                         modal.hide();
-
-                        cropper.destroy();
-                        $("#jsUploadImageForm")[0].reset();
-
-                    });
+                        $("#jsMultiImagesUploaderForm")[0].reset();
+                    }
                 }
             }
         });
-    });
-
-    $("a[data-image-id]").click(function(e) {
-        e.preventDefault();
-
-        if (!confirm("Данная фотография будет полностью удалена из системы без возможности восстановления, продолжить?")) {
-            return;
-        }
-
-        const image_id = $(this).attr("data-image-id");
-        const $relative_div = $(this).closest("div");
-
-        $.ajax({
-            url: "Edit/" + image_id + "/PurgeImage",
-            method: "GET",
-            success: function(res) {
-                if (res.result?.success) {
-                    $relative_div.fadeOut();
-                } else {
-                    alert(res.result?.errors_as_string);
-                }
-            },
-            error: function(err) {
-                alert("Произошла непредвиденная ошибка при выполнении запроса к серверу хранения данных. Пожалуйста, проверьте наличие интернета и попробуйте еще раз");
-            }
-
-        })
-    });
+    }
 });
