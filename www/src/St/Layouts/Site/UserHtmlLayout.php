@@ -120,7 +120,6 @@ class UserHtmlLayout extends HtmlLayout implements ILayout
             <section class="section-profile">
                 <div class="container">
                     <div class="section-profile__wrapper d-grid">
-
                         <div class="section-profile__side-bar">
                             <div class="section-profile__side-bar-top d-flex flex-column align-items-center gap-3 p-4">
                                 <div class="section-profile__wrapper-photo">
@@ -131,109 +130,131 @@ class UserHtmlLayout extends HtmlLayout implements ILayout
                                 </div>
                             </div>
                             <ul class="section-profile__links">
-                                <li class="mb-4"><a class="active" href="/User/Account">
-                                        <svg fill="none" height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                    d="M10 12.5C12.7614 12.5 15 10.2614 15 7.5C15 4.73858 12.7614 2.5 10 2.5C7.23858 2.5 5 4.73858 5 7.5C5 10.2614 7.23858 12.5 10 12.5Z"
-                                                    stroke="#f87506" stroke-miterlimit="10"/>
-                                            <path
-                                                    d="M2.4209 16.8743C3.1893 15.5442 4.29419 14.4398 5.62456 13.672C6.95493 12.9042 8.46393 12.5 9.99997 12.5C11.536 12.5 13.045 12.9043 14.3754 13.6721C15.7057 14.44 16.8106 15.5444 17.579 16.8744"
-                                                    stroke="#f87506" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                        Профиль
-                                    </a></li>
+                                <li class="mb-4">
+                                    <div class="d-flex">
+                                        <div>
+                                            <a href="/User/Account">
+                                                <svg fill="none" height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M10 12.5C12.7614 12.5 15 10.2614 15 7.5C15 4.73858 12.7614 2.5 10 2.5C7.23858 2.5 5 4.73858 5 7.5C5 10.2614 7.23858 12.5 10 12.5Z" stroke="#f87506" stroke-miterlimit="10"/>
+                                                    <path d="M2.4209 16.8743C3.1893 15.5442 4.29419 14.4398 5.62456 13.672C6.95493 12.9042 8.46393 12.5 9.99997 12.5C11.536 12.5 13.045 12.9043 14.3754 13.6721C15.7057 14.44 16.8106 15.5444 17.579 16.8744" stroke="#f87506" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        <div class="ms-1">
+                                            <a href="/User/Account">Профиль</a>
+                                        </div>
+                                    </div>
+                                </li>
 
-                                    <li class="mb-4"><a href="/Catalog/ListObjects">
-                                            <svg fill="none" height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M3.125 16.875V3.75" stroke="#170B00" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path
-                                                        d="M3.125 13.1255C8.125 9.3755 11.875 16.8755 16.875 13.1255V3.7505C11.875 7.5005 8.125 0.000500485 3.125 3.7505"
-                                                        stroke="#170B00" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
-                                            Мои объявления размещения
-                                        </a></li>
+                                <li class="mb-4">
+                                    <div class="d-flex">
+                                        <div>
+                                            <a href="/Catalog/ListObjects">
+                                                <svg fill="none" height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M3.125 16.875V3.75" stroke="#170B00" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M3.125 13.1255C8.125 9.3755 11.875 16.8755 16.875 13.1255V3.7505C11.875 7.5005 8.125 0.000500485 3.125 3.7505" stroke="#170B00" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        <div class="ms-1">
+                                            <a href="/Catalog/ListObjects">Мои объявления размещения</a>
+                                        </div>
+                                    </div>
+                                </li>
 
-                                    <li class="mb-4"><a href="/Sights/List">
-                                        <svg fill="none" height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M3.125 16.875V3.75" stroke="#170B00" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path
-                                                    d="M3.125 13.1255C8.125 9.3755 11.875 16.8755 16.875 13.1255V3.7505C11.875 7.5005 8.125 0.000500485 3.125 3.7505"
-                                                    stroke="#170B00" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                        Мои достопримечательности
-                                    </a></li>
+                                <li class="mb-4">
+                                    <div class="d-flex">
+                                        <div>
+                                            <a href="/Sights/List">
+                                                <svg fill="none" height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M3.125 16.875V3.75" stroke="#170B00" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M3.125 13.1255C8.125 9.3755 11.875 16.8755 16.875 13.1255V3.7505C11.875 7.5005 8.125 0.000500485 3.125 3.7505" stroke="#170B00" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        <div class="ms-1">
+                                            <a href="/Sights/List">Мои достопримечательности</a>
+                                        </div>
+                                    </div>
+                                </li>
 
-                                    <li class="mb-4 d-none"><a href="#">
-                                            <svg fill="none" height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
+                                <li class="mb-4 d-none">
+                                    <div class="d-flex justify-content-start">
+                                        <a href="#">
+                                           <div><svg fill="none" height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
                                                 <path
                                                         d="M4.39083 8.12495C4.38979 7.38371 4.53548 6.64959 4.81948 5.96491C5.10349 5.28024 5.52021 4.65854 6.0456 4.13567C6.571 3.61279 7.1947 3.19907 7.88073 2.91837C8.56677 2.63766 9.30158 2.49551 10.0428 2.50011C13.1358 2.5231 15.6097 5.09396 15.6097 8.19557V8.74995C15.6097 11.548 16.1951 13.1717 16.7107 14.0592C16.7663 14.154 16.7958 14.2618 16.7964 14.3717C16.797 14.4816 16.7686 14.5897 16.7141 14.6851C16.6596 14.7805 16.5808 14.8599 16.4859 14.9151C16.3909 14.9704 16.283 14.9997 16.1731 15H3.82681C3.71691 14.9997 3.60902 14.9704 3.51403 14.9151C3.41905 14.8598 3.34032 14.7805 3.2858 14.685C3.23128 14.5896 3.20289 14.4815 3.2035 14.3716C3.20411 14.2617 3.23369 14.1539 3.28926 14.059C3.80514 13.1716 4.39082 11.5479 4.39082 8.74995L4.39083 8.12495Z"
                                                         stroke="#170B00" stroke-linecap="round" stroke-linejoin="round"/>
                                                 <path
                                                         d="M7.5 15V15.625C7.5 16.288 7.76339 16.9239 8.23223 17.3928C8.70107 17.8616 9.33696 18.125 10 18.125C10.663 18.125 11.2989 17.8616 11.7678 17.3928C12.2366 16.9239 12.5 16.288 12.5 15.625V15"
                                                         stroke="#170B00" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
-                                            Уведомления
-                                        </a></li>
-                                        <li class="mb-4">
-                                            <div class="d-flex justify-content-start">
-                                                <div class="me-1">
-                                                    <a href="/Catalog/Objects/Wait">
-                                                        <svg fill="none" height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
-                                                            <path
-                                                                    d="M4.39083 8.12495C4.38979 7.38371 4.53548 6.64959 4.81948 5.96491C5.10349 5.28024 5.52021 4.65854 6.0456 4.13567C6.571 3.61279 7.1947 3.19907 7.88073 2.91837C8.56677 2.63766 9.30158 2.49551 10.0428 2.50011C13.1358 2.5231 15.6097 5.09396 15.6097 8.19557V8.74995C15.6097 11.548 16.1951 13.1717 16.7107 14.0592C16.7663 14.154 16.7958 14.2618 16.7964 14.3717C16.797 14.4816 16.7686 14.5897 16.7141 14.6851C16.6596 14.7805 16.5808 14.8599 16.4859 14.9151C16.3909 14.9704 16.283 14.9997 16.1731 15H3.82681C3.71691 14.9997 3.60902 14.9704 3.51403 14.9151C3.41905 14.8598 3.34032 14.7805 3.2858 14.685C3.23128 14.5896 3.20289 14.4815 3.2035 14.3716C3.20411 14.2617 3.23369 14.1539 3.28926 14.059C3.80514 13.1716 4.39082 11.5479 4.39082 8.74995L4.39083 8.12495Z"
-                                                                    stroke="#170B00" stroke-linecap="round" stroke-linejoin="round"/>
-                                                            <path
-                                                                    d="M7.5 15V15.625C7.5 16.288 7.76339 16.9239 8.23223 17.3928C8.70107 17.8616 9.33696 18.125 10 18.125C10.663 18.125 11.2989 17.8616 11.7678 17.3928C12.2366 16.9239 12.5 16.288 12.5 15.625V15"
-                                                                    stroke="#170B00" stroke-linecap="round" stroke-linejoin="round"/>
-                                                        </svg>
-                                                    </a>
-                                                </div>
-                                                <div><a href="/Catalog/Objects/Wait">Объекты ожидающие проверки</a></div>
-                                            </div>
-                                        </li>
-                                        <li class="mb-4">
-                                            <div class="d-flex justify-content-start">
-                                                <div class="me-1">
-                                                    <a href="/Sights/Wait">
-                                                        <svg fill="none" height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
-                                                            <path
-                                                                    d="M4.39083 8.12495C4.38979 7.38371 4.53548 6.64959 4.81948 5.96491C5.10349 5.28024 5.52021 4.65854 6.0456 4.13567C6.571 3.61279 7.1947 3.19907 7.88073 2.91837C8.56677 2.63766 9.30158 2.49551 10.0428 2.50011C13.1358 2.5231 15.6097 5.09396 15.6097 8.19557V8.74995C15.6097 11.548 16.1951 13.1717 16.7107 14.0592C16.7663 14.154 16.7958 14.2618 16.7964 14.3717C16.797 14.4816 16.7686 14.5897 16.7141 14.6851C16.6596 14.7805 16.5808 14.8599 16.4859 14.9151C16.3909 14.9704 16.283 14.9997 16.1731 15H3.82681C3.71691 14.9997 3.60902 14.9704 3.51403 14.9151C3.41905 14.8598 3.34032 14.7805 3.2858 14.685C3.23128 14.5896 3.20289 14.4815 3.2035 14.3716C3.20411 14.2617 3.23369 14.1539 3.28926 14.059C3.80514 13.1716 4.39082 11.5479 4.39082 8.74995L4.39083 8.12495Z"
-                                                                    stroke="#170B00" stroke-linecap="round" stroke-linejoin="round"/>
-                                                            <path
-                                                                    d="M7.5 15V15.625C7.5 16.288 7.76339 16.9239 8.23223 17.3928C8.70107 17.8616 9.33696 18.125 10 18.125C10.663 18.125 11.2989 17.8616 11.7678 17.3928C12.2366 16.9239 12.5 16.288 12.5 15.625V15"
-                                                                    stroke="#170B00" stroke-linecap="round" stroke-linejoin="round"/>
-                                                        </svg>
-                                                    </a>
-                                                </div>
-                                                <div><a href="/Sights/Wait">Достопримечательности ожидающие проверки</a></div>
-                                            </div>
-                                        </li>
-
-                                        <li class="mb-4">
-                                            <div class="d-flex justify-content-start">
-                                                <div class="me-1">
-                                                    <a href="/Reviews/Wait">
-                                                        <svg height="20" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M9.66887 25.2345L5.64348 28.6184C5.49771 28.741 5.31998 28.8193 5.1312 28.8443C4.94241 28.8693 4.75042 28.8399 4.57779 28.7595C4.40516 28.6791 4.25908 28.551 4.15673 28.3905C4.05437 28.2299 4 28.0434 4 27.853V8C4 7.73478 4.10536 7.48043 4.29289 7.29289C4.48043 7.10536 4.73478 7 5 7H27C27.2652 7 27.5196 7.10536 27.7071 7.29289C27.8946 7.48043 28 7.73478 28 8V24C28 24.2652 27.8946 24.5196 27.7071 24.7071C27.5196 24.8946 27.2652 25 27 25H10.3123C10.0769 25 9.84907 25.0831 9.66887 25.2345Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                        </svg>
-                                                    </a>
-                                                </div>
-                                                <div><a href="/Reviews/Wait">Отзывы ожидающие проверки</a></div>
-                                            </div>
-                                        </li>
-
-
-                                        <li class="mb-4"><a href="#">
+                                               </svg></div>
+                                            <div>Уведомления</div>
+                                        </a>
+                                    </div>
+                                </li>
+                                <li class="mb-4">
+                                    <div class="d-flex justify-content-start">
+                                        <div class="me-1">
+                                            <a href="/Catalog/Objects/Wait">
                                                 <svg fill="none" height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M13.5946 6.71875L16.875 10L13.5946 13.2812" stroke="#170B00" stroke-linecap="round"
-                                                          stroke-linejoin="round"/>
-                                                    <path d="M8.125 10H16.8727" stroke="#170B00" stroke-linecap="round" stroke-linejoin="round"/>
                                                     <path
-                                                            d="M8.125 16.875H3.75C3.58424 16.875 3.42527 16.8092 3.30806 16.6919C3.19085 16.5747 3.125 16.4158 3.125 16.25V3.75C3.125 3.58424 3.19085 3.42527 3.30806 3.30806C3.42527 3.19085 3.58424 3.125 3.75 3.125H8.125"
+                                                            d="M4.39083 8.12495C4.38979 7.38371 4.53548 6.64959 4.81948 5.96491C5.10349 5.28024 5.52021 4.65854 6.0456 4.13567C6.571 3.61279 7.1947 3.19907 7.88073 2.91837C8.56677 2.63766 9.30158 2.49551 10.0428 2.50011C13.1358 2.5231 15.6097 5.09396 15.6097 8.19557V8.74995C15.6097 11.548 16.1951 13.1717 16.7107 14.0592C16.7663 14.154 16.7958 14.2618 16.7964 14.3717C16.797 14.4816 16.7686 14.5897 16.7141 14.6851C16.6596 14.7805 16.5808 14.8599 16.4859 14.9151C16.3909 14.9704 16.283 14.9997 16.1731 15H3.82681C3.71691 14.9997 3.60902 14.9704 3.51403 14.9151C3.41905 14.8598 3.34032 14.7805 3.2858 14.685C3.23128 14.5896 3.20289 14.4815 3.2035 14.3716C3.20411 14.2617 3.23369 14.1539 3.28926 14.059C3.80514 13.1716 4.39082 11.5479 4.39082 8.74995L4.39083 8.12495Z"
+                                                            stroke="#170B00" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path
+                                                            d="M7.5 15V15.625C7.5 16.288 7.76339 16.9239 8.23223 17.3928C8.70107 17.8616 9.33696 18.125 10 18.125C10.663 18.125 11.2989 17.8616 11.7678 17.3928C12.2366 16.9239 12.5 16.288 12.5 15.625V15"
                                                             stroke="#170B00" stroke-linecap="round" stroke-linejoin="round"/>
                                                 </svg>
-                                                Выход
-                                            </a></li>
+                                            </a>
+                                        </div>
+                                        <div><a href="/Catalog/Objects/Wait">Объекты ожидающие проверки</a></div>
+                                    </div>
+                                </li>
+                                <li class="mb-4">
+                                    <div class="d-flex justify-content-start">
+                                        <div class="me-1">
+                                            <a href="/Sights/Wait">
+                                                <svg fill="none" height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                            d="M4.39083 8.12495C4.38979 7.38371 4.53548 6.64959 4.81948 5.96491C5.10349 5.28024 5.52021 4.65854 6.0456 4.13567C6.571 3.61279 7.1947 3.19907 7.88073 2.91837C8.56677 2.63766 9.30158 2.49551 10.0428 2.50011C13.1358 2.5231 15.6097 5.09396 15.6097 8.19557V8.74995C15.6097 11.548 16.1951 13.1717 16.7107 14.0592C16.7663 14.154 16.7958 14.2618 16.7964 14.3717C16.797 14.4816 16.7686 14.5897 16.7141 14.6851C16.6596 14.7805 16.5808 14.8599 16.4859 14.9151C16.3909 14.9704 16.283 14.9997 16.1731 15H3.82681C3.71691 14.9997 3.60902 14.9704 3.51403 14.9151C3.41905 14.8598 3.34032 14.7805 3.2858 14.685C3.23128 14.5896 3.20289 14.4815 3.2035 14.3716C3.20411 14.2617 3.23369 14.1539 3.28926 14.059C3.80514 13.1716 4.39082 11.5479 4.39082 8.74995L4.39083 8.12495Z"
+                                                            stroke="#170B00" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path
+                                                            d="M7.5 15V15.625C7.5 16.288 7.76339 16.9239 8.23223 17.3928C8.70107 17.8616 9.33696 18.125 10 18.125C10.663 18.125 11.2989 17.8616 11.7678 17.3928C12.2366 16.9239 12.5 16.288 12.5 15.625V15"
+                                                            stroke="#170B00" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        <div><a href="/Sights/Wait">Достопримечательности ожидающие проверки</a></div>
+                                    </div>
+                                </li>
+
+                                <li class="mb-4">
+                                    <div class="d-flex justify-content-start">
+                                        <div class="me-1">
+                                            <a href="/Reviews/Wait">
+                                                <svg height="20" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M9.66887 25.2345L5.64348 28.6184C5.49771 28.741 5.31998 28.8193 5.1312 28.8443C4.94241 28.8693 4.75042 28.8399 4.57779 28.7595C4.40516 28.6791 4.25908 28.551 4.15673 28.3905C4.05437 28.2299 4 28.0434 4 27.853V8C4 7.73478 4.10536 7.48043 4.29289 7.29289C4.48043 7.10536 4.73478 7 5 7H27C27.2652 7 27.5196 7.10536 27.7071 7.29289C27.8946 7.48043 28 7.73478 28 8V24C28 24.2652 27.8946 24.5196 27.7071 24.7071C27.5196 24.8946 27.2652 25 27 25H10.3123C10.0769 25 9.84907 25.0831 9.66887 25.2345Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        <div><a href="/Reviews/Wait">Отзывы ожидающие проверки</a></div>
+                                    </div>
+                                </li>
+
+                                <li class="mb-4">
+                                    <div class="d-flex justify-content-start">
+                                        <div class="me-1">
+                                            <a href="#">
+                                                <svg height="20" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M13.5946 6.71875L16.875 10L13.5946 13.2812" stroke="#170B00" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M8.125 10H16.8727" stroke="#170B00" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M8.125 16.875H3.75C3.58424 16.875 3.42527 16.8092 3.30806 16.6919C3.19085 16.5747 3.125 16.4158 3.125 16.25V3.75C3.125 3.58424 3.19085 3.42527 3.30806 3.30806C3.42527 3.19085 3.58424 3.125 3.75 3.125H8.125" stroke="#170B00" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        <div><a href="#">Выход</a></div>
+                                    </div>
+                                </li>
                             </ul>
                         </div>
 
