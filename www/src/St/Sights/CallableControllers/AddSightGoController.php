@@ -77,11 +77,11 @@ class AddSightGoController extends UserCallableController implements ICallableCo
                         ->setMain(0)
                         ->setDirectory($uploaded_image['directory'][$index])
                         ->setFilename($uploaded_image['filename'][$index])
-                        ->setX1($uploaded_image['x1'][$index])
-                        ->setY1($uploaded_image['y1'][$index])
-                        ->setX2($uploaded_image['x2'][$index])
-                        ->setY2($uploaded_image['y2'][$index])
-                        ->setRatio($uploaded_image['ratio'][$index])
+                        ->setX1($uploaded_image['x1'][$index] ?? 0)
+                        ->setY1($uploaded_image['y1'][$index] ?? 0)
+                        ->setX2($uploaded_image['x2'][$index] ?? 0)
+                        ->setY2($uploaded_image['y2'][$index] ?? 0)
+                        ->setRatio($uploaded_image['ratio'][$index] ?? 1)
                     ;
 
                     $store->addImage($image);

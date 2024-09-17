@@ -20,9 +20,7 @@ class UserHtmlLayout extends HtmlLayout implements ILayout
      */
     public function out(): void
     {
-       ?>
-
-        <!doctype html><html lang="en">
+       ?><!doctype html><html lang="en">
         <head>
             <meta charset="UTF-8">
             <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"

@@ -159,7 +159,7 @@ $(document).ready(function() {
         .on('blur', '.input-services-list', function () {
             setTimeout(() => {
                 $(this).next('.add-adv__services-list').hide();
-            }, 200)
+            }, 300)
         })
 
         .on('click', '.j-reset-left-filter', function(e) {
