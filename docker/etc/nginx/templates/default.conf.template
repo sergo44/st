@@ -13,7 +13,7 @@ server {
         deny all;
     }
 
-    location ~ ^/(build)/ {
+    location ~ ^/(build|images)/ {
         access_log off;
         expires 1h;
         add_header Cache-Control "public, must-revalidate";
