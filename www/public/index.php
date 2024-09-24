@@ -5,4 +5,4 @@ if (PHP_VERSION_ID < 80301) {
     exit(1);
 }
 
-require __DIR__ . "/../src/boostrap.php";
+require __DIR__ . "/../src/bootstrap.php";
