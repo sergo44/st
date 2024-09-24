@@ -40,7 +40,14 @@ try {
 
     require_once __DIR__ . "/../vendor/autoload.php";
     require_once __DIR__  . "/config.secret.php";
-    require_once __DIR__ . "/config.local.php";
+
+    if (sprintf("%s/config.global.php", __DIR__)) {
+        // Use sprintf to disable code inspection for this include
+        require_once sprintf("%s/config.global.php", __DIR__);
+    } else {
+        require_once __DIR__ . "/config.local.php";
+    }
+
 
     switch ($host) {
         case "192.168.56.101";
