@@ -54,6 +54,13 @@ class ListSightsHtmlView extends HtmlView implements IView
 
         <ul class="section-ads__list">
 
+            <?php if (!sizeof($this->getSights())):?>
+                <div class="alert alert-info">
+                    <h4>Ой</h4>
+                    <p>Вы еще не добавили ни одной достопримечательности</p>
+                </div>
+            <?php endif; ?>
+
             <?php foreach ($this->getSights() as $sight):?>
 
                 <li class="mt-4">

@@ -84,6 +84,13 @@ class ListObjectsHtmlView extends HtmlView implements IView
 
         <ul class="section-ads__list">
 
+            <?php if (!sizeof($this->getCatalogObjects())):?>
+            <div class="alert alert-info">
+                <h4>Ой</h4>
+                <p>Вы еще не добавили ни одного объекта</p>
+            </div>
+            <?php endif; ?>
+
             <?php foreach ($this->getCatalogObjects() as $catalog_object):?>
 
             <li class="mt-4">
