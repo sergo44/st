@@ -357,7 +357,7 @@ class AddObjectHtmlView extends HtmlView implements IView, IAddObjectView
 
                         <div class="modal-body">
                             <div>
-                                <p><input id="jsMultiImagesUploaderSelectFileInp" type="file" name="image[]" value="" title="Укажите фото для загрузки" multiple="multiple"></p>
+                                <p><input id="jsMultiImagesUploaderSelectFileInp" type="file" name="image[]" value="" title="Укажите фото для загрузки" multiple="multiple" accept="images/*"></p>
                             </div>
                             <div id="jsMultiImagesUploaderErrorCnt"></div>
                             <div class="alert alert-info fst-italic">
@@ -386,7 +386,7 @@ class AddObjectHtmlView extends HtmlView implements IView, IAddObjectView
                             <div class="d-flex flex-wrap">
                                 <div class="mb-0 position-relative wrapper-services-input" style="width: 100%">
                                     <label class="form-label" for="addHotelRoomImage">Укажите фотографию номера<span>*</span></label>
-                                    <input type="file" class="form-control" name="add_hotel_room_image" id="addHotelRoomImage">
+                                    <input type="file" class="form-control" name="add_hotel_room_image" id="addHotelRoomImage" accept="images/*">
                                 </div>
                             </div>
 

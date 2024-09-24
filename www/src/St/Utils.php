@@ -13,4 +13,21 @@ class Utils
     {
         return htmlspecialchars(string: $string, encoding: "UTF-8");
     }
+
+    /**
+     * Возвращает url сайта
+     * @return string
+     */
+    public static function site_url(): string
+    {
+        $return = "http";
+
+        if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') {
+            $return .= "s";
+        }
+
+        $return .= "://" . ST_HOST;
+
+        return $return;
+    }
 }
