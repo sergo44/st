@@ -277,7 +277,7 @@ class AddSightHtmlView extends HtmlView implements IView
                         </div>
                         <div class="mb-0 position-relative wrapper-services-input" style="width:30rem">
                             <label class="form-label" for="objectLon">Долгота<span>*</span></label>
-                            <input type="text" class="form-control input-services-list" id="objectLon" name="lon" value="<?php print $this->escape($this->sight?->getLat());?>" data-type="setLon" readonly>
+                            <input type="text" class="form-control input-services-list" id="objectLon" name="lon" value="<?php print $this->escape($this->sight?->getLon());?>" data-type="setLon" readonly>
                         </div>
                     </div>
 

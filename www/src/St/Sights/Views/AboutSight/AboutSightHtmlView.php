@@ -63,6 +63,7 @@ class AboutSightHtmlView extends HtmlView implements IView
         </div>
         <div class="section-object__text-under-title">
 
+            <?php if (sizeof($this->sight->getImages())):?>
             <div class="section-object__wrapper-photos d-grid">
                 <div class="section-object__wrapper-main-image">
                     <a href="/<?php print $this->sight->getMainImage()->getUri(2000, 2000, true);?>" data-fancybox="sight-<?php print $this->sight->getSightId();?>">
@@ -95,6 +96,8 @@ class AboutSightHtmlView extends HtmlView implements IView
                 </div>
                 <?php endif;?>
             </div>
+            <?php endif; ?>
+
             <div class="section-object__wrapper-description d-grid">
                 <div class="section-object__description">
                     <h3>Описание</h3>

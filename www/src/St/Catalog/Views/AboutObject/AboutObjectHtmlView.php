@@ -61,9 +61,10 @@ class AboutObjectHtmlView extends HtmlView implements IView
         </div>
         <div class="section-object__text-under-title">
             <?php print $this->catalog_object->getAddressLines();?>
+            <?php if ($this->catalog_object->getImages()):?>
             <div class="section-object__wrapper-photos d-grid">
                 <div class="section-object__wrapper-main-image">
-                    <img alt="" class="w-100 h-100 object-fit-cover" src="<?php print $this->catalog_object->getFirstImage()->getUri(633, 633, true)?>">
+                    <img alt="" class="w-100 h-100 object-fit-cover" src="<?php print $this->catalog_object->getFirstImage()?->getUri(633, 633, true) ?: "/images/no-image.svg"?>">
                 </div>
 
                 <?php foreach ($this->catalog_object->getAdditionalImages() as $key => $image):?>
@@ -76,8 +77,6 @@ class AboutObjectHtmlView extends HtmlView implements IView
                                 <img alt="" class="w-100 h-100 object-fit-cover" src="/<?php print $image->getUri(296, 296, true)?>">
                             </a>
                         <?php endif;?>
-
-
                     </div>
 
                     <div class="section-object__wrapper-image">
@@ -94,8 +93,8 @@ class AboutObjectHtmlView extends HtmlView implements IView
                         <?php endforeach;?>
                     </div>
                 <?php endif;?>
-
             </div>
+            <?php endif; ?>
             <div class="section-object__wrapper-description d-grid">
                 <div class="section-object__description">
                     <h3>Описание</h3>
