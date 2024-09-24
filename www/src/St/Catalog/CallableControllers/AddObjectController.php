@@ -101,11 +101,11 @@ class AddObjectController extends UserCallableController implements ICallableCon
                     $store->addImage(
                         $uploaded_image['directory'][$index],
                         $uploaded_image['filename'][$index],
-                        $uploaded_image['x1'][$index],
-                        $uploaded_image['y1'][$index],
-                        $uploaded_image['x2'][$index],
-                        $uploaded_image['y2'][$index],
-                        $uploaded_image['ratio'][$index]
+                        $uploaded_image['x1'][$index] ?? 0,
+                        $uploaded_image['y1'][$index] ?? 0,
+                        $uploaded_image['x2'][$index] ?? 0,
+                        $uploaded_image['y2'][$index] ?? 0,
+                        $uploaded_image['ratio'][$index] ?? 0
                     );
                 }
             }
@@ -116,20 +116,23 @@ class AddObjectController extends UserCallableController implements ICallableCon
             $hotel_room_description = $this->getUserInputData("hotel_room_description");
             $hotel_room_price = $this->getUserInputData("hotel_room_price");
 
-            foreach ($hotel_room_uploaded_file as $key => $uploaded_file) {
-                $hotel_room = new HotelRoom();
-                $hotel_room
-                    ->setHotelRoomId(null)
-                    ->setObjectId($object->getObjectId())
-                    ->setImage($uploaded_file)
-                    ->setName($hotel_room_name[$key])
-                    ->setDescription($hotel_room_description[$key])
-                    ->setPrice($hotel_room_price[$key])
+            if ($hotel_room_uploaded_file) {
+                foreach ($hotel_room_uploaded_file as $key => $uploaded_file) {
+                    $hotel_room = new HotelRoom();
+                    $hotel_room
+                        ->setHotelRoomId(null)
+                        ->setObjectId($object->getObjectId())
+                        ->setImage($uploaded_file)
+                        ->setName($hotel_room_name[$key])
+                        ->setDescription($hotel_room_description[$key])
+                        ->setPrice($hotel_room_price[$key])
                     ;
 
-                $rooms_store = new AddHotelRoom( $hotel_room );
-                $rooms_store->add();
+                    $rooms_store = new AddHotelRoom( $hotel_room );
+                    $rooms_store->add();
+                }
             }
+
 
             $this->getView()->setStored($result->isSuccess());
 
