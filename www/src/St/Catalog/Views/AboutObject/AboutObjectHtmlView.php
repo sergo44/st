@@ -167,18 +167,19 @@ class AboutObjectHtmlView extends HtmlView implements IView
                </div>
 
                 <div class="empty-block"></div>-->
+                <?php if ($this->catalog_object->getStartPrice() > 0):?>
                 <div class="section-object__wrapper-prices d-flex flex-wrap">
                     <div class="section-object__description flex-grow-1">
                         <h3>Цены за номер</h3>
                         <div class="price-value">от <?php print $this->catalog_object->getStartPrice();?> руб</div>
                     </div>
-                    <div class="d-none
-                    section-object__description flex-grow-1">
-                        <h3>Цена за доп.место</h3>
+                    <div class="d-none section-object__description flex-grow-1">
+                        <h3>Цена за доп. место</h3>
                         <div class="price-value">от 2 000 руб.</div>
                     </div>
                 </div>
                 <div class="empty-block"></div>
+                <?php endif; ?>
 
                 <?php if (sizeof($this->catalog_object->getHotelRooms())):?>
 
