@@ -3,6 +3,8 @@
 namespace St\Reviews\Views;
 
 use St\CatalogObject;
+use St\Review;
+use St\Reviews\ReviewObjectTypesEnum;
 use St\User;
 use St\Views\HtmlView;
 use St\Views\IView;
@@ -15,20 +17,27 @@ class AddReviewModalDialogHtmlView extends HtmlView implements IView
      */
     protected User $user;
     /**
-     * Объект каталога, к которому добавляется объект
-     * @var CatalogObject
+     * Идентификатор объекта
+     * @var int
      */
-    protected CatalogObject $catalog_object;
+    protected int $object_id;
+    /**
+     * Тип объекта
+     * @var ReviewObjectTypesEnum
+     */
+    protected ReviewObjectTypesEnum $object_type;
 
     /**
      * Конструктор вида модального диалога добавления изображения
      * @param User $user
-     * @param CatalogObject $catalog_object
+     * @param int $object_id
+     * @param ReviewObjectTypesEnum $object_type
      */
-    public function __construct(User $user, CatalogObject $catalog_object)
+    public function __construct(User $user, int $object_id, ReviewObjectTypesEnum $object_type)
     {
         $this->user = $user;
-        $this->catalog_object = $catalog_object;
+        $this->object_id = $object_id;
+        $this->object_type = $object_type;
     }
 
     /**
@@ -42,7 +51,7 @@ class AddReviewModalDialogHtmlView extends HtmlView implements IView
         <!-- Modal -->
         <div class="modal modal-lg fade" id="jsAddReviewModal" tabindex="-1" role="dialog" aria-labelledby="jsAddReviewModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <form action="/Reviews/Add/<?php print $this->catalog_object->getObjectId(); ?>/Go" method="post" enctype="multipart/form-data">
+                <form action="/Reviews/Add/<?php print $this->object_id; ?>/<?php print $this->object_type->name; ?>/Go" method="post" enctype="multipart/form-data">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title" id="jsAddReviewModalLabel">Добавление отзыва</h4>
@@ -93,7 +102,8 @@ class AddReviewModalDialogHtmlView extends HtmlView implements IView
                         </div>
                     </div>
                     <input type="hidden" name="user_id" value="<?php print $this->escape($this->user->getUserId())?>">
-                    <input type="hidden" name="object_id" value="<?php print $this->escape($this->catalog_object->getObjectId())?>">
+                    <input type="hidden" name="object_id" value="<?php print $this->escape($this->object_id)?>">
+                    <input type="hidden" name="object_type" value="<?php print $this->escape($this->object_type->name)?>">
                 </form>
             </div>
         </div>

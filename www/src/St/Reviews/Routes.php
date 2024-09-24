@@ -29,8 +29,8 @@ class Routes extends FileRoute implements IRoute
      */
     #[\Override] public function tryRoute(): ICallableController|null
     {
-        if (preg_match("#^/?Reviews/Add/([1-9]+[0-9]*)/Go/?$#ui", $this->dispatcher->getPath(), $match)) {
-            return (new Reviews\CallableControllers\AddReviewController($_REQUEST, new JsonLayout(), new Views\AddReview\AddReviewGoJsonView()))->index($match[1]);
+        if (preg_match("#^/?Reviews/Add/([1-9]+[0-9]*)/([A-Z]+[a-z]*)/Go/?$#ui", $this->dispatcher->getPath(), $match)) {
+            return (new Reviews\CallableControllers\AddReviewController($_REQUEST, new JsonLayout(), new Views\AddReview\AddReviewGoJsonView()))->index($match[1], $match[2]);
         }
 
         if (preg_match("#^/?Reviews/Wait/?$#ui", $this->dispatcher->getPath(), $match)) {

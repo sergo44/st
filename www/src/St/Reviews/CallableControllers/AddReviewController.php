@@ -23,7 +23,7 @@ class AddReviewController extends UserCallableController implements ICallableCon
      * Метод контроллера добавления отзыва
      * @throws ApplicationError
      */
-    public function index(int $object_id): AddReviewController
+    public function index(int $object_id, string $object_type): AddReviewController
     {
         $this->getView()
             ->setResult($result = new Result())
@@ -35,6 +35,7 @@ class AddReviewController extends UserCallableController implements ICallableCon
             $review
                 ->setUserId($this->getUser()->getUserId())
                 ->setObjectId($object_id)
+                ->setObjectType($object_type)
                 ->setPublishDatetimeUtc(DateTimeHelper::now()->format("Y-m-d H:i:s"))
                 ->setRestPeriod($this->getUserInputData("rest_period", 255) ?: "")
                 ->setMark((int)$this->getUserInputData("mark"))
@@ -55,30 +56,30 @@ class AddReviewController extends UserCallableController implements ICallableCon
                 $images['size'][$key] ?? 0
                 );
 
-                if (!$uploaded_file->isUploadedSuccess()) {
+                if ($uploaded_file->isFileSpecified() && !$uploaded_file->isUploadedSuccess()) {
                     throw new CallableControllerException(sprintf("Файл не загружен: %s", $uploaded_file->getErrorAsString()));
+                } elseif ($uploaded_file->isFileSpecified()) {
+                    $cropper = new ImageCropper();
+                    $cropper
+                        ->setSrcFilePath($uploaded_file->getTmpName())
+                        ->setDstFilePath(ST_IMAGES_THUMB_TMP_DIR . "/" . uniqid())
+                        ->setResizeGeometry(2000, 2000)
+                        ->setCrop(false)
+                        ->setAutofixFileExt(true)
+                        ->setUnknownExtOutputFormat("jpg")
+                        ->open()
+                        ->resize()
+                        ->save()
+                    ;
+
+                    $review_image = new ReviewImage();
+                    $review_image
+                        ->setDirectory($cropper->getSavedFileDir())
+                        ->setFilename($cropper->getSavedFileName())
+                    ;
+
+                    $review->addNewImage($review_image);
                 }
-
-                $cropper = new ImageCropper();
-                $cropper
-                    ->setSrcFilePath($uploaded_file->getTmpName())
-                    ->setDstFilePath(ST_IMAGES_THUMB_TMP_DIR . "/" . uniqid())
-                    ->setResizeGeometry(2000, 2000)
-                    ->setCrop(false)
-                    ->setAutofixFileExt(true)
-                    ->setUnknownExtOutputFormat("jpg")
-                    ->open()
-                    ->resize()
-                    ->save()
-                ;
-
-                $review_image = new ReviewImage();
-                $review_image
-                    ->setDirectory($cropper->getSavedFileDir())
-                    ->setFilename($cropper->getSavedFileName())
-                ;
-
-                $review->addNewImage($review_image);
             }
 
             $add_review = new ReviewStore($review);

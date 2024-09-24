@@ -15,6 +15,11 @@ class GetAllObjectReviews implements IReadDb
      */
     protected int $object_id;
     /**
+     * Тип объекта
+     * @var ReviewObjectTypesEnum
+     */
+    protected ReviewObjectTypesEnum $type;
+    /**
      * Объект PDO который будет использоваться для соединения с СУБД
      * @var PDO|null
      */
@@ -24,13 +29,14 @@ class GetAllObjectReviews implements IReadDb
     /**
      * Конструктор класса
      * @param int $object_id
+     * @param ReviewObjectTypesEnum $type
      * @param PDO|null $dbh
      */
-    public function __construct(int $object_id, ?PDO $dbh = null)
+    public function __construct(int $object_id, ReviewObjectTypesEnum $type, ?PDO $dbh = null)
     {
-
-        $this->dbh = $dbh ?: Db::getWritePDOInstance();
         $this->object_id = $object_id;
+        $this->type = $type;
+        $this->dbh = $dbh ?: Db::getWritePDOInstance();
     }
 
     /**
@@ -39,9 +45,10 @@ class GetAllObjectReviews implements IReadDb
      */
     public function getReviews(): array
     {
-        $sth = $this->dbh->prepare(/** @lang MariaDB */"SELECT * FROM reviews where object_id = :object_id order by publish_datetime_utc");
+        $sth = $this->dbh->prepare(/** @lang MariaDB */"SELECT * FROM reviews where object_id = :object_id && object_type = :object_type order by publish_datetime_utc");
         $sth->execute(array(
-            "object_id" => $this->object_id
+            ":object_id" => $this->object_id,
+            ":object_type" => $this->type->name
         ));
 
         return $sth->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, Review::class);

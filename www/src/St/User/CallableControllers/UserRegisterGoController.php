@@ -4,6 +4,7 @@ namespace St\User\CallableControllers;
 
 use St\ApplicationError;
 use St\Auth;
+use St\DateTimeHelper;
 use St\FrontController\CallableController;
 use St\FrontController\ICallableController;
 use St\Result;
@@ -43,6 +44,11 @@ class UserRegisterGoController extends CallableController implements ICallableCo
             ->setPhone($this->getUserInputData("phone", 255) ?? "")
             ->setPassword($this->getUserInputData("password") ?? "")
             ->setPasswordHash(password_hash($this->getUserInputData("password") ?? "",  PASSWORD_DEFAULT))
+            ->setRegisteredDatetimeUtc(DateTimeHelper::now()->format("Y-m-d H:i:s"))
+            ->setEmailConfirmed(0)
+            ->setEmailConfirmationCode(mt_rand(100000, 999999))
+            ->setEmailConfirmationCodeSent(0)
+        ;
         ;
 
         $register = new User\Register($user);

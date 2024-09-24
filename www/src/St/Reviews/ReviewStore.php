@@ -47,6 +47,10 @@ class ReviewStore implements IWriteDb
             $result->addError("Идентификатор объекта не задан", "object_id");
         }
 
+        if (!defined(ReviewObjectTypesEnum::class . "::" . $this->review->getObjectType())) {
+            $result->addError("Неизвестный тип объекта", "object_type");
+        }
+
         if (!$this->review->getPublishDatetimeUtc()) {
             $result->addError("Дата и время публикации отзыва не заданы", "publish_datetime_utc");
         }
@@ -82,6 +86,7 @@ class ReviewStore implements IWriteDb
                 review_id, 
                 user_id, 
                 object_id, 
+                object_type,
                 publish_datetime_utc, 
                 rest_period, 
                 mark, 
@@ -94,6 +99,7 @@ class ReviewStore implements IWriteDb
                 :review_id,
                 :user_id,
                 :object_id,
+                :object_type,
                 :publish_datetime_utc,
                 :rest_period,
                 :mark,
@@ -107,6 +113,7 @@ class ReviewStore implements IWriteDb
             ":review_id" => $this->review->getReviewId(),
             ":user_id" => $this->review->getUserId(),
             ":object_id" => $this->review->getObjectId(),
+            ":object_type" => $this->review->getObjectType(),
             ":publish_datetime_utc" => $this->review->getPublishDatetimeUtc(),
             ":rest_period" => $this->review->getRestPeriod(),
             ":mark" => $this->review->getMark(),
@@ -167,6 +174,7 @@ class ReviewStore implements IWriteDb
             SET
                 user_id = :user_id,
                 object_id = :object_id,
+                object_type = :object_type,
                 publish_datetime_utc = :publish_datetime_utc,
                 rest_period = :rest_period,
                 mark = :mark,
@@ -180,6 +188,7 @@ class ReviewStore implements IWriteDb
         $sth->execute(array(
             ":user_id" => $this->review->getUser()->getUserId(),
             ":object_id" => $this->review->getObjectId(),
+            ":object_type" => $this->review->getObjectType(),
             ":publish_datetime_utc" => $this->review->getPublishDatetimeUtc(),
             ":rest_period" => $this->review->getRestPeriod(),
             ":mark" => $this->review->getMark(),

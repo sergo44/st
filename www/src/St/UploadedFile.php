@@ -210,6 +210,11 @@ class UploadedFile implements \JsonSerializable
         return $this->getError() === UPLOAD_ERR_OK;
     }
 
+    public function isFileSpecified(): bool
+    {
+        return $this->getError() !== UPLOAD_ERR_NO_FILE;
+    }
+
     /**
      * Возвращает ошибку в виде строки
      * @return string

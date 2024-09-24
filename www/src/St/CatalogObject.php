@@ -6,7 +6,8 @@ use DateTime;
 use Exception;
 use PDO;
 use St\Reviews\GetAllObjectReviews;
-use St\Reviews\GetApprovedObjectReviews;
+use St\Reviews\GetApprovedReviews;
+use St\Reviews\ReviewObjectTypesEnum;
 
 class CatalogObject implements IReadDb
 {
@@ -729,7 +730,7 @@ class CatalogObject implements IReadDb
     public function getAllReviews(): array
     {
         if (!isset($this->all_reviews) && $this->object_id) {
-            $this->all_reviews = (new GetAllObjectReviews($this->object_id))->getReviews();
+            $this->all_reviews = (new GetAllObjectReviews($this->object_id, ReviewObjectTypesEnum::Object))->getReviews();
         }
 
         return $this->all_reviews ?: array();
@@ -742,7 +743,7 @@ class CatalogObject implements IReadDb
     public function getApprovedReviews(): array
     {
         if (!isset($this->approved_reviews)) {
-            $this->approved_reviews = (new GetApprovedObjectReviews($this->getObjectId()))->getReviews();
+            $this->approved_reviews = (new GetApprovedReviews($this->getObjectId(), ReviewObjectTypesEnum::Object))->getReviews();
         }
 
         return $this->approved_reviews;

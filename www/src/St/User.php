@@ -51,6 +51,26 @@ class User implements \JsonSerializable, IUseRedis
      * @var string
      */
     protected string $user_role = UserRole::Guest->name;
+    /**
+     * Дата и время регистрации в UTC
+     * @var string
+     */
+    protected string $registered_datetime_utc = "";
+    /**
+     * Признак, что адрес электронной почты подтвержден
+     * @var int
+     */
+    protected int $email_confirmed = 0;
+    /**
+     * Код подтверждения адреса электронной почты
+     * @var string|null
+     */
+    protected ?string $email_confirmation_code = null;
+    /**
+     * Признак, было ли отправлено письмо с кодом подтверждения
+     * @var int
+     */
+    protected int $email_confirmation_code_sent = 0;
 
     /**
      * Sleep magic method
@@ -65,7 +85,11 @@ class User implements \JsonSerializable, IUseRedis
             "timezone",
             "email",
             "phone",
-            "user_role"
+            "user_role",
+            "registered_datetime_utc",
+            "email_confirmed",
+            "email_confirmation_code",
+            "email_confirmation_code_sent"
         );
     }
 
@@ -128,7 +152,11 @@ class User implements \JsonSerializable, IUseRedis
             "timezone" => $this->getTimezone(),
             "email" => $this->getEmail(),
             "phone" => $this->getPhone(),
-            "user_role" => $this->getUserRole()
+            "user_role" => $this->getUserRole(),
+            "registered_datetime_utc" => $this->getRegisteredDatetimeUtc(),
+            "email_confirmed" => $this->getEmailConfirmed(),
+            "email_confirmation_code" => $this->getEmailConfirmationCode(),
+            "email_confirmation_code_sent" => $this->getEmailConfirmationCodeSent()
         );
     }
 
@@ -351,6 +379,94 @@ class User implements \JsonSerializable, IUseRedis
     public function getUserRoleHelper(): UserRoleHelper
     {
         return new UserRoleHelper($this);
+    }
+
+    /**
+     * Возвращает registered_datetime_utc
+     * @return string
+     * @see registered_datetime_utc
+     */
+    public function getRegisteredDatetimeUtc(): string
+    {
+        return $this->registered_datetime_utc;
+    }
+
+    /**
+     * Устанавливает registered_datetime_utc
+     * @param string $registered_datetime_utc
+     * @return User
+     * @see registered_datetime_utc
+     */
+    public function setRegisteredDatetimeUtc(string $registered_datetime_utc): User
+    {
+        $this->registered_datetime_utc = $registered_datetime_utc;
+        return $this;
+    }
+
+    /**
+     * Возвращает email_confirmed
+     * @return int
+     * @see email_confirmed
+     */
+    public function getEmailConfirmed(): int
+    {
+        return $this->email_confirmed;
+    }
+
+    /**
+     * Устанавливает email_confirmed
+     * @param int $email_confirmed
+     * @return User
+     * @see email_confirmed
+     */
+    public function setEmailConfirmed(int $email_confirmed): User
+    {
+        $this->email_confirmed = $email_confirmed;
+        return $this;
+    }
+
+    /**
+     * Возвращает email_confirmation_code
+     * @return string|null
+     * @see email_confirmation_code
+     */
+    public function getEmailConfirmationCode(): ?string
+    {
+        return $this->email_confirmation_code;
+    }
+
+    /**
+     * Устанавливает email_confirmation_code
+     * @param string|null $email_confirmation_code
+     * @return User
+     * @see email_confirmation_code
+     */
+    public function setEmailConfirmationCode(?string $email_confirmation_code): User
+    {
+        $this->email_confirmation_code = $email_confirmation_code;
+        return $this;
+    }
+
+    /**
+     * Возвращает email_confirmation_code_sent
+     * @return int
+     * @see email_confirmation_code_sent
+     */
+    public function getEmailConfirmationCodeSent(): int
+    {
+        return $this->email_confirmation_code_sent;
+    }
+
+    /**
+     * Устанавливает email_confirmation_code_sent
+     * @param int $email_confirmation_code_sent
+     * @return User
+     * @see email_confirmation_code_sent
+     */
+    public function setEmailConfirmationCodeSent(int $email_confirmation_code_sent): User
+    {
+        $this->email_confirmation_code_sent = $email_confirmation_code_sent;
+        return $this;
     }
 
 }

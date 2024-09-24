@@ -108,10 +108,34 @@ class Register
 
             $sth = $dbh->prepare(/** @lang MariaDB */"
                 /** @SQL 2024-02-01-001 */
-                insert into `users`
-                (name, login, timezone, email, phone, password_hash, user_role) 
-                values 
-                (:name, :login, :timezone, :email, :phone, :password_hash, :user_role)
+                INSERT INTO `users`
+                (
+                 name,
+                 login,
+                 timezone,
+                 email,
+                 phone,
+                 password_hash,
+                 user_role,
+                 registered_datetime_utc,
+                 email_confirmed,
+                 email_confirmation_code,
+                 email_confirmation_code_sent
+                 ) 
+                VALUES 
+                (
+                 :name,
+                 :login,
+                 :timezone, 
+                 :email,
+                 :phone,
+                 :password_hash,
+                 :user_role, 
+                 :registered_datetime_utc,
+                 :email_confirmed,
+                 :email_confirmation_code,
+                 :email_confirmation_code_sent
+                 )
             ");
 
             $sth->execute(array(
@@ -121,7 +145,11 @@ class Register
                 ":email" => $this->user->getEmail(),
                 ":phone" => $this->user->getPhone(),
                 ":password_hash" => $this->user->getPasswordHash(),
-                ":user_role" => $this->user->getUserRole()
+                ":user_role" => $this->user->getUserRole(),
+                ":registered_datetime_utc" => $this->user->getRegisteredDateTimeUtc(),
+                ":email_confirmed" => $this->user->getEmailConfirmed(),
+                // ":email_confirmation_code" => $this->user->getEmailConfirmationCode(),
+                ":email_confirmation_code_sent" => $this->user->getEmailConfirmationCodeSent()
             ));
 
             $this->user->setUserId((int)$dbh->lastInsertId());

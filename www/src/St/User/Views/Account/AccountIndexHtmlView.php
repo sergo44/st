@@ -16,22 +16,21 @@ class AccountIndexHtmlView extends HtmlView implements IView
     {
         ?>
 
-        <!-- <div class="attention-block attention-error position-relative mt-5 hidden">
-                            <div class="hidden attention-title-block d-flex align-items-center justify-content-between">
-                                <div class="attention-title d-flex align-items-center gap-2">
-                                    <div class="wrapper-attention-icon">
-                                        <img alt="" src="/images/icons/attention-error.svg">
-                                    </div>
-                                    ВНИМАНИЕ
-                                </div>
-                                <button aria-label="Close" class="btn-close position-absolute" data-bs-dismiss="modal"
-                                        type="button"></button>
-                            </div>
-                            <div class="section-profile__confirm-email ps-4 mt-3">Подтвердите адрес вашей электронной почты, чтобы
-                                оставлять отзывы и добавлять объекты.
-                            </div>
-                            <a class="link-warning d-flex justify-content-end mt-3" href="#">Подтвердить</a>
-                        </div> -->
+        <div class="attention-block attention-error position-relative mt-5 hidden">
+            <div class="hidden attention-title-block d-flex align-items-center justify-content-between">
+                <div class="attention-title d-flex align-items-center gap-2">
+                    <div class="wrapper-attention-icon">
+                        <img alt="" src="/images/icons/attention-error.svg">
+                    </div>
+                    ВНИМАНИЕ
+                </div>
+                <button aria-label="Close" class="btn-close position-absolute" data-bs-dismiss="modal"
+                        type="button"></button>
+            </div>
+            <div class="section-profile__confirm-email ps-4 mt-3">Подтвердите адрес вашей электронной почты, чтобы оставлять отзывы и добавлять объекты.
+            </div>
+            <a class="link-warning d-flex justify-content-end mt-3" href="#">Подтвердить</a>
+        </div>
 
         <div class="section-profile__wrapper-block">
             <div class="section-profile__inputs">

@@ -10,6 +10,9 @@ use St\Country;
 use St\DateTimeHelper;
 use St\Db;
 use St\Region;
+use St\Review;
+use St\Reviews\GetApprovedReviews;
+use St\Reviews\ReviewObjectTypesEnum;
 
 class Sight
 {
@@ -98,6 +101,11 @@ class Sight
      * @var SightImage[]
      */
     protected ?array $images = null;
+    /**
+     * Отзывы для отображения
+     * @var Review[]|null
+     */
+    protected ?array $approved_reviews = null;
 
     /**
      * Возвращает достопримечательность по идентификатору
@@ -569,5 +577,18 @@ class Sight
         }
 
         return $return;
+    }
+
+    /**
+     * Одобренные отзывы
+     * @return Review[]
+     */
+    public function getApprovedReviews(): array
+    {
+        if (!isset($this->approved_reviews)) {
+            $this->approved_reviews = (new GetApprovedReviews($this->getSightId(), ReviewObjectTypesEnum::Sight))->getReviews();
+        }
+
+        return $this->approved_reviews;
     }
 }

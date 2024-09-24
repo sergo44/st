@@ -23,6 +23,11 @@ class Review implements IReadDb, \JsonSerializable
      */
     protected int $object_id;
     /**
+     * Тип объекта
+     * @var string
+     */
+    protected string $object_type;
+    /**
      * Дата и время публикации в UTC
      * @var string
      */
@@ -99,6 +104,7 @@ class Review implements IReadDb, \JsonSerializable
             "review_id" => $this->review_id,
             "user_id" => $this->user_id,
             "object_id" => $this->object_id,
+            "object_type" => $this->object_type,
             "publish_datetime_utc" => $this->publish_datetime_utc,
             "rest_period" => $this->rest_period,
             "mark" => $this->mark,
@@ -170,6 +176,28 @@ class Review implements IReadDb, \JsonSerializable
     public function setObjectId(int $object_id): Review
     {
         $this->object_id = $object_id;
+        return $this;
+    }
+
+    /**
+     * Возвращает object_type
+     * @return string
+     * @see object_type
+     */
+    public function getObjectType(): string
+    {
+        return $this->object_type;
+    }
+
+    /**
+     * Устанавливает object_type
+     * @param string $object_type
+     * @return Review
+     * @see object_type
+     */
+    public function setObjectType(string $object_type): Review
+    {
+        $this->object_type = $object_type;
         return $this;
     }
 
