@@ -307,8 +307,8 @@ class AddObjectHtmlView extends HtmlView implements IView, IAddObjectView
                             <h5>Контакты</h5>
                             <div class="d-flex gap-5 flex-wrap">
                                 <div class="mb-0 mb-sm-5 position-relative wrapper-services-input" style="width:30rem">
-                                    <label class="form-label" for="contactPhone">Введите номер телефона<span>*</span></label>
-                                    <input class="form-control input-services-list" id="contactPhone" name="contact_phone" placeholder="+7 (999) 999-99-99" required="" type="tel" value="<?php print $this->escape($this->catalog_object->getContactPhone())?>">
+                                    <label class="form-label" for="contactPhone">Введите номер телефона</label>
+                                    <input class="form-control input-services-list" id="contactPhone" name="contact_phone" placeholder="+7 (999) 999-99-99" type="tel" value="<?php print $this->escape($this->catalog_object->getContactPhone())?>">
                                 </div>
                             </div>
                             <div class="d-flex gap-5 flex-wrap">
