@@ -100,7 +100,7 @@ class ShowSightsHtmlView extends HtmlView implements IView
                             <span>Найдено <?php print sizeof($this->getSights());?> варианта</span>
                             Показано <?php print min(10, sizeof($this->getSights()));?> из <?php print sizeof($this->getSights());?>
                         </div>
-                        <a class="btn btn-outline-secondary d-flex gap-2 mt-0" href="/Catalog/Objects/Add"
+                        <a class="btn btn-outline-secondary d-flex gap-2 mt-0" href="/Sights/Add"
                            style="padding-left: 2rem;padding-right: 2rem;">
                             <svg fill="none" height="2rem" viewBox="0 0 20 20" width="2rem" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M3.125 10H16.875" stroke="#170B00" stroke-linecap="round" stroke-linejoin="round"/>
