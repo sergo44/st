@@ -169,7 +169,7 @@ class ShowObjectsHtmlView extends HtmlView implements IView
                             <li class="d-flex flex-column flex-sm-row">
 
                                 <div class="section-catalog__wrapper-hotel-image flex-shrink-0">
-                                    <img alt="Отель" class="w-100 h-100 object-fit-cover" src="<?php print $catalog_object->getFirstImage()->getUri(214, 214, true)?>">
+                                    <img alt="" class="w-100 h-100 object-fit-cover" src="<?php print $catalog_object->getFirstImage()?->getUri(214, 214, true) ?: "/images/no-image.svg"?>">
                                 </div>
                                 <div class="section-catalog__wrapper-for-tablet w-100 d-lg-flex">
                                     <div class="section-catalog__wrapper-description w-100">

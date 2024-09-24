@@ -70,6 +70,18 @@ class UserHtmlLayout extends HtmlLayout implements ILayout
                     <li><a href="/Catalog/Objects/Apartment">Апартаменты</a></li>
                     <li><a href="/Catalog/Objects/Camping">Кемпинг</a></li>
                     <li><a href="/Sights/Show">Достопримечательности</a></li>
+                    <?php if (Auth::getInstance()->get()?->getUserId()):?>
+                        <li><hr></li>
+                        <li><a href="/User/Account">Профиль</a></li>
+                        <li><a href="/Catalog/ListObjects">Мои размещения</a></li>
+                        <li><a href="/Sights/List">Мои достопримечательности</a></li>
+                        <?php if (Auth::getInstance()->get()?->getUserRoleHelper()->canModerationObjects()):?>
+                            <li><a href="/Catalog/Objects/Wait">Ожидающие проверки размещения</a></li>
+                            <li><a href="/Sights/Wait">Достопримечательности ожидающие проверки</a></li>
+                            <li><a href="/Reviews/Wait">Отзывы ожидающие проверки</a></li>
+                        <?php endif;?>
+                        <li><a href="/Users/Logout">Выход</a></li>
+                    <?php endif; ?>
                 </ul>
             </div>
             <div class="container h-100">
@@ -100,16 +112,6 @@ class UserHtmlLayout extends HtmlLayout implements ILayout
                         <li class="col-auto"><a href="/Catalog/Objects/Apartment">Апартаменты</a></li>
                         <li class="col-auto"><a href="/Catalog/Objects/Camping">Кемпинг</a></li>
                         <li><a href="/Sights/Show">Достопримечательности</a></li>
-                        <li><hr></li>
-                        <li><a href="/User/Account">Профиль</a></li>
-                        <li><a href="/Catalog/ListObjects">Мои размещения</a></li>
-                        <li><a href="/Sights/List">Мои достопримечательности</a></li>
-                        <?php if (Auth::getInstance()->get()?->getUserRoleHelper()->canModerationObjects()):?>
-                            <li><a href="/Catalog/Objects/Wait">Ожидающие проверки размещения</a></li>
-                            <li><a href="/Sights/Wait">Достопримечательности ожидающие проверки</a></li>
-                            <li><a href="/Reviews/Wait">Отзывы ожидающие проверки</a></li>
-                        <?php endif;?>
-                        <li><a href="/Users/Logout">Выход</a></li>
                     </ul>
                     <a
                         class="header__wrapper-entry header__account-name gap-4 col-sm-auto col d-flex justify-content-end align-items-center"

@@ -41,7 +41,7 @@ try {
     require_once __DIR__ . "/../vendor/autoload.php";
     require_once __DIR__  . "/config.secret.php";
 
-    if (sprintf("%s/config.global.php", __DIR__)) {
+    if (file_exists(sprintf("%s/config.global.php", __DIR__))) {
         // Use sprintf to disable code inspection for this include
         require_once sprintf("%s/config.global.php", __DIR__);
     } else {
