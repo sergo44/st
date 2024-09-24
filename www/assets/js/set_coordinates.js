@@ -135,7 +135,7 @@ if (setCoordinatesModal) {
             }
 
             let latLon = toLonLat(e.coordinate);
-            setMarker(latLon[0], latLon[1]);
+            setMarker(latLon[1], latLon[0]);
         })
     });
 }
