@@ -391,7 +391,7 @@ class AddSightHtmlView extends HtmlView implements IView
 
                         <div class="modal-body">
                             <div>
-                                <p><input id="jsMultiImagesUploaderSelectFileInp" type="file" name="image[]" value="" title="Укажите фото для загрузки" multiple="multiple" accept="images/*"></p>
+                                <p><input id="jsMultiImagesUploaderSelectFileInp" type="file" name="image[]" value="" title="Укажите фото для загрузки" multiple="multiple" accept="image/*"></p>
                             </div>
                             <div id="jsMultiImagesUploaderErrorCnt"></div>
                             <div class="alert alert-info fst-italic">

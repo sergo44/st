@@ -64,11 +64,11 @@ class AddReviewModalDialogHtmlView extends HtmlView implements IView
                                 </div>
                                 <div class="mb-1 position-relative wrapper-services-input w-100">
                                     <label class="form-label" for="uploadImageUrl0">Укажите фотографии для загрузки *</label>
-                                    <input type="file" class="form-control" name="images[]" id="uploadImageUrl0" value="" accept="images/*">
+                                    <input type="file" class="form-control" name="images[]" id="uploadImageUrl0" value="" accept="image/*">
                                 </div>
                                 <div class="mb-1 position-relative wrapper-services-input w-100">
                                     <label class="form-label" for="uploadImageUrl1">Укажите фотографии для загрузки *</label>
-                                    <input type="file" class="form-control" name="images[]" id="uploadImageUrl1" value="" accept="images/*">
+                                    <input type="file" class="form-control" name="images[]" id="uploadImageUrl1" value="" accept="image/*">
                                 </div>
                                 <div class="mb-1 position-relative wrapper-services-input w-100">
                                     <label class="form-label" for="orderRoomInputEmail">Ваша оценка <span>*</span></label>
