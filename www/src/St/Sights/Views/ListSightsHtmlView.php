@@ -65,7 +65,7 @@ class ListSightsHtmlView extends HtmlView implements IView
 
                 <li class="mt-4">
                     <div class="section-ads__wrapper-item d-flex gap-4 align-items-center justify-content-between ">
-                        <div class="section-ads__wrapper-left d-flex gap-4 align-items-center">
+                        <div class="section-ads__wrapper-left d-flex gap-4 align-items-center col-sm-8">
                             <div class="section-ads__wrapper-photo">
                                 <img alt="" src="<?php print $sight->getMainImage() ? "/" . $sight->getMainImage()->getUri(142, 142, true) : "/images/no-image.svg";?>" style="width: 142px">
                             </div>

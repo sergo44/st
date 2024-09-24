@@ -13,6 +13,65 @@ const setCoordinatesModal = document.getElementById("setCoordinatesModal");
 if (setCoordinatesModal) {
     let map;
     let setCoordinatesLayerVector;
+    let view = new View({
+        center: fromLonLat([104.27296760599522, 52.28720573818367]),
+        zoom: 10,
+    });
+    let geoWatchId;
+
+    function setPosition(position) {
+        view.setCenter(fromLonLat([position.coords.longitude, position.coords.latitude]));
+        view.setZoom(15);
+        setMarker(position.coords.latitude, position.coords.longitude);
+    }
+
+    function errorPosition(error) {
+        switch(error.code) {
+            case error.PERMISSION_DENIED:
+                alert("К сожалению Вы запретили доступ к вашему местоположению, вы можете включить его к настройках браузера");
+                break;
+            case error.POSITION_UNAVAILABLE:
+                alert("Служба геолокации недоступна");
+                break;
+            case error.TIMEOUT:
+                alert("К сожалению, мы не смогли определить ваше местоположение");
+                break;
+            case error.UNKNOWN_ERROR:
+                alert("Произошла непредвиденная ошибка при определении вашего местоположения");
+                break;
+        }
+    }
+
+    function setMarker(lat, lon) {
+
+        if (typeof setCoordinatesLayerVector !== "undefined") {
+            map.removeLayer(setCoordinatesLayerVector);
+        }
+
+
+        $("input[data-type=setLat]").val(lat);
+        $("input[data-type=setLon]").val(lon);
+
+        let iconFeatures = new Feature({
+            geometry: new Point(fromLonLat([lon, lat]))
+        });
+
+        iconFeatures.setStyle(new Style({
+            image: new Icon({
+                color: '#BADA55',
+                crossOrigin: 'anonymous',
+                src: '/images/map-marker.svg',
+                height: 35,
+                anchor: [0.5, 1]
+            })
+        }));
+
+        let sourceVector = new SourceVector({features: [iconFeatures]});
+        setCoordinatesLayerVector = new LayerVector({source: sourceVector})
+
+        map.addLayer(setCoordinatesLayerVector);
+    }
+
 
     $(setCoordinatesModal).find("button:last").on("click", function() {
         let modal = bootstrap.Modal.getInstance(setCoordinatesModal);
@@ -20,6 +79,11 @@ if (setCoordinatesModal) {
     });
 
     setCoordinatesModal.addEventListener("shown.bs.modal", function() {
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(setPosition, errorPosition);
+            geoWatchId = navigator.geolocation.watchPosition(setPosition);
+        }
 
         if (typeof map === "undefined") {
             map = new Map({
@@ -31,10 +95,7 @@ if (setCoordinatesModal) {
                 ],
             });
 
-            map.setView(new View({
-                center: fromLonLat([104.27296760599522, 52.28720573818367]),
-                zoom: 10,
-            }));
+            map.setView(view);
         }
 
          if (typeof jsEditObjectLocation !== "undefined") {
@@ -69,33 +130,12 @@ if (setCoordinatesModal) {
 
         map.on('singleclick', function(e) {
 
-            if (typeof setCoordinatesLayerVector !== "undefined") {
-                map.removeLayer(setCoordinatesLayerVector);
+            if (navigator.geolocation) {
+                navigator.geolocation.clearWatch(geoWatchId);
             }
 
             let latLon = toLonLat(e.coordinate);
-
-            $("input[data-type=setLat]").val(latLon[0]);
-            $("input[data-type=setLon]").val(latLon[1]);
-
-            let iconFeatures = new Feature({
-                geometry: new Point(e.coordinate)
-            });
-
-            iconFeatures.setStyle(new Style({
-                image: new Icon({
-                    color: '#BADA55',
-                    crossOrigin: 'anonymous',
-                    src: '/images/map-marker.svg',
-                    height: 35,
-                    anchor: [0.5, 1]
-                })
-            }));
-
-            let sourceVector = new SourceVector({features: [iconFeatures]});
-            setCoordinatesLayerVector = new LayerVector({source: sourceVector})
-
-            map.addLayer(setCoordinatesLayerVector);
+            setMarker(latLon[0], latLon[1]);
         })
     });
 }

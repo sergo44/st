@@ -20,7 +20,7 @@ enum CatalogObjectsStatusesEnum
     public function getActionLabel(): string
     {
         return match ($this) {
-            self::Wait => "переведен в статус \"ожидает проверки\"",
+            self::Wait => "ожидает проверки",
             self::Approved => "одобрен",
             self::Decline => "запрещен к показу",
         };
