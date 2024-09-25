@@ -286,7 +286,7 @@ class SightImage
         $directory = sprintf("%s/%ux%u", $this->getDirectory(), $w, $h);
 
         if (!file_exists($directory)) {
-            mkdir($directory, 0777 & ST_DEFAULT_UMASK) || throw new ApplicationError(sprintf("Can't create %s ", $directory));
+            mkdir($directory, 0777 & ~ST_DEFAULT_UMASK) || throw new ApplicationError(sprintf("Can't create %s ", $directory));
         }
 
         return sprintf(
