@@ -71,10 +71,10 @@ class AboutObjectHtmlView extends HtmlView implements IView
                     <div class="section-object__wrapper-image<?php if ($key === 3 && sizeof($this->catalog_object->getAdditionalImages()) > 4):?> position-relative<?php endif;?>">
                         <?php if ($key === 3 && sizeof($this->catalog_object->getAdditionalImages()) > 4):?>
                             <a href="<?php print $image->getUri(2000, 2000);?>" data-fancybox="object-<?php print $this->catalog_object->getObjectId();?>" class="overlay-object-foto">Еще фото</a>
-                            <img alt="" class="w-100 h-100 object-fit-cover" src="/<?php print $image->getUri(296, 296, true)?>">
+                            <img alt="" class="w-100 h-100 object-fit-cover" src="<?php print $image->getUri(296, 296, true)?>">
                         <?php else:?>
                             <a href="<?php print $image->getUri(2000, 2000);?>" data-fancybox="object-<?php print $this->catalog_object->getObjectId();?>">
-                                <img alt="" class="w-100 h-100 object-fit-cover" src="/<?php print $image->getUri(296, 296, true)?>">
+                                <img alt="" class="w-100 h-100 object-fit-cover" src="<?php print $image->getUri(296, 296, true)?>">
                             </a>
                         <?php endif;?>
                     </div>
