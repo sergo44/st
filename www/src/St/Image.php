@@ -291,7 +291,8 @@ class Image
             Fs::mkdir_recursive($dir);
         }
 
-        return sprintf("/%s%s?crop=%u&x1=%u&y1=%u&x2=%u&y2=%u", $dir, $this->filename, $crop, $this->x1, $this->y1, $this->x2, $this->y2);
+        $return = sprintf("/%s%s?crop=%u&x1=%u&y1=%u&x2=%u&y2=%u", $dir, $this->filename, $crop, $this->x1, $this->y1, $this->x2, $this->y2);
+        return preg_replace("#^/+#", "/", $return);
     }
 
 }
