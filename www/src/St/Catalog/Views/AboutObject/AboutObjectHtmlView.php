@@ -88,7 +88,7 @@ class AboutObjectHtmlView extends HtmlView implements IView
                     <div class="d-none">
                         <?php foreach (array_slice($this->getCatalogObject()->getAdditionalImages(999), 4) as $image):?>
                             <a href="<?php print !str_starts_with($image->getUri(2000, 2000), "/") ? "/" : ""; ?><?php print $image->getUri(2000, 2000);?>" data-fancybox="sight-<?php print $this->catalog_object->getObjectId();?>">
-                                <img alt="" class="w-100 h-100 object-fit-cover" src="/<?php print $image->getUri(296, 296, true)?>">
+                                <img alt="" class="w-100 h-100 object-fit-cover" src="<?php print !str_starts_with($image->getUri(296, 296), "/") ? "/" : ""; ?><?php print $image->getUri(296, 296, true)?>">
                             </a>
                         <?php endforeach;?>
                     </div>
