@@ -130,7 +130,7 @@ if (setCoordinatesModal) {
 
         map.on('singleclick', function(e) {
 
-            if (navigator.geolocation) {
+            if (navigator.geolocation && geoWatchId) {
                 navigator.geolocation.clearWatch(geoWatchId);
             }
 
